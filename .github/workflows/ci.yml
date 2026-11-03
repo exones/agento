@@ -1,0 +1,67 @@
+# Prepared gate. This file has not been executed on GitHub from this checkout.
+#
+# Pins, checked 2026-11-03:
+# - actions/checkout v7.0.1 (2026-07-17), commit 3d3c42e5aac5ba805825da76410c181273ba90b1.
+#   Current checkout major. v7 refuses unsafe fork checkout for pull_request_target.
+# - actions/setup-node v7.1.0 (2026-10-08), commit 949feb2413d6458794dcd2491c4babbbce0c15c1.
+#   Current setup-node release. node-version "26" is the seed contract's Actions spec.
+#   check-latest avoids a cached 26.x older than the >=26.13.0 engine floor.
+#     Hosted images cache Node 22 and 24, not Node 26.
+#
+# PowerShell baseline, from actions/runner-images on 2026-11-03:
+# - Windows Server 2025 readme (image 20261021.299.1) lists PowerShell 7.6.7.
+#   The 2026-10-30 Windows image update moves that line from 7.6.7 to 7.6.9.
+# - Ubuntu 24.04 and Ubuntu 26.04 readmes list PowerShell 7.6.9.
+# - ubuntu-latest is moving to Ubuntu 26.04 through 2026-11-19; both images are above 7.6.0.
+# The version step fails the job if a runner is below 7.6.0. No second PowerShell is installed.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  verify:
+    name: verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require PowerShell 7.6
+        shell: pwsh
+        run: |
+          $version = $PSVersionTable.PSVersion
+          Write-Output "pwsh $version"
+          if ($version -lt [version]'7.6.0') {
+            Write-Error "pwsh $version is below the required 7.6.0 baseline."
+            exit 1
+          }
+
+      - name: Setup Node.js 26
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "26"
+          check-latest: true
+          cache: npm
+
+      - name: Install dependencies
+        shell: pwsh
+        run: npm ci
+
+      - name: Verify
+        shell: pwsh
+        run: npm run verify

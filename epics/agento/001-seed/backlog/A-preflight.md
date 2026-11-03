@@ -1,6 +1,6 @@
 # Spike A: preflight and seed contract
 
-Status: ready. Implementation agent: one. Depends on: none.
+Status: in-review for PR/CI delivery; contract locally accepted after coordinator corrections. Implementation agent: one. Depends on: none.
 Kind: spike. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 
 Research question: what is the smallest exact epic/story CLI contract supported by this environment? Limit: one bounded research assignment; aim for half a day or less and record any unanswered question rather than expanding into implementation.
@@ -31,5 +31,7 @@ Turn the seed scope into a small exact contract and record the environment facts
 - Missing external facts have clear effects; local work remains unblocked where possible.
 
 ## Output and stop
+
+Accepted outputs: `docs/seed-contract.md`, `reports/A.md`, and coordinator `reports/A-review.md`. The corrected contract is authoritative; the worker report preserves the original submission's decisions.
 
 Create `docs/seed-contract.md` and `reports/A.md`. Update `checkpoints/current.md` and task A's row. End with B's assignment and any input needed for remote CI. Do not start B or other agents.

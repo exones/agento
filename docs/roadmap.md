@@ -33,9 +33,7 @@ Milestone review uses a fresh context. Start cross-provider review when configur
 
 ## Infrastructure lane
 
-Public npm is the proposed initial release route if public distribution is selected. Settle package visibility and account/scope/name before publication, then prepare GitHub Actions trusted publishing where supported. Keep the seed independent of registry setup.
-
-Forgejo remains an optional private-hosting route. Discovery changes no infrastructure. If selected, a separate scoped infrastructure task implements persistent service, Tailscale reachability, application authentication, backup/restore, and a GitHub Actions publish/install smoke test.
+npm is the confirmed release registry. Settle package account/scope/name and access settings before publication, then prepare GitHub Actions trusted publishing where supported. Keep B/C independent of registry setup and surface any user-owned publishing steps during D. The Forgejo discovery spike is cancelled; no self-hosted package infrastructure or tailnet CI access is planned.
 
 Until publication proof exists, retain and install exact versioned tarballs. Release assets provide a durable bootstrap fallback once authorized publishing is configured. Ordinary PR CI should not depend on the private registry or tailnet.
 

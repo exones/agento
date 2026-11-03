@@ -1,6 +1,6 @@
 # Self-hosted Forgejo reached from GitHub Actions
 
-Status: optional private-hosting design, not implemented. Updated: 2026-11-03. User initially preferred self-hosted Forgejo, then suggested npm for simplicity. Public npm is now proposed if public distribution is selected; this design applies if private self-hosting is chosen. See `docs/decisions.md` for current registry status. Tailscale remains the private-infrastructure preference.
+Status: **superseded, not planned**, 2026-11-03. The user confirmed npm as the registry. Use [npm distribution](npm-distribution.md) and `docs/decisions.md` for the current plan. Do not deploy Forgejo or join CI runners to Tailscale for publishing. Spike I is cancelled. The remaining text is historical design rationale only; it is not an active backlog or authorization. Tailscale remains available for unrelated future private infrastructure.
 
 ## Proposed flow
 

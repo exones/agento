@@ -1,13 +1,15 @@
 # C: manual work ledger
 
-Status: backlog. Depends on: B local verification passes. One implementation agent.
+Status: in-review. Depends on: B local verification accepted. One implementation agent.
 Kind: story. Epic: AGENTO-001. Feature: F1, verified manual tracking.
+
+Storage naming note: `.crew/` below records this item's original assignment. D18 and task N supersede it with `.agento/` in the current candidate.
 
 As a coordinator, I want to persist an epic's story progress between sessions so a fresh agent can resume the next useful action without chat history.
 
 ## Read first
 
-`AGENTS.md`, decisions, seed contract, epic/checkpoint, and `reports/A.md`, `reports/B.md`.
+`AGENTS.md`, decisions, seed contract, epic/checkpoint, and `reports/A.md`, `reports/A-review.md`, `reports/B.md`, `reports/B-review.md`. The corrected contract uses direct state replacement and blocks mutations on an incomplete event trail; do not implement the superseded backup sequence from A's original report.
 
 ## Outcome
 
@@ -20,7 +22,7 @@ Make the installed CLI useful for organizing the next release's epic and backlog
 3. Validate paths, identifiers, inputs, persisted state, and transitions. Reject path traversal and accidental overwrite. Unknown schema versions fail clearly without destructive rewrites.
 4. Record explicit manual evidence notes on completion; status must not label them as independent gate passes.
 5. Preserve readable narrative checkpoints/reports; do not make the machine ledger and epic into two competing manually edited status stores.
-6. Add focused tests for persistence across processes, valid/invalid transitions, repeated initialization, duplicate IDs, malformed/unsupported state, safe paths, concurrent updates, and the declared failure boundaries. Use temporary folders, including a path with spaces.
+6. Add focused tests for persistence across processes, valid/invalid transitions, repeated initialization, duplicate IDs, malformed/unsupported state, safe paths, concurrent updates, and the declared failure boundaries. Use temporary folders, including a path with spaces. Update the test command to execute every new suite; B's command names only `test/cli.test.ts`. Evolve B's unimplemented-command expectations for newly supported commands, retaining genuine unknown-command and help/version coverage.
 7. Update user documentation with one full manual-ledger example and recovery limitations.
 
 ## Acceptance

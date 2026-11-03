@@ -1,2 +1,15 @@
 /inspiration
 /t3_multi-agent_mvp_86005e32.plan.md
+
+# Dependencies, compiled output, and the local Node.js toolchain.
+# .agents/ skills and epics/ evidence stay tracked.
+node_modules/
+dist/
+*.tsbuildinfo
+.tools/
+
+# Local ledger state created by the CLI. It stays untracked.
+.agento/
+
+# Packed package artifacts.
+*.tgz

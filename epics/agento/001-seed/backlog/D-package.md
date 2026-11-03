@@ -1,13 +1,13 @@
 # D: packed artifact and first bootstrap proof
 
-Status: backlog. Depends on: C local ledger gate passes. One implementation agent.
+Status: backlog. Depends on: C local ledger gate and N storage-name correction pass. One implementation agent.
 Kind: story. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
 
 As an operator, I want to install a fixed agento package outside its source checkout so it can track the next epic while its successor is being edited.
 
 ## Read first
 
-`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, and `reports/C.md`.
+`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, `reports/C.md`, and `reports/N.md`.
 
 ## Outcome
 
@@ -19,7 +19,7 @@ Prove the actual installable package can organize stage 2 from outside the sourc
 2. Add `scripts/Test-Package.ps1` or an equivalently named PowerShell script: run `npm pack`, install that exact tarball in a clean temporary consumer directory, and exercise the installed `agento` executable. Do not use source imports, a checkout-local build command, or `npm link` as installation proof.
 3. Run the full ledger scenario, including a path with spaces and a new CLI process. Keep the installed controller separate from candidate build output.
 4. Integrate the smoke check into verification and Windows/Linux CI without recursion. Upload the tarball, digest, and useful test evidence as artifacts; record revision and tool versions. Do not promise byte-for-byte reproducibility unless measured.
-5. Prepare a release workflow/instructions for versioned tarball assets with explicit authority/trigger. Do not publish, tag remotely, or create a release now. Private Forgejo publishing remains a separate infrastructure task.
+5. Prepare npm release workflow/instructions using `docs/npm-distribution.md`, with an explicit release trigger and the verified tarball. Surface the exact account/scope and trust-setup actions the user must perform. Keep versioned tarball assets as the bootstrap fallback. Do not publish, tag remotely, or create a release now. Forgejo is superseded and out of scope.
 6. Document installing a pinned controller outside the checkout and using it to create a stage 2 ledger. Use disposable demonstration data; do not mark stage 2 as started or approved.
 7. Reconcile the seed checklist and prepare `reports/final.md` with unmet gates visible. Leave the review gate pending R.
 

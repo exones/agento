@@ -1,12 +1,14 @@
 # B: TypeScript foundation and early CI
 
-Status: backlog. Depends on: A contract ready. One implementation agent.
+Status: in-review for PR/CI delivery; locally accepted in `reports/B-review.md`. Depends on: A contract accepted locally. One implementation agent.
 Kind: enabler task. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 Value: developers can build and verify each subsequent story with the same PowerShell gate locally and in CI.
 
+Storage naming note: `.crew/` below records this item's original assignment. D18 and task N supersede it with `.agento/` in the current candidate.
+
 ## Read first
 
-`AGENTS.md`, `docs/decisions.md`, `docs/seed-contract.md`, epic/checkpoint, and `reports/A.md`.
+`AGENTS.md`, `docs/decisions.md`, `docs/seed-contract.md`, epic/checkpoint, `reports/A.md`, and `reports/A-review.md`. The corrected contract takes precedence over the worker's original submission report.
 
 ## Outcome
 
@@ -14,7 +16,7 @@ Create the smallest buildable package and a verification path used locally and i
 
 ## Work
 
-1. Inspect existing changes. If still not a Git repository, initialize local Git with a main branch; do not overwrite existing configuration or create a remote. Preserve planning files and inspiration.
+1. Inspect existing changes and obtain/use the selected Node 26.x toolchain (`>=26.13.0 <27`); the observed default is Node 24. Prefer an isolated project/session toolchain over replacing the user's system installation. If still not a Git repository, initialize local Git with a main branch; do not overwrite existing configuration or create a remote. Preserve planning files and inspiration.
 2. Create one npm package, lockfile, pinned supported toolchain, strict TypeScript/ESM setup, build output, and `agento` executable through the package `bin` entry. Implement help/version and clear failure for unsupported commands.
 3. Establish `src/cli`, `src/core`, `src/storage`, and adapters only as needed. Do not create empty frameworks for future stages.
 4. Add meaningful CLI/process smoke checks and the chosen test runner. Product tests use TypeScript tooling. Add Pester only if PowerShell behavior merits separate tests.

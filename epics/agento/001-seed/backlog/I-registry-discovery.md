@@ -1,6 +1,6 @@
 # I: Forgejo/Tailscale discovery and implementation proposal
 
-Status: backlog, optional and not assigned. Separate infrastructure lane; not a seed dependency.
+Status: cancelled, 2026-11-03. Reason: user confirmed npm; no self-hosted registry is planned. Preserve the original spike below as history; do not assign or execute it.
 Kind: spike. Epic: AGENTO-001 optional infrastructure.
 Research question: if private hosting is selected, what exact host/deployment/access changes are needed? Limit: one bounded discovery pass; stop with a concrete proposal or missing-input list. No deployment.
 Role: discovery/planning. No deployment or remote changes.

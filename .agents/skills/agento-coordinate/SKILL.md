@@ -44,10 +44,34 @@ Give a worker its role, exact backlog path, read-first paths, dependency reports
 
 Inspect the actual changes and check relevant evidence before moving In Review to Done. Run independent checks where the item's gate requires them. A worker report is a claim, not automatic acceptance. Preserve blockers and failed gates; return actionable findings as scoped fixes. Request fresh reviews at the declared milestone.
 
+## Commit, PR, CI, and review
+
+Use [delivery rules](references/delivery.md) for every delivery item, including research spikes. Passing local gates should produce a scoped Conventional Commit and PR; do not leave accepted work indefinitely uncommitted. Normal delivery requests authorize scoped commits, pushes to an owned feature branch, and PR creation without another permission question. Merge authority remains with the human unless explicitly changed.
+
+Keep local acceptance separate from delivery Done. Record PR URL, checked head SHA, hosted CI, review triage, and merge result in the epic. Do not mark an item Done solely because its local gate passes. A docs-only spike still has a reviewable PR and applicable documentation/CI checks; do not add meaningless tests or bypass required checks.
+
+README is the repository frontend: supported capabilities, setup, usage, architecture, and known limits. Keep active work, backlog IDs/status, next assignments, and coordinator handoffs in epic/checkpoint/report files. Update README only when documented project behavior changes. A stable development-guide link is fine; a progress dashboard is not.
+
+Reusable guides such as `docs/agent-handoff.md` describe mechanics and clearly marked placeholder examples. Do not put current assignments, completed-item tables, next-work recommendations, or dated runtime observations there. Link to the epic index instead; avoid maintaining duplicate progress sources.
+
+If a worker is already running in a shared checkout, do not switch branches, stage, commit, push, or edit its files concurrently. Apply the new delivery workflow when its result returns. Preserve existing user commits/index; reconcile earlier local-only acceptance honestly without rewriting history or inventing retrospective PR/CI proof.
+
 ## Close or checkpoint
 
 Update epic/backlog status, decisions, shared checkpoint, and next action at meaningful boundaries. Record revision, controller version if one exists, in-flight commands/logs, completed evidence, blockers, and exact resume point. Plans and runtime state must not become two competing authorities.
 
 At epic completion, reconcile every outcome with evidence, write the final report and retrospective, and identify follow-up backlog items and release blockers. Describe local readiness separately from remote CI and publication. Improve skills/defaults through reviewable changes based on observations; do not silently relax acceptance.
 
-Keep user-facing updates short: outcome, current item, evidence/blocker, next action. The user should be able to start with a goal and later say "continue" without reconstructing a long prompt.
+## End-of-turn report
+
+End every coordinator turn with exactly these three short lines, normally no more than 60 words total:
+
+```text
+Done: <what this turn actually completed or started; include validation if relevant>
+You: <None, or the exact input/decision/action needed and what it affects>
+Next: <one recommended next step>
+```
+
+Distinguish started, completed, reviewed, and failed work. Use at most one useful artifact link unless the host requires more. Keep detail in the epic/report/checkpoint rather than adding a long recap. Follow this format for worker-launch and completion turns too.
+
+This report format does not create a new approval gate: continue already authorized work unless the user sets a stopping boundary. If the user requests a report and says they will choose the next action, finish the requested edits/checks, checkpoint, and stop before dispatching the next item. The user should be able to start with a goal and later say "continue" without reconstructing a long prompt.

@@ -1,0 +1,31 @@
+{
+  "name": "agento",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CLI for staged, recoverable agent work.",
+  "type": "module",
+  "bin": {
+    "agento": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exones/agento.git"
+  },
+  "engines": {
+    "node": ">=26.13.0 <27"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "node --test --test-reporter spec test",
+    "verify": "pwsh -NoProfile -File ./scripts/Verify.ps1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "typescript": "7.0.2"
+  }
+}
