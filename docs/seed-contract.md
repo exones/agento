@@ -1,10 +1,10 @@
 # Seed CLI contract
 
-Updated: 2026-11-03. Schema: 1. Executable: `agento`. State directory: `.crew/`.
+Updated: 2026-11-03. Schema: 1. Executable: `agento`. State directory: `.agento/`.
 
 This is the behavior backlog B, C, and D implement for the 0.1 seed. Schema 1 is a manual epic ledger. It records an epic's intended outcome and the manual progress of its stories, tasks, and spikes. A later execution run is an attempt to deliver work; schema 1 has no run, attempt, agent, or dispatch record.
 
-The machine ledger and the Markdown epic files are separate. Ledger commands read and write only the files named in [Storage](#storage). They leave `epics/`, checkpoints, and reports untouched. Narrative files stay human-edited. `.crew/state.json` is authoritative for ledger status.
+The machine ledger and the Markdown epic files are separate. Ledger commands read and write only the files named in [Storage](#storage). They leave `epics/`, checkpoints, and reports untouched. Narrative files stay human-edited. `.agento/state.json` is authoritative for ledger status.
 
 ## Toolchain
 
@@ -24,7 +24,7 @@ Node 24 and 22 were still supported LTS lines on 2026-11-03. Node 24 entered mai
 
 | Backlog | Implements | Stops before |
 | --- | --- | --- |
-| B | Package, toolchain pin, `agento --help`, `agento --version`, and a non-zero failure for every command that B has not implemented. Smoke checks cover those three behaviors and create no `.crew/` directory. | `init`, `new`, `status`, and `story`. |
+| B | Package, toolchain pin, `agento --help`, `agento --version`, and a non-zero failure for every command that B has not implemented. Smoke checks cover those three behaviors and create no `.agento/` directory. | `init`, `new`, `status`, and `story`. |
 | C | The ledger commands, storage rules, and scenarios below. Help then lists the full surface and includes the sentence `Completion is a manual record, not gate acceptance.` | Dispatch, messaging, scheduling, and any command that sets an arbitrary state. |
 | D | The same C scenario through the packed `agento` executable in a clean directory, including a root path that contains a space and a second process. | Publishing, tagging, and starting stage 2. |
 
@@ -92,7 +92,7 @@ error: invalid item id
 error: invalid option: <flag>
 error: root does not exist
 error: root is not a directory
-error: .crew must be a real directory inside the project root
+error: .agento must be a real directory inside the project root
 error: not initialized; run agento init
 error: epic <id> already exists
 error: item <id> already exists
@@ -105,22 +105,22 @@ error: unsupported schema version <value-or-missing>; supported schema 1; state 
 error: state file is invalid JSON; preserved for diagnosis
 error: state file is invalid; preserved for diagnosis
 error: state file missing; not recovered automatically
-error: .crew is not an empty ledger directory; state preserved
-error: state file must be a regular file inside .crew
-error: events file must be a regular file inside .crew
+error: .agento is not an empty ledger directory; state preserved
+error: state file must be a regular file inside .agento
+error: events file must be a regular file inside .agento
 error: temporary state file is not a regular file; preserved
 error: events log is invalid; state preserved
 error: events log has a partial trailing line; state preserved
 error: events are ahead of state; preserved for diagnosis
 error: events lag state; mutation refused; state preserved
-error: state lock held at .crew/lock
+error: state lock held at .agento/lock
 error: cannot write state
 error: state updated to revision <n> but the event append failed; not rolled back
 ```
 
 Unknown-command stderr has a second line: `Run agento --help.`
 
-`init` is the only command that creates `.crew`. `new`, `status`, and `story` leave an absent `.crew` untouched and exit 1 with `error: not initialized; run agento init`. After `lstat` shows that `.crew` is a real directory and `state.json` is absent, those commands exit 3 with `error: state file missing; not recovered automatically`. A link is rejected before that lookup.
+`init` is the only command that creates `.agento`. `new`, `status`, and `story` leave an absent `.agento` untouched and exit 1 with `error: not initialized; run agento init`. After `lstat` shows that `.agento` is a real directory and `state.json` is absent, those commands exit 3 with `error: state file missing; not recovered automatically`. A link is rejected before that lookup.
 
 ### Success stdout
 
@@ -255,15 +255,15 @@ Status exits 3, with empty stdout, when state is unreadable, complete events are
 ## Storage
 
 ```text
-<resolved-root>/.crew/state.json
-<resolved-root>/.crew/events.jsonl
-<resolved-root>/.crew/state.json.tmp
-<resolved-root>/.crew/lock/
+<resolved-root>/.agento/state.json
+<resolved-root>/.agento/events.jsonl
+<resolved-root>/.agento/state.json.tmp
+<resolved-root>/.agento/lock/
 ```
 
-`state.json` is a regular file. `events.jsonl` is a regular file. `lock` is a directory. `state.json.tmp` is a transient regular file. Schema 1 creates no backup file and none of `run.json`, `config.json`, `stream.json`, inbox, outbox, or checkpoint files. B ignores `.crew/` in Git and does not ignore epic evidence.
+`state.json` is a regular file. `events.jsonl` is a regular file. `lock` is a directory. `state.json.tmp` is a transient regular file. Schema 1 creates no backup file and none of `run.json`, `config.json`, `stream.json`, inbox, outbox, or checkpoint files. Git ignores `.agento/` and does not ignore epic evidence. The superseded pre-release directory `.crew/` is not a ledger path. The CLI does not create, read, alias, migrate, or delete it. This unreleased correction does not move old disposable ledgers.
 
-The resolved root is `realpath` of `--root`. `.crew` is `path.join(root, ".crew")`. Before following `.crew`, `lstat` must show a real directory. A symbolic link or a Windows junction exits 1 on init and 3 when a later command finds the ledger path linked. `state.json`, `events.jsonl`, and `state.json.tmp` must each be a regular file when present. The CLI does not open a linked path to read or write ledger contents.
+The resolved root is `realpath` of `--root`. `.agento` is `path.join(root, ".agento")`. Before following `.agento`, `lstat` must show a real directory. A symbolic link or a Windows junction exits 1 on init and 3 when a later command finds the ledger path linked. `state.json`, `events.jsonl`, and `state.json.tmp` must each be a regular file when present. The CLI does not open a linked path to read or write ledger contents.
 
 UTF-8 without a BOM. Automated checks decode piped stdout and stderr as UTF-8.
 
@@ -312,7 +312,7 @@ A file that does not end in `\n` has a partial trailing line. Status ignores tha
 ### Init
 
 1. Resolve `--root`. Missing or non-directory roots exit 1 and are not created.
-2. `lstat` `.crew`. A link exits 1. A non-directory exits 1. An absent path is created as a real directory.
+2. `lstat` `.agento`. A link exits 1. A non-directory exits 1. An absent path is created as a real directory.
 3. Acquire the lock.
 4. Re-read under the lock. Valid schema 1 exits 0 with `already initialized schema 1` and writes nothing.
 5. Invalid existing state exits 3 and writes nothing.
@@ -323,7 +323,7 @@ Two concurrent init processes both exit 0 and leave one schema-1 ledger.
 
 ### Writes and failure boundaries
 
-Every `init`, `new`, `status`, and `story` command that reaches the ledger acquires `.crew/lock` by creating that directory. The first try is immediate. Retries are every 100 ms until 5000 ms after the first try. The directory's existence is the lock. The process removes it on every exit path after acquiring it. A process that ends while holding the lock leaves the directory in place. Schema 1 does not inspect process ids, steal a lock, or delete a stale lock. An operator may remove `.crew/lock` only after confirming that no `agento` process is using that root. That cleanup is outside the CLI.
+Every `init`, `new`, `status`, and `story` command that reaches the ledger acquires `.agento/lock` by creating that directory. The first try is immediate. Retries are every 100 ms until 5000 ms after the first try. The directory's existence is the lock. The process removes it on every exit path after acquiring it. A process that ends while holding the lock leaves the directory in place. Schema 1 does not inspect process ids, steal a lock, or delete a stale lock. An operator may remove `.agento/lock` only after confirming that no `agento` process is using that root. That cleanup is outside the CLI.
 
 Under the lock, a mutation reads `state.json` and the event file, validates them, and only then builds the next document. A second process therefore bases its write on the latest accepted document.
 
@@ -360,7 +360,7 @@ These outcomes are the seed's consistency target, which C must implement and tes
 
 ### 1. Normal lifecycle
 
-Given an absent `.crew` directory, when separate processes run `init`, `new DEMO-001 --title "Demo ledger" --outcome "Track one story by hand"`, `story add DEMO-001 S --title "Ship the ledger" --kind story --note "operator note"`, `story start DEMO-001 S --next "Write the ledger."`, `story block DEMO-001 S --reason "Waiting on review notes"`, `story start DEMO-001 S`, and `story complete DEMO-001 S --evidence "Reviewed the manual record"` in that order, then each command exits 0. The outputs are `initialized schema 1`, `created epic DEMO-001`, `added story S backlog`, `started story S in-progress`, `blocked story S`, `resumed story S in-progress`, and `completed story S manual`. A following `status DEMO-001` shows state `done`, the note, next `None. Manual record only.`, and `evidence: manual record; not gate acceptance`.
+Given an absent `.agento` directory, when separate processes run `init`, `new DEMO-001 --title "Demo ledger" --outcome "Track one story by hand"`, `story add DEMO-001 S --title "Ship the ledger" --kind story --note "operator note"`, `story start DEMO-001 S --next "Write the ledger."`, `story block DEMO-001 S --reason "Waiting on review notes"`, `story start DEMO-001 S`, and `story complete DEMO-001 S --evidence "Reviewed the manual record"` in that order, then each command exits 0. The outputs are `initialized schema 1`, `created epic DEMO-001`, `added story S backlog`, `started story S in-progress`, `blocked story S`, `resumed story S in-progress`, and `completed story S manual`. A following `status DEMO-001` shows state `done`, the note, next `None. Manual record only.`, and `evidence: manual record; not gate acceptance`. The finished root contains `.agento/` and does not contain `.crew/`. State, events, the temporary state file, and the lock stay under `.agento/`.
 
 The same add/start/block/resume/complete sequence succeeds for `story add DEMO-001 T --kind task --title "Prepare the package"` and for `story add DEMO-001 K --kind spike --title "Check a limit"`.
 
@@ -378,17 +378,17 @@ Given a ledger that already contains `DEMO-001` and item `S`, when a new process
 
 ### 5. Safe paths
 
-Given any root, when item id `..`, epic id `DEMO-001/../NO`, or epic id `DEMO-001\NO` is submitted, then the command exits 1 and creates no ledger file. When `--root` names a missing path, the command exits 1 and that path remains absent. When `.crew` is a symbolic link or a Windows directory junction, `init` exits 1 and the link target's marker file is unchanged. A successful command creates or changes files only in the storage list for that root.
+Given any root, when item id `..`, epic id `DEMO-001/../NO`, or epic id `DEMO-001\NO` is submitted, then the command exits 1 and creates no ledger file. When `--root` names a missing path, the command exits 1 and that path remains absent. When `.agento` is a symbolic link or a Windows directory junction, `init` exits 1 and the link target's marker file is unchanged. When a `.crew` directory is already present, the command leaves that directory and its contents unchanged and does not use it as the ledger. A successful command creates or changes files only in the storage list for that root.
 
 ### 6. Preservation of accepted data
 
-Given `state.json` contains `"schemaVersion": 2` and otherwise readable bytes, when `story add` runs, then it exits 3, stderr begins `error: unsupported schema version 2`, and the file bytes are unchanged. Given a valid ledger and a `state.json.tmp` whose text contains `"revision": 999`, when `status` runs, then it reports the revision from `state.json`. Given a valid ledger whose event file ends in `{` with no newline, when `status` runs, it exits 0 and warns; when `story add` runs, it exits 3 and `state.json` is unchanged. Given `.crew/lock` already exists, when `story add` runs, then it exits 4 after the 5000 ms budget, before 15 seconds have elapsed, and `state.json` is unchanged. Given two processes both exit 0 after adding different item ids, the stored document contains both items and its revision has increased by 2.
+Given `state.json` contains `"schemaVersion": 2` and otherwise readable bytes, when `story add` runs, then it exits 3, stderr begins `error: unsupported schema version 2`, and the file bytes are unchanged. Given a valid ledger and a `state.json.tmp` whose text contains `"revision": 999`, when `status` runs, then it reports the revision from `state.json`. Given a valid ledger whose event file ends in `{` with no newline, when `status` runs, it exits 0 and warns; when `story add` runs, it exits 3 and `state.json` is unchanged. Given `.agento/lock` already exists, when `story add` runs, then it exits 4 after the 5000 ms budget, before 15 seconds have elapsed, and `state.json` is unchanged. Given two processes both exit 0 after adding different item ids, the stored document contains both items and its revision has increased by 2.
 
 Given a committed state whose event log is a shorter contiguous prefix (including a missing log past revision 0), when status runs, then it warns about lag and shows committed state; when a mutation runs, then it exits 3 and both files remain unchanged. Given an event sequence that skips or repeats a revision, status and mutations exit 3. Given a replacement failure before commit, the previous state and events remain unchanged; an event-append failure after replacement must instead report that state is already committed. These failure paths require focused fault-injection or planted-layout tests in C; no product implementation is claimed by this spike.
 
 ## Outside schema 1
 
-Schema 1 stops at the manual ledger. Stage 2 and later own T3 dispatch, execution runs, `.crew/run.json`, automated gate decisions, messaging, scheduling, lock stealing, replay, and automatic promotion/recovery of temp or operator backup files. A human or agent completion recorded here is a manual record. Independent verification remains a separate gate that names the revision it checked.
+Schema 1 stops at the manual ledger. Stage 2 and later own T3 dispatch, execution runs, `.agento/run.json`, automated gate decisions, messaging, scheduling, lock stealing, replay, and automatic promotion/recovery of temp or operator backup files. A human or agent completion recorded here is a manual record. Independent verification remains a separate gate that names the revision it checked.
 
 ## Coordinator acceptance corrections
 

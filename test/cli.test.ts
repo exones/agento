@@ -1,80 +1,44 @@
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { describe, test } from "node:test";
-import { fileURLToPath } from "node:url";
-
-const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
-const cliPath = join(repoRoot, "dist", "cli.js");
+import { expectErr, repoRoot, runCli, unknown, withRoot } from "./helpers.ts";
 
 const helpText = [
   "agento 0.1.0",
   "",
   "Usage:",
   "  agento [--root <dir>] [--help|-h] [--version|-v]",
+  "  agento [--root <dir>] init",
+  "  agento [--root <dir>] new <epic-id> --title <text> --outcome <text>",
+  "  agento [--root <dir>] status [epic-id] [--json]",
+  "  agento [--root <dir>] story add <epic-id> <item-id> --title <text> [--kind story|task|spike] [--note <text>] [--next <text>]",
+  "  agento [--root <dir>] story start <epic-id> <item-id> [--note <text>] [--next <text>]",
+  "  agento [--root <dir>] story block <epic-id> <item-id> --reason <text> [--note <text>] [--next <text>]",
+  "  agento [--root <dir>] story complete <epic-id> <item-id> --evidence <text> [--note <text>] [--next <text>]",
   "",
   "Options:",
   "  --root <dir>     Project root. Defaults to the working directory.",
   "  -h, --help       Show help.",
   "  -v, --version    Print the version from this package.",
   "",
-  "This build implements help and version only.",
+  "Commands:",
+  "  init       Create an empty schema 1 ledger at .agento/.",
+  "  new        Create an epic.",
+  "  status     Show epic and item status.",
+  "  story      Record manual progress for a story, task, or spike.",
+  "",
+  "Completion is a manual record, not gate acceptance.",
   "",
 ].join("\n");
 
-interface RunResult {
-  readonly code: number | null;
-  readonly stdout: string;
-  readonly stderr: string;
-}
-
-function runCli(args: readonly string[], cwd: string): Promise<RunResult> {
-  return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [cliPath, ...args], {
-      cwd,
-      windowsHide: true,
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    const stdout: Buffer[] = [];
-    const stderr: Buffer[] = [];
-    const output = child.stdout;
-    const errors = child.stderr;
-    if (output === null || errors === null) {
-      reject(new Error("CLI stdio pipes were not created"));
-      return;
-    }
-    output.on("data", (chunk: Buffer) => {
-      stdout.push(chunk);
-    });
-    errors.on("data", (chunk: Buffer) => {
-      stderr.push(chunk);
-    });
-    child.on("error", reject);
-    child.on("close", (code) => {
-      resolve({
-        code,
-        stdout: Buffer.concat(stdout).toString("utf8"),
-        stderr: Buffer.concat(stderr).toString("utf8"),
-      });
-    });
-  });
-}
-
-async function withWorkspace(check: (cwd: string) => Promise<void>): Promise<void> {
-  const cwd = await mkdtemp(join(tmpdir(), "agento b "));
-  try {
+async function withClean(check: (cwd: string) => Promise<void>): Promise<void> {
+  await withRoot(async (cwd) => {
     await check(cwd);
+    assert.equal(existsSync(join(cwd, ".agento")), false);
     assert.equal(existsSync(join(cwd, ".crew")), false);
-  } finally {
-    await rm(cwd, { recursive: true, force: true });
-  }
-}
-
-function unknown(words: string): string {
-  return `error: unknown command: ${words}\nRun agento --help.\n`;
+  });
 }
 
 describe("agento help, version, and unknown commands", () => {
@@ -108,12 +72,12 @@ describe("agento help, version, and unknown commands", () => {
     assert.equal(pkg.engines.node, ">=26.13.0 <27");
     assert.equal(pkg.repository.url, "git+https://github.com/exones/agento.git");
 
-    const source = await readFile(cliPath, "utf8");
+    const source = await readFile(join(repoRoot, "dist", "cli.js"), "utf8");
     assert.equal(source.startsWith("#!/usr/bin/env node\n"), true);
   });
 
-  test("no arguments and help flags print help and write nothing else", async () => {
-    await withWorkspace(async (cwd) => {
+  test("no arguments and help flags print the ledger help and write nothing else", async () => {
+    await withClean(async (cwd) => {
       for (const args of [[], ["--help"], ["-h"], ["--version", "--help"], ["--root", cwd]]) {
         const result = await runCli(args, cwd);
         assert.equal(result.code, 0, args.join(" "));
@@ -123,8 +87,34 @@ describe("agento help, version, and unknown commands", () => {
     });
   });
 
+  test("help for a known command describes that command", async () => {
+    const cases: readonly (readonly [readonly string[], string])[] = [
+      [["--help", "init"], "Running init again on valid schema 1 changes nothing."],
+      [["init", "--help"], "Running init again on valid schema 1 changes nothing."],
+      [["init", "extra", "--help"], "Running init again on valid schema 1 changes nothing."],
+      [["new", "--help"], "no current-epic pointer"],
+      [["status", "-h"], "--json prints one JSON document"],
+      [["status", "--json", "--help"], "--json prints one JSON document"],
+      [["story", "--help"], "defaults to story"],
+      [["story", "add", "--help"], "Add a story, task, or spike in the backlog."],
+      [["story", "add", "DEMO-001", "--help"], "Add a story, task, or spike in the backlog."],
+      [["--help", "story", "start"], "resume a blocked item"],
+      [["story", "block", "--help"], "--reason is required"],
+      [["story", "complete", "--help"], 'stores acceptance "manual"'],
+    ];
+    await withClean(async (cwd) => {
+      for (const [args, phrase] of cases) {
+        const result = await runCli(args, cwd);
+        assert.equal(result.code, 0, args.join(" "));
+        assert.equal(result.stderr, "", args.join(" "));
+        assert.match(result.stdout, /Completion is a manual record, not gate acceptance\./u, args.join(" "));
+        assert.match(result.stdout, new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")), args.join(" "));
+      }
+    });
+  });
+
   test("version prints the package version, including when other arguments are present", async () => {
-    await withWorkspace(async (cwd) => {
+    await withClean(async (cwd) => {
       for (const args of [["--version"], ["-v"], ["init", "--version"], ["--version", "story", "add"]]) {
         const result = await runCli(args, cwd);
         assert.equal(result.code, 0, args.join(" "));
@@ -134,53 +124,52 @@ describe("agento help, version, and unknown commands", () => {
     });
   });
 
-  test("unimplemented commands fail with the unknown-command error", async () => {
+  test("genuine unknown commands fail with the unknown-command error", async () => {
     const cases: readonly (readonly [readonly string[], string])[] = [
-      [["init"], "init"],
-      [["new"], "new"],
-      [["status"], "status"],
-      [["story"], "story"],
-      [["story", "add"], "story add"],
       [["task"], "task"],
       [["spike"], "spike"],
       [["nope"], "nope"],
-      [["--help", "init"], "init"],
-      [["story", "--help"], "story"],
+      [["story", "resume"], "story resume"],
+      [["story", "cancel"], "story cancel"],
+      [["story", "set"], "story set"],
+      [["--help", "task"], "task"],
+      [["story", "resume", "--help"], "story resume"],
+      [["nope", "--help", "--version"], "nope"],
     ];
-    await withWorkspace(async (cwd) => {
+    await withClean(async (cwd) => {
       for (const [args, words] of cases) {
         const result = await runCli(args, cwd);
-        assert.equal(result.code, 1, args.join(" "));
-        assert.equal(result.stdout, "", args.join(" "));
-        assert.equal(result.stderr, unknown(words), args.join(" "));
+        expectErr(result, 1, unknown(words));
       }
     });
   });
 
   test("option errors stay on stderr and do not create a root", async () => {
-    await withWorkspace(async (cwd) => {
+    await withClean(async (cwd) => {
       const missing = join(cwd, "missing root");
       const cases: readonly (readonly [readonly string[], string])[] = [
         [["--json"], "error: unknown option: --json\n"],
         [["--version", "--json"], "error: unknown option: --json\n"],
+        [["init", "--json"], "error: unknown option: --json\n"],
+        [["nope", "--json"], "error: unknown option: --json\n"],
         [["-q"], "error: unknown option: -q\n"],
         [["--help=yes"], "error: invalid option: --help\n"],
+        [["status", "--json=true"], "error: invalid option: --json\n"],
         [["--root"], "error: missing required argument: --root\n"],
         [["--root", "a", "--root", "b"], "error: duplicate option: --root\n"],
         [["-h", "--help"], "error: duplicate option: --help\n"],
-        [["--root", missing, "init"], unknown("init")],
+        [["--root", missing, "init"], "error: root does not exist\n"],
       ];
       for (const [args, stderr] of cases) {
         const result = await runCli(args, cwd);
-        assert.equal(result.code, 1, args.join(" "));
-        assert.equal(result.stdout, "", args.join(" "));
-        assert.equal(result.stderr, stderr, args.join(" "));
+        expectErr(result, 1, stderr);
       }
       assert.equal(existsSync(missing), false);
     });
   });
 
-  test("the repository root gains no .crew directory", () => {
+  test("the repository root gains no ledger directory", () => {
+    assert.equal(existsSync(join(repoRoot, ".agento")), false);
     assert.equal(existsSync(join(repoRoot, ".crew")), false);
   });
 });

@@ -70,5 +70,6 @@ if (-not (Test-Path -LiteralPath $typescript)) {
 
 Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'typecheck')
 Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'build')
+Write-Host "test: every suite under test/"
 Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'test')
 exit 0

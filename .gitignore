@@ -8,8 +8,8 @@ dist/
 *.tsbuildinfo
 .tools/
 
-# Ledger files created by later CLI commands. B does not create this directory.
-.crew/
+# Local ledger state created by the CLI. It stays untracked.
+.agento/
 
 # Packed package artifacts.
 *.tgz
