@@ -24,7 +24,6 @@ Updated: 2026-11-03. User requirements take precedence over implementation propo
 | D16 | README describes supported project state and usage; active work/progress belongs only in epics/checkpoints/reports. | User treats README as the repository frontend. |
 | D17 | Reusable handoff documentation contains mechanics and placeholder examples, not live assignments/progress or duplicate status tables. | User identified duplicate progress in `docs/agent-handoff.md`; keep one maintained source in the epic/checkpoints. |
 | D18 | Local state lives under `.agento/`; the former `.crew/` storage name is superseded. | User clarified that storage must follow the `agento` tool name. Apply the pre-release correction after C returns, before D packaging, without concurrent edits to C's files. |
-| D19 | Automatic public npm publication uses GitHub Actions trusted publishing (OIDC) from `.github/workflows/release.yml`. A long-lived granular token with bypass 2FA is not a publish credential. | The user asked on 2026-11-03 to plan this before the cutoff described in the [2026-07-08 npm changelog](https://github.blog/changelog/2026-07-08-npm-install-time-security-and-gat-bypass2fa-deprecation/): around January 2027, bypass-2FA tokens can no longer publish directly. Staged publishing remains the fallback if a later decision wants a human 2FA approval on every release. Forgejo Actions is not an npm OIDC provider. |
 
 ## Adopted working defaults
 
@@ -58,7 +57,7 @@ The root MVP plan remains the long-term requirements reference. These changes su
 | Fact | Needed by | Effect if unknown |
 | --- | --- | --- |
 | GitHub workflow execution | Remote CI evidence | `gh repo view` verified `exones/agento` is public and the current user has ADMIN access. No workflow has been pushed or run yet; no remote creation is needed. |
-| Public/private package visibility and npm account/scope/name availability | First publication | A local development name can be chosen and recorded; defer publication. CLI remains `agento` regardless of package scope. On 2026-11-03, `npm view agento` returned version `0.1.2` for a different package, so this repository does not treat the unscoped name as available. |
+| Public/private package visibility and npm account/scope/name availability | First publication | A local development name can be chosen and recorded; defer publication. CLI remains `agento` regardless of package scope. |
 | Package owner/service identity and credential delivery | Publishing | Prepare references to secrets; never request values in chat. |
 
 No infrastructure credentials or host details have been supplied or verified as part of this documentation task.
@@ -68,8 +67,6 @@ No infrastructure credentials or host details have been supplied or verified as 
 The user confirmed using npm directly. Public packages can use npm's free tier; private npm packages require paid access. A public scoped package such as `@<account>/agento` can still install the `agento` executable. Do not infer that the unscoped package name is available. References: [npm products](https://www.npmjs.com/products), [public scoped packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/), [private packages](https://docs.npmjs.com/about-private-packages/).
 
 Prepare GitHub Actions publishing through [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) where supported. Complete account/package bootstrap and first-publish setup before claiming the release pipeline works. Until then use the tested tarball; registry selection itself does not authorize a public upload. Raise account/scope/setup decisions when release work needs them and continue unrelated implementation.
-
-D19 and [epic AGENTO-002](../epics/agento/002-trusted-publish/epic.md) plan that trusted-publisher path. The plan does not publish, tag, or create a GitHub Release, and it does not set `private` to false.
 
 ## Decision log
 
@@ -87,4 +84,3 @@ D19 and [epic AGENTO-002](../epics/agento/002-trusted-publish/epic.md) plan that
 - 2026-11-03, user: requested continuation and confirmed npm as the registry. Superseded the Forgejo/Tailscale distribution design, cancelled optional spike I, and assigned B for local foundation/CI preparation. Surface user-owned prerequisites promptly; no account setup is needed to begin B. Publication remains a later explicit release action.
 - 2026-11-03, user: requested commits after passing gates, PR/CI/review delivery for spikes, semantic commit conventions with a source/gist, and README as project frontend only. Added these to the coordinator skill and Ready/Done workflow. User explicitly asked to keep waiting for C: no delegate polling/interruption, README edit, index/branch mutation, commit, push, or PR creation this turn. Observed user's new local commit `3283807` (`Spikes A, B implemented`); preserve it during transition rather than rewriting its message.
 - 2026-11-03, user: identified the same progress duplication in the handoff guide. Replaced its actual A/B/C assignments/status table with generic instructions and placeholder examples; added the boundary to the skill. Inspected the existing Windows/Linux CI workflow: configuration exists locally, while no hosted result is recorded. Continue waiting for C without polling or editing its files.
-- 2026-11-03, user: asked for a plan, not an implementation, of automatic public npm publication after the bypass-2FA direct-publish cutoff. Added D19 and epic AGENTO-002 from `main` in a separate worktree and PR. No package was published. The seed packaging branch is not edited by that plan.

@@ -1,38 +1,45 @@
 # AGENTO-002 current checkpoint
 
-Updated: 2026-11-03. Coordinator-owned resume point for the trusted-publishing plan.
+Updated: 2026-11-03. Coordinator-owned resume point.
 
 ## Task and checkout
 
-Active work: review the planning PR for epic AGENTO-002. No backlog item is assigned. K is Ready and stopped because the user asked for a plan only. W, F, and O are backlog. I is blocked on the npm owner and package name.
+Active work: planning only. No backlog item is in progress. F, S, O, and R are backlog. U is blocked. None of them are Ready.
 
-Checkout: `C:\worktrees\agento\docs-002-trusted-publish`. Branch: `docs/002-trusted-publish`. Plan HEAD: `64cf0e70bf3ee671d5a557fc26b9821351279712`. Base: `origin/main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`. PR: https://github.com/exones/agento/pull/3. Do not edit `C:\code\agento` or `feat/package-bootstrap`.
+Checkout: `C:\worktrees\agento\docs-002-trusted-publish`. Branch: `docs/002-trusted-publish`. Base: `origin/main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`. Controller: bootstrap `agento-coordinate` skill and manual files.
 
-Controller: bootstrap `agento-coordinate` skill and manual files. No released controller. `AGENTS.md` still names AGENTO-001 as the current implementation epic.
+Seed D remains on `feat/package-bootstrap` in `C:\code\agento` at commit `10ff911294a72957fe7fc689757bb33d3c72b38d` and must not be edited from here. This branch does not contain that commit. `release.yml` is absent here.
 
 ## Completed
 
-- Recorded D19. Automatic public publication is GitHub Actions OIDC from `release.yml`. A bypass-2FA granular token is not a publish credential.
-- Wrote the epic, backlog K/W/I/F/O, and this checkpoint. No workflow, package, or privacy change.
-- On 2026-11-03, `npm view agento name version description --json` from this worktree returned a different package at version `0.1.2`.
-- Observed [PR #2](https://github.com/exones/agento/pull/2) head `848d4d50e918ecd4586bad30a4ff67acd70efea5` with Ubuntu CI failing. That PR stays the seed packaging work.
+- Confirmed this checkout is `docs/002-trusted-publish`, merge-base `afc05074a27da2cb1a3c225bc9d42d10f184e504`, and `release.yml` is absent.
+- Confirmed `release.yml` exists on seed D `10ff911294a72957fe7fc689757bb33d3c72b38d` and does not exist on `origin/main`.
+- Wrote the AGENTO-002 plan: OIDC publish guard and the npm 12 install-script policy. No product, workflow, or package change.
 
 ## In flight
 
-[PR #3](https://github.com/exones/agento/pull/3) contains plan commit `64cf0e70bf3ee671d5a557fc26b9821351279712` and evidence commit `75f303f0c7c9fcfb34740f3e5dd0d7d05e3baa30`. GitHub is authoritative for the current head. Hosted CI has not been recorded yet. No release dispatch is running.
+None after the planning PR is opened. The PR URL is recorded in `reports/planning.md` once `gh pr create` returns it.
 
 ## Checks and limits
 
-Planning check: relative links in the new epic files resolve on disk. Hosted CI belongs to the plan PR and is not claimed here before it is observed. No publish, tag, or GitHub Release exists. `package.json` remains `private: true`.
+Local check: relative links in the new epic files and the `epics/README.md` bullet. No `npm approve-scripts` run. No live npm account probe. No publish, dispatch, or `private` change. `package.json` engines remain `>=26.13.0 <27`.
 
-## Changed files and evidence
+## Changed files
 
-Decision and roadmap pointers, `docs/npm-distribution.md` status pointer, `epics/README.md`, and `epics/agento/002-trusted-publish/`. Evidence: `reports/plan.md`.
+- `epics/README.md`
+- `epics/agento/002-trusted-publish/epic.md`
+- `epics/agento/002-trusted-publish/backlog/F-publish-facts.md`
+- `epics/agento/002-trusted-publish/backlog/S-install-scripts.md`
+- `epics/agento/002-trusted-publish/backlog/O-oidc-guard.md`
+- `epics/agento/002-trusted-publish/backlog/U-npm-account.md`
+- `epics/agento/002-trusted-publish/backlog/R-review.md`
+- `epics/agento/002-trusted-publish/checkpoints/current.md`
+- `epics/agento/002-trusted-publish/reports/planning.md`
 
 ## Next concrete action
 
-Record hosted CI for [PR #3](https://github.com/exones/agento/pull/3) in `reports/plan.md` when GitHub reports it. Do not dispatch K until the user asks to implement the epic. Do not merge without human approval.
+User reviews the planning PR. Do not start F until the user asks to execute and seed D is merged. Do not merge without human approval.
 
 ## Blockers and inputs
 
-No user input is required to review the plan. Story I stays blocked until the user names the npm account or organization and the package name. That name is not GitHub `exones` and it is not unscoped `agento`. Stories F and O stay unauthorized. PR #2's Ubuntu failure blocks W only after someone chooses to finish D; it does not block this plan.
+None for accepting the plan. U remains blocked on the npm account and a package name other than unscoped `agento`. That does not block plan review.
