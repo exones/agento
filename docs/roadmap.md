@@ -4,7 +4,7 @@ Status: planning baseline, 2026-11-03. Only the seed epic has executable backlog
 
 | Stage | Candidate | Delivered capability | Built using | Promotion proof |
 | --- | --- | --- | --- | --- |
-| 0 | Workflow bootstrap | Coordinator skill, analysis/refinement workflow, Agile epic/backlog templates, readiness/completion criteria, current checkpoint | Sol coordinator and project files | Skill validates; a fresh session can discover/read it and plan or resume from a short goal. Live host selection remains to be exercised. |
+| 0 | Workflow bootstrap | Coordinator skill, analysis/refinement workflow, Agile epic/backlog templates, readiness/completion criteria, current checkpoint | Sol coordinator and project files | Structural validation plus fresh short-goal planning via AGENTS routing in Codex/T3 recorded in the seed skill-proof report. Invisible UI selection, every host, and all workflow branches remain unproven. |
 | 1 | 0.1 seed | Manual epic/story ledger, CLI, state/events, PowerShell verification, Actions, packaged installation | Bootstrap coordinator skill and one implementation worker | Packed CLI works in a clean directory, local verification passes, Windows/Linux CI evidence recorded when remote exists. |
 | 2 | 0.2 supervised | Current T3 contract, doctor, explicitly requested single-worker dispatch, independent gate reports | Pinned 0.1 for tracking; operator launches agents | One real task completed; failed gate prevents acceptance; changed head invalidates old proof. |
 | 3 | 0.3 messaging | Typed routing, durable delivery, inbox/outbox, human questions, manual tick | Pinned 0.2, one worker | Real question/answer and fallback delivery; duplicate retries harmless; bounded conversation tests. |

@@ -4,9 +4,9 @@ Updated: 2026-11-03. Coordinator-owned resume point.
 
 ## Task and checkout
 
-D remains In Review in [PR #2](https://github.com/exones/agento/pull/2). Epic review `AGENTO-001/review-01` (legacy R) returned two P2 findings. Both fixes pass local Windows checks; independent fix review and hosted Linux proof are next. A/B/C/N are Done. Controller remains bootstrap skill/manual files; no release or stage 2 start.
+D is technically validated and In Review in [PR #2](https://github.com/exones/agento/pull/2). Review fixes, independent pass 02, product-head Windows/Ubuntu CI/uploads, and bounded skill proof pass. Final evidence-head CI and human merge remain. A/B/C/N are Done. No release, persistent controller promotion, or stage 2 start.
 
-Checkout: `C:\code\agento`, branch `feat/package-bootstrap`, origin `https://github.com/exones/agento.git`. Reviewed head was `848d4d50e918ecd4586bad30a4ff67acd70efea5`; D implementation was `10ff911294a72957fe7fc689757bb33d3c72b38d`. The following commits contain bounded fixes and the user's workflow/reporting changes; use Git for current exact HEAD. Base main merge: `afc05074a27da2cb1a3c225bc9d42d10f184e504`.
+Checkout: `C:\code\agento`, branch `feat/package-bootstrap`, origin `https://github.com/exones/agento.git`. Reviewed/product-verified head: `2cf2bf25957869dc94fec0718a6dbc67e905f8d7`; base main merge `afc05074a27da2cb1a3c225bc9d42d10f184e504`. This evidence-only successor adds reports/checkpoints/validation artifacts without altering runtime, tests, package inputs, verification scripts, or workflows. Resolve latest HEAD with Git/GitHub and preserve user changes/index.
 
 ## Completed and evidence
 
@@ -18,23 +18,23 @@ Checkout: `C:\code\agento`, branch `feat/package-bootstrap`, origin `https://git
 
 ## Review and validation assignments
 
-Review pass 01 is complete with findings; its triage records local fixes but no final approval. After committing and checking a clean candidate, launch a new independent `AGENTO-001/review-02` in a tool-created worktree, request ID `7f38eb5c-5da4-4dc2-8820-3f01876a80c8`, inherited Sol High. It checks fixes and the user's changed workflow/reporting artifacts; only its report/checkpoint are writable. No Git writes, product edits, external approvals, publication, merge, or child PR watches.
+Review pass 01's R1/R2 findings are resolved by fix `f61772a` and [independent pass 02](../reports/reviews/AGENTO-001/02.md), no actionable findings on exact `2cf2bf2`. Request `7f38eb5c-5da4-4dc2-8820-3f01876a80c8`, Sol High, isolated worktree `C:\worktrees\agento\t3-1178f78c`. Both exact outputs were copied with matching bytes. Scope includes code corrections and the user's workflow/reporting changes. Its Windows probes do not claim hosted Linux execution; the coordinator-observed CI below supplies that separate evidence. No formal GitHub approval is implied.
 
-Outcome 7 is not yet fully proven. Run a bounded fresh short-goal planning exercise in a separate tool-created worktree, request ID `036b0cba-6228-4ca3-9b53-fc12ec403eba`, inherited Sol High. Its plan is an isolated validation artifact, not approved product backlog. No implementation, Git writes, pushes, PRs, publication, or subagents. Inspect actual skill discovery/reads and durable planning output before claiming that gate passed.
+The bounded fresh short-goal planning exercise completed: request `036b0cba-6228-4ca3-9b53-fc12ec403eba`, inherited Sol High, worktree `C:\worktrees\agento\t3-64fa5948`, exact HEAD `2cf2bf2`. Coordinator inspected all four files, original task, and preservation status, and retained them under `validation/ledger-backup-plan/` as unapproved proof artifacts. `reports/skill-proof.md` records acceptance and limits: discovery/read via AGENTS and durable short-goal planning are demonstrated; invisible UI matching, all hosts/branches, actual backup correctness, or product orchestration are not. No production DOC1 work was adopted.
 
-These are independent validation assignments, not implementation workers. Follow their actual launch results: completion wakes this thread; end the turn without polling/waiting. The existing PR #2 watch persists across pushes; do not register another watcher.
+All implementation/review/validation delegates completed; no local command or delegate is in flight. [Candidate report](../reports/final.md) and [retrospective](../retro.md) reconcile outcomes, changes, fixes, artifacts, limits, and authority. PR #2 stays linked/watched; after the evidence-only push use the existing watch for CI wake-up, without polling or registering another watcher.
 
 ## Checks and limits
 
-Skill structural validation, active documentation links, and `git diff --check` pass. Clean committed-candidate package confirmation follows the fix commits; record its exact HEAD and sidecar in PR/evidence. Current-head Windows/Ubuntu CI, review pass 02, short-goal skill proof, final report/retro reconciliation, and human merge remain open. No cross-OS byte equality, crash guarantee, registry upload, remote tag/release, or controller promotion is claimed.
+Skill structure, active links, and formatting pass; recheck this evidence batch before commit. Independent clean package confirmation passed at `2cf2bf2`, candidate true/dirty false, full digest in candidate report, lock timeout 5427 ms. [PR CI run 41674990291](https://github.com/exones/agento/actions/runs/41674990291) succeeds on exact `2cf2bf2`; Windows/Ubuntu verification/uploads pass and both artifacts exist, non-expired. Skill proof and independent recheck are accepted within their recorded limits. The evidence-only successor still requires current-head CI and human merge. No general reproducibility, crash, publication, or controller-promotion claim.
 
 ## Changed files
 
-Bounded fixes: `scripts/Test-Package.ps1`, `test/cli.test.ts`, and distribution instructions. Workflow/reporting: AGENTS, coordinator skill/templates/delivery reference, Agile/decision/handoff/roadmap docs, report format, epic/backlog/current checkpoint, D review notes, and canonical/legacy review records. No runtime TypeScript, real package identity, or release workflow behavior changed. Inspect Git status/index before future mutations and preserve user edits.
+This successor changes only roadmap/status/backlog/epic, candidate/retro/skill/review reports, reviewer checkpoints, and four explicitly unapproved validation-plan files. No source/tests/scripts/README/package/workflow change after reviewed `2cf2bf2`. Preserve reviewer outputs exactly. No redundant product gate is needed solely for report edits; hosted CI runs normally on the new head. One shell-based checkpoint rewrite was policy-blocked; the same owned-file update was completed through an explicit file patch.
 
 ## Next concrete action
 
-Commit scoped fixes and workflow/evidence, independently confirm a clean pack, push/relink PR #2, and launch the two bounded validations above. On their or CI wake-up, inspect actual results, triage any remaining findings, and reconcile the final report/retro. A new independent recheck gets its parent-scoped next pass; no new backlog letters for reviews. Give a substantive completion briefing. Keep D In Review until required CI/review/human merge. No automatic merge or publication.
+Validate and commit/push this final evidence-only batch; immediately relink PR #2. On CI wake-up inspect exact latest head/checks and confirm product/test/script/workflow/package content still matches `2cf2bf2`. If green, stop the PR watch and hand back a substantive delivery briefing for the human merge decision. Do not create another evidence commit merely to copy this evidence commit's own CI; GitHub owns current-head checks. Keep D In Review and epic In Progress until human merge is recorded. No further product fix or reviewer round is indicated. No automatic merge/publication. After merge, reconcile status and decide separately how to promote/install an accepted fixed artifact; stage 2 requires its own authorized refined epic/backlog and pinned-controller setup.
 
 ## User inputs
 

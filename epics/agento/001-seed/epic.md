@@ -1,6 +1,6 @@
 # Epic AGENTO-001: a usable seed
 
-Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D In Review in PR #2; epic review pass `AGENTO-001/review-01` returned two P2 findings, fixes locally checked and awaiting recheck/CI.
+Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D technically validated and In Review in PR #2; fixes independently rechecked, product CI green, final evidence-head CI and human merge pending.
 Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
 Repository: `https://github.com/exones/agento.git`, public, current account ADMIN. PR #1 human-merged at `afc05074a27da2cb1a3c225bc9d42d10f184e504`; original branch deleted remotely. The user's bundled A/B commit `3283807` remains in history. Final PR head `e997381` passed Windows/Ubuntu CI; details are in [delivery evidence](reports/bootstrap-delivery.md). D uses owned branch `feat/package-bootstrap` from that merge.
 
@@ -34,7 +34,7 @@ Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an instal
 | B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A | done | [Local acceptance](reports/B-review.md); [PR #1 delivery/CI/review/merge](reports/bootstrap-delivery.md), merge `afc0507` |
 | C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B | done | [Worker evidence](reports/C.md), [review fixes](reports/bootstrap-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
 | N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C | done | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
-| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-review | [Worker evidence](reports/D.md), [proof/fixes](reports/D-review.md); [PR #2](https://github.com/exones/agento/pull/2), normal/scoped-fixture local gates pass; current CI/recheck/merge pending |
+| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-review | [Candidate report](reports/final.md), [proof/fixes and CI](reports/D-review.md), [review pass 02](reports/reviews/AGENTO-001/02.md); [PR #2](https://github.com/exones/agento/pull/2), technical gates pass at `2cf2bf2`; final-head CI/human merge pending |
 | I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
 
 A -> B -> C -> N -> D is sequential, with reviews as gates of those items and the seed epic. N applies the storage naming correction at C's safe handoff boundary. Review findings remain bound to their parent and are triaged before closure. I is documentation/discovery only, outside seed acceptance. No worker launches another agent from a backlog item.
@@ -43,8 +43,8 @@ A -> B -> C -> N -> D is sequential, with reviews as gates of those items and th
 
 | Review | Parent and scope | Status | Evidence |
 | --- | --- | --- | --- |
-| `AGENTO-001/review-01` | AGENTO-001, fresh-context full seed candidate including D packaging | findings | [Two P2 findings and acceptance assessment](reports/reviews/AGENTO-001/01.md), exact candidate `848d4d5`; [legacy assignment](backlog/R-review.md) preserved |
-| `AGENTO-001/review-02` | AGENTO-001, bounded fixes and updated workflow/reporting conventions | requested | New independent pass on the committed corrected candidate; report pending, no approval claimed |
+| `AGENTO-001/review-01` | AGENTO-001, fresh-context full seed candidate including D packaging | findings, resolved | [Two original P2 findings and triage](reports/reviews/AGENTO-001/01.md), exact candidate `848d4d5`; fix `f61772a`, rechecked by pass 02; [legacy assignment](backlog/R-review.md) preserved |
+| `AGENTO-001/review-02` | AGENTO-001, bounded fixes and updated workflow/reporting conventions | no-findings | [Independent report](reports/reviews/AGENTO-001/02.md) on exact `2cf2bf2`; not a formal GitHub approval or merge decision |
 
 R is retained as a legacy reference, not a new independent backlog deliverable. Its completed report/checkpoint are filed under the parent-scoped paths with `reports/R.md` and `checkpoints/R.md` pointers. Original finding labels R1/R2 remain stable. Future item passes use IDs such as `D/review-01`; no item was renumbered and the existing reviewer was allowed to finish unchanged.
 
@@ -66,20 +66,22 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 
 ## Stage gates
 
-- [ ] Bootstrap skill: structural validation passes and short-goal planning/resume is exercised in a fresh supported host. Do not claim live discovery or delegation proof from schema validation alone.
+- [x] Bootstrap skill: structural validation plus [fresh short-goal planning proof](reports/skill-proof.md) on `2cf2bf2` through AGENTS routing in Codex/T3. No claim of invisible UI selection, every host, or all workflow branches.
 - [x] A: environment facts and exact seed contract recorded; unknown T3 behavior deferred explicitly. Coordinator corrections accepted in `reports/A-review.md`.
 - [x] B: typecheck/build/tests run through PowerShell; basic CLI works; Actions workflow prepared. Local acceptance in `reports/B-review.md`.
 - [x] C: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven; corrected candidate passed 40 tests, CI, review, and human merge in PR #1.
 - [x] N: `.agento/` is consistent across runtime, help/errors, tests, ignore rules, and current documentation; preservation check, CI, review, and human merge in PR #1.
-- [ ] D: tarball installs in a clean directory and performs the ledger exercise through the installed executable.
+- [x] D technical proof: exact clean tarball installs outside checkout and completes installed-executable scenarios; independent review and product CI pass. Delivery row remains In Review for final-head CI/human merge.
 - [ ] Windows and Linux GitHub Actions pass on the final candidate revision, or remain explicitly blocked pending repository setup.
 - [ ] A/B bootstrap and subsequent delivery items have honest PR/CI/review/merge evidence; reconcile existing user commits without rewriting history. Local checkboxes above do not close these delivery gates.
-- [ ] `AGENTO-001/review-01` (legacy R): findings triaged with evidence; fixes checked; no unresolved high-impact correctness/packaging issue.
-- [ ] Final report and retro written; next-stage controller installation instructions recorded.
-- [ ] If a release is authorized, exact version/artifact/digest and publication location recorded. Otherwise identify the candidate as locally ready, not released.
+- [x] Review passes 01/02: original R1/R2 fixed and independently rechecked; current product CI supports Linux execution. No unresolved actionable P1/P2/P3 finding in the reviewed scope.
+- [x] [Candidate report](reports/final.md) and [retrospective](retro.md) written; pinned outside-checkout installation instructions recorded. No controller promotion or stage 2 start claimed.
+- [x] Release status explicit: technically validated private candidate, not released. Version/artifact/digest recorded; publication requires separate npm identity/setup and authorization.
 
 ## Decisions
 
+- 2026-11-03: independent pass 02 reports no actionable findings on `2cf2bf25957869dc94fec0718a6dbc67e905f8d7`; copied its exact report/checkpoint and reconciled them with coordinator-observed Windows/Ubuntu CI/uploads and accepted short-goal skill proof. Candidate report/retro now reflect actual capabilities, fixes, evidence, limits, and remaining human authority. Commit this evidence-only update, require latest-head CI, then hand back PR #2 without another metadata-only evidence loop. D is not Done until human merge; no registry upload or stage 2 authorization.
+- 2026-11-03: accepted the bounded fresh-session planning exercise after reading its actual files and preservation evidence. The child found/read the coordinator skill via AGENTS from a short goal, produced a durable plan/story/checkpoint/report, and stopped before implementation. Retained four explicitly unapproved validation artifacts; DOC1 is not production backlog. Bootstrap behavioral proof is scoped to the observed Codex/T3 route; independent pass 02 remains pending.
 - 2026-11-03: epic review pass 01 returned two P2 findings, no P1. Fixed POSIX bin-target verification and made package proof/metadata tests follow the selected manifest identity/version/private flag. Normal Windows Verify passed 40 tests plus package proof; a temporary scoped public-mode/version-change fixture passed CLI tests and full package proof, then restored the manifest byte-for-byte. Keep actual package private/unpublished. Require clean committed-candidate proof, hosted Linux success, and independent fix review. Arrange the declared short-goal skill exercise before claiming outcome 7 complete.
 - 2026-11-03, user: routine reviews belong to their parent item/epic, without a new backlog letter. Adopted parent-scoped passes; the already-running R assignment maps to `AGENTO-001/review-01` because it spans the seed. Preserve its output paths until return, then reconcile with legacy pointers. Expanded persistent report and completion-briefing guidance to include introduced capabilities, important changes, validation, limits, and next action; short progress updates remain available. Product candidate and review assignment are unchanged.
 - 2026-11-03: D returned PR #2 at `10ff911294a72957fe7fc689757bb33d3c72b38d`. Independently reran clean packed-install proof outside checkout; digest matches worker evidence. D stays In Review while hosted CI and separately assigned R run. npm owner/scope/name selection is a publication prerequisite; unscoped `agento` is already occupied, so no registry upload is authorized or needed for this review.
