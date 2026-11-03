@@ -1,8 +1,8 @@
 # Epic AGENTO-001: a usable seed
 
-Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N In Review for bootstrap PR delivery. D/R remain backlog.
+Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D delegation requested for packaging proof; R remains backlog.
 Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
-Repository: `https://github.com/exones/agento.git`, public, current account ADMIN. Initial remote `main` is `dc6e3c4`. Preserve the user's bundled A/B commit `3283807`; deliver it with the ledger/storage correction in one bootstrap PR, as explained in [delivery evidence](reports/bootstrap-delivery.md). Hosted CI remains unverified until its run is observed.
+Repository: `https://github.com/exones/agento.git`, public, current account ADMIN. PR #1 human-merged at `afc05074a27da2cb1a3c225bc9d42d10f184e504`; original branch deleted remotely. The user's bundled A/B commit `3283807` remains in history. Final PR head `e997381` passed Windows/Ubuntu CI; details are in [delivery evidence](reports/bootstrap-delivery.md). D uses owned branch `feat/package-bootstrap` from that merge.
 
 ## Why
 
@@ -30,11 +30,11 @@ Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an instal
 
 | ID | Kind | Feature | Backlog item | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | in-review | [Local acceptance](reports/A-review.md); [PR #1 delivery evidence](reports/bootstrap-delivery.md), product CI/review passed; latest-head CI and human merge pending |
-| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A contract accepted locally | in-review | [Local acceptance](reports/B-review.md); [PR #1 delivery evidence](reports/bootstrap-delivery.md), product CI/review passed; latest-head CI and human merge pending |
-| C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B local gate accepted | in-review | [Worker evidence](reports/C.md); [review findings and fixes](reports/bootstrap-review.md), 40 local tests and product CI/review passed; latest-head CI and human merge pending |
-| N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C returned; local ledger gate passed | in-review | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [PR #1 delivery evidence](reports/bootstrap-delivery.md), product CI/review passed; latest-head CI and human merge pending |
-| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N local gates | backlog | No execution report yet |
+| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | done | [Local acceptance](reports/A-review.md); [PR #1 delivery/CI/review/merge](reports/bootstrap-delivery.md), merge `afc0507` |
+| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A | done | [Local acceptance](reports/B-review.md); [PR #1 delivery/CI/review/merge](reports/bootstrap-delivery.md), merge `afc0507` |
+| C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B | done | [Worker evidence](reports/C.md), [review fixes](reports/bootstrap-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
+| N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C | done | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
+| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-progress | [Readiness and assignment](reports/D-assignment.md); one Grok worker requested, no package proof claimed yet |
 | R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | backlog | No execution report yet |
 | I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
 
@@ -61,8 +61,8 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 - [ ] Bootstrap skill: structural validation passes and short-goal planning/resume is exercised in a fresh supported host. Do not claim live discovery or delegation proof from schema validation alone.
 - [x] A: environment facts and exact seed contract recorded; unknown T3 behavior deferred explicitly. Coordinator corrections accepted in `reports/A-review.md`.
 - [x] B: typecheck/build/tests run through PowerShell; basic CLI works; Actions workflow prepared. Local acceptance in `reports/B-review.md`.
-- [x] C local/product gate: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven by 40 tests and Windows/Ubuntu CI on `af0b69f`; delivery still awaits human-approved merge.
-- [x] N local gate: `.agento/` is consistent across runtime, help/errors, tests, ignore rules, and current documentation; coordinator reran 39 tests. Delivery Done remains pending PR/CI/review/approved merge.
+- [x] C: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven; corrected candidate passed 40 tests, CI, review, and human merge in PR #1.
+- [x] N: `.agento/` is consistent across runtime, help/errors, tests, ignore rules, and current documentation; preservation check, CI, review, and human merge in PR #1.
 - [ ] D: tarball installs in a clean directory and performs the ledger exercise through the installed executable.
 - [ ] Windows and Linux GitHub Actions pass on the final candidate revision, or remain explicitly blocked pending repository setup.
 - [ ] A/B bootstrap and subsequent delivery items have honest PR/CI/review/merge evidence; reconcile existing user commits without rewriting history. Local checkboxes above do not close these delivery gates.
@@ -72,6 +72,7 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 
 ## Decisions
 
+- 2026-11-03, user: merged PR #1 and deleted its remote branch, then requested continuation. Verified merge `afc05074a27da2cb1a3c225bc9d42d10f184e504`, final-head CI success, and unchanged tree across merge. Marked A/B/C/N Done, fast-forwarded local `main` without rewriting user history, and prepared D on `feat/package-bootstrap`. D's worker may now use normal scoped commit/push/PR delivery; no publication or merge authorization is included. R follows a concrete D candidate.
 - 2026-11-03: bounded fix review reports no findings on `af0b69fa4c6ea8d2216d133c6d46a99981a1cbd9`; Windows/Ubuntu PR-triggered CI run 41663657936 passes on that head. Commit the evidence-only update, require latest-head CI, then hand back for the human merge decision without another product change or redundant review cycle. D/R remain backlog.
 - 2026-11-03: fresh bootstrap review found a long-reason generated-default bug (P1) and an incorrect POSIX rename expectation (P2). Corrected the bounded generated default while preserving the full 2000-character reason and explicit 500-character next action. Preserved pre-commit failure coverage; the corrected read-only-destination test asserts each platform's actual semantics. Initial Ubuntu CI confirmed the original test failure. Forty local tests now pass; final hosted CI and fix review remain required.
 - 2026-11-03: N returned and its local gate passed independently (39 tests). README now contains supported capabilities/usage and stable contributor links, with live progress removed. Reconcile A/B/C/N through one bootstrap PR because A/B already share the user's `3283807` commit; preserve it without rewriting history. Fresh review and hosted CI must examine the actual candidate head.

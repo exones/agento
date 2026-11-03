@@ -1,6 +1,6 @@
 # Spike A: preflight and seed contract
 
-Status: in-review for PR/CI delivery; contract locally accepted after coordinator corrections. Implementation agent: one. Depends on: none.
+Status: done. Delivered in PR #1, human-merged as `afc05074a27da2cb1a3c225bc9d42d10f184e504`; see `reports/bootstrap-delivery.md`. Implementation agent: one. Depends on: none.
 Kind: spike. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 
 Research question: what is the smallest exact epic/story CLI contract supported by this environment? Limit: one bounded research assignment; aim for half a day or less and record any unanswered question rather than expanding into implementation.

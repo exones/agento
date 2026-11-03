@@ -1,6 +1,6 @@
 # C: manual work ledger
 
-Status: in-review. Depends on: B local verification accepted. One implementation agent.
+Status: done. PR #1 passed CI/review and was human-merged as `afc05074a27da2cb1a3c225bc9d42d10f184e504`; see `reports/bootstrap-delivery.md` and `reports/bootstrap-review.md`. Depends on: B. One implementation agent.
 Kind: story. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 
 Storage naming note: `.crew/` below records this item's original assignment. D18 and task N supersede it with `.agento/` in the current candidate.

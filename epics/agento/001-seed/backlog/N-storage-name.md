@@ -1,7 +1,7 @@
 # N: use agento for local storage naming
 
 Kind: task. Epic: AGENTO-001. Feature: F1.
-Status: in-review. Owner: one Grok 4.7 Extra High implementation worker. Depends on: C returns with a locally verifiable ledger candidate (satisfied; coordinator reran 38 tests successfully).
+Status: done. Owner: one Grok 4.7 Extra High implementation worker. Depends on: C. PR #1 human-merged as `afc05074a27da2cb1a3c225bc9d42d10f184e504`; see `reports/bootstrap-delivery.md`.
 
 ## Read first
 
@@ -35,7 +35,7 @@ Worker owns affected product/test/docs files, `checkpoints/N.md`, and `reports/N
 
 ## Delivery record
 
-[Bootstrap PR #1](https://github.com/exones/agento/pull/1), branch `feat/seed-manual-ledger`. Product/fix revision `af0b69fa4c6ea8d2216d133c6d46a99981a1cbd9` passes local typecheck/build/40 tests, independent review, and Windows/Ubuntu hosted CI ([run](https://github.com/exones/agento/actions/runs/41663657936)). See [delivery evidence](../reports/bootstrap-delivery.md) and [review triage](../reports/bootstrap-review.md). Subsequent evidence-only documentation changes require current-head CI. Human-approved merge remains pending; N stays In Review.
+[Bootstrap PR #1](https://github.com/exones/agento/pull/1), original branch `feat/seed-manual-ledger`. Product/fix revision `af0b69fa4c6ea8d2216d133c6d46a99981a1cbd9` passes local typecheck/build/40 tests, independent review, and Windows/Ubuntu hosted CI. Final head `e997381687c44a84be3e2648454d0ca038b584d0` also passes [CI](https://github.com/exones/agento/actions/runs/41664301642). User merged at `2026-11-03T15:41:11Z`, merge SHA `afc05074a27da2cb1a3c225bc9d42d10f184e504`; remote branch deleted. See [delivery evidence](../reports/bootstrap-delivery.md) and [review triage](../reports/bootstrap-review.md).
 
 ## Report and resume
 

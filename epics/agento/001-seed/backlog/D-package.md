@@ -1,13 +1,13 @@
 # D: packed artifact and first bootstrap proof
 
-Status: backlog. Depends on: C local ledger gate and N storage-name correction pass. One implementation agent.
+Status: in-progress, delegation requested. Depends on: C and N delivered in merged PR #1. Owner: one Grok 4.7 Extra High implementation worker through Cursor.
 Kind: story. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
 
 As an operator, I want to install a fixed agento package outside its source checkout so it can track the next epic while its successor is being edited.
 
 ## Read first
 
-`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, `reports/C.md`, and `reports/N.md`.
+`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, `reports/C.md`, `reports/N.md`, `reports/N-review.md`, `reports/bootstrap-delivery.md`, `reports/bootstrap-review.md`, and `reports/D-assignment.md`. Earlier worker reports record local-only historical proof; bootstrap delivery/review records subsequent corrections, final CI, and merge.
 
 ## Outcome
 
@@ -33,4 +33,6 @@ Prove the actual installable package can organize stage 2 from outside the sourc
 
 ## Output and stop
 
-Write `reports/D.md`, draft `reports/final.md`, update checkpoint and epic row. Handoff to a separately assigned R reviewer. Do not start the reviewer, publish, merge, deploy, or start stage 2.
+Write `checkpoints/D.md`, `reports/D.md`, and draft `reports/final.md`; propose shared-status/checklist updates to the coordinator instead of editing `epic.md` or `checkpoints/current.md`. Work on assigned branch `feat/package-bootstrap` in the shared checkout. After meaningful local checks pass, create scoped Conventional Commits, push that branch, open a PR against `main`, and immediately link it through the host tool. Include the coordinator's committed handoff in the same D PR. Preserve user changes/index and propagate native failures. Do not rewrite existing commits or force-push.
+
+Handoff to a separately assigned R reviewer. Do not start the reviewer or other agents; do not watch PR checks as a delegated child. Record actual current checks without polling and return the candidate PR/head to the coordinator, which owns CI watches/review. Do not publish, tag remotely, create a release, merge, deploy, or start stage 2. Keep the package private and surface the exact nonsecret npm owner/name/trust prerequisites without blocking independent local packaging proof.
