@@ -1,7 +1,7 @@
 # D1: sequential letters for newly planned backlog items
 
 Kind: story. Epic: AGENTO-001. Feature: coordinator workflow follow-up.
-Status: in-progress. Owner: one Grok 4.7 Extra High implementation worker through Cursor. Depends on: D delivered and human-merged in PR #2 at `d81f4a5` (satisfied).
+Status: in-review. Owner: one Grok 4.7 Extra High implementation worker through Cursor. Depends on: D delivered and human-merged in PR #2 at `d81f4a5` (satisfied).
 Priority: immediately after D, before other new delivery work in this epic.
 
 As the person browsing an epic's files, I want new backlog items named in a predictable letter sequence so the folder is easy to follow without decoding initials chosen from each item's title.
@@ -29,11 +29,11 @@ This is a documentation/skill behavior change. It does not change CLI ID validat
 
 ## Implementation checklist
 
-- [ ] Inspect current planning entry points and identify why arbitrary/title-derived IDs remain possible.
-- [ ] Define the convention centrally, including stable existing IDs and later additions.
-- [ ] Route the coordinator skill and relevant templates to that section.
-- [ ] Run and inspect the bounded fresh planning exercise; retain concrete evidence.
-- [ ] Validate links/skill/formatting and deliver the scoped change through normal gates.
+- [x] Inspect current planning entry points and identify why arbitrary/title-derived IDs remain possible.
+- [x] Define the convention centrally, including stable existing IDs and later additions.
+- [x] Route the coordinator skill and relevant templates to that section.
+- [ ] Run and inspect the bounded fresh planning exercise; retain concrete evidence. The coordinator arranges this after the committed candidate. The worker does not launch it.
+- [x] Validate links, skill structure, and formatting. Applicable CI, independent review, and human-approved merge remain open.
 
 ## Ownership, review, and output
 
