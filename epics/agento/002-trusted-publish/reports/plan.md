@@ -30,7 +30,7 @@ The prior planning turn failed before writing files. This checkout was already t
 
 ## Open points
 
-- Plan PR is https://github.com/exones/agento/pull/3 at `64cf0e70bf3ee671d5a557fc26b9821351279712`. Hosted CI, review, and merge are open.
+- Plan PR is https://github.com/exones/agento/pull/3. Plan content is `64cf0e70bf3ee671d5a557fc26b9821351279712`. Evidence commit `75f303f0c7c9fcfb34740f3e5dd0d7d05e3baa30` records that URL. GitHub is authoritative for the current head. Hosted CI, review, and merge are open.
 - npm owner and package name block I.
 - Publication authorization blocks F and O.
 - PR #2 is not part of this delivery.

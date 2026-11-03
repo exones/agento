@@ -19,7 +19,7 @@ Controller: bootstrap `agento-coordinate` skill and manual files. No released co
 
 ## In flight
 
-[PR #3](https://github.com/exones/agento/pull/3) is open at `64cf0e70bf3ee671d5a557fc26b9821351279712`. Hosted CI has not been recorded yet. No release dispatch is running.
+[PR #3](https://github.com/exones/agento/pull/3) contains plan commit `64cf0e70bf3ee671d5a557fc26b9821351279712` and evidence commit `75f303f0c7c9fcfb34740f3e5dd0d7d05e3baa30`. GitHub is authoritative for the current head. Hosted CI has not been recorded yet. No release dispatch is running.
 
 ## Checks and limits
 
