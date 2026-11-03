@@ -19,11 +19,25 @@ epics/<project>/<NNN>-<slug>/
   checkpoints/current.md  # coordinator-owned handoff
   checkpoints/<ID>.md     # worker-owned handoff
   reports/<ID>.md         # evidence and proposed status update
+  reports/reviews/<parent>/<review-name>.md      # exact-revision review pass
+  checkpoints/reviews/<parent>/<review-name>.md # reviewer-owned resume point
   reports/final.md        # epic outcome and release evidence
   retro.md                # observed lessons and follow-up backlog items
 ```
 
-Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, R a review task, and I an optional infrastructure spike. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, and I an optional infrastructure spike. The existing R assignment is a legacy alias for the seed epic's review gate, not a pattern for new backlog IDs. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+
+## Review gates and indexing
+
+This section is the authoritative source for review naming, numbering, evidence paths, and compatibility. Other instructions and templates link here rather than restating the convention.
+
+Routine implementation reviews belong to the item being reviewed. Name the review agent and assignment `<item-stem>-review-<NNN>`, using the backlog filename without `.md`: `A-preflight-review-001`, then `A-preflight-review-002` for a new independent recheck. For `backlog/D-package.md`, use `D-package-review-001`. A milestone review spanning several items uses the epic ID, for example `AGENTO-001-review-001`. Use that same name in the delegation title and report heading. Reviewers are roles; their assignment does not create another story/task letter or a separate delivery PR.
+
+Store new passes at `reports/reviews/<parent>/<review-name>.md` and their optional resumable reviewer checkpoints at `checkpoints/reviews/<parent>/<review-name>.md`, for example `reports/reviews/A/A-preflight-review-001.md`. Record parent, pass, reviewer, exact checked SHA, PR/artifact identity, scope/acceptance, findings, checks, and limits. Findings can be referenced as `A-preflight-review-001/F1`; keep those labels stable through triage. The parent epic/item links the gate and its result. Preserve prior passes rather than overwriting evidence for another revision.
+
+Record fixes/refutations/deferrals against the parent and exact revision. Start numbering at `001` and increment for each new independent review/recheck of that parent, including earlier legacy passes; do not reset it for a new revision or review scope. Thus an epic with legacy passes 01 and 02 next uses `AGENTO-001-review-003`. A coordinator's evidence update is not automatically another independent review. Reviews remain required for Done; naming does not change acceptance, model selection, or human merge authority.
+
+Preserve existing IDs, filenames, links, and finding labels as historical evidence. Earlier `<parent>/review-<NN>` IDs and `reports/reviews/<parent>/<NN>.md` paths remain valid; legacy R still maps to `AGENTO-001/review-01`. Existing unnumbered review reports also remain in place; inspect the parent's review history before choosing the next unused number. A running assignment keeps its assigned name/output paths until it returns. Do not rename or restart it merely to apply this convention.
 
 ## Analysis and refinement
 

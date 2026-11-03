@@ -11,6 +11,8 @@ For a goal-level planning or orchestration request, use `.agents/skills/agento-c
 
 Use the Agile vocabulary in `docs/agile-workflow.md`: epic, optional feature grouping, story, task, spike, backlog, acceptance criteria, Definition of Ready, and Definition of Done. Keep existing backlog IDs stable. The original MVP and inspiration retain historical terminology.
 
+Before assigning a review, read and follow the authoritative [review conventions](docs/agile-workflow.md#review-gates-and-indexing). Completed-item reports and user briefings follow `epics/report-format.md`; short progress updates are still appropriate between milestones.
+
 Do only the assigned role and scope. A coordinator asked to deliver an epic may advance its ready backlog items within that scope; a worker stops after its assigned item and does not launch agents. Seed execution has one implementation worker at a time. A reviewer is assigned separately after the candidate exists. A planning-only request stops after the reviewable plan.
 
 ## Providers and roles
@@ -20,6 +22,8 @@ These instructions are shared project guidance, regardless of model/provider. St
 User preference: Sol High for coordination; Grok 4.7 Extra High for implementation. Current verified T3 worker route is Cursor model `grok-4.7` with option `reasoning_effort: xhigh`. The active Codex session reports model `gpt-6.1-sol` and `reasoningEffort: high`. Recheck capabilities before future delegation; do not substitute a different provider/model/settings without authorization.
 
 When a coordinator is assigned, it owns `epic.md` and `checkpoints/current.md`, assigns the selected backlog item, checks evidence, and records the next action. Workers own `checkpoints/<task>.md` and `reports/<task>.md` plus their assigned implementation files. Interpret backlog items' shared-status update instructions as reporting those updates to the coordinator in this mode. Do not have both roles edit the shared checkpoint. Coordinator findings go back to the worker as scoped fixes; the coordinator does not implement product changes in that role.
+
+Separately assigned reviewers own their parent-scoped review report/checkpoint, with exact reviewed revision and findings; the coordinator owns the parent's gate status and triage. Keep a running review's assigned output paths until it returns, then reconcile legacy filenames without restarting the review.
 
 In standalone mode, the assigned agent maintains the epic and current checkpoint itself as previously described. See `docs/agent-handoff.md` for exact role prompts and provider loading references.
 
@@ -61,7 +65,7 @@ At a useful boundary, before switching context, and before ending a task:
 
 1. Update the owned checkpoint (`checkpoints/<task>.md` for a coordinated worker, `checkpoints/current.md` for the coordinator or standalone agent): task, checkout/branch/HEAD when available, completed work, in-flight commands, next concrete action, blockers, checks, and changed files.
 2. Coordinator/standalone agent: update the assigned row in `epic.md` with status and evidence/report links. Coordinated workers return proposed status updates in their report.
-3. Write `reports/<task>.md` with outcome, checks, evidence, decisions, and open points. Distinguish local proof from remote CI/release proof.
-4. End with a concise result and exact next action. If blocked, record what input unblocks it and continue independent in-scope work.
+3. Write `reports/<task>.md` with a useful account of introduced capabilities, important behavior/implementation changes, checks, evidence, decisions, and limits. Review passes use the parent-scoped report convention. Distinguish local proof from remote CI/release proof.
+4. At item delivery, give the user a substantive completion briefing with important changes, validation, limits, required involvement, and exact next action. Keep intermediate status updates concise. If blocked, record what input unblocks it and continue independent in-scope work.
 
 The checkpoint should let a fresh agent resume without the conversation.

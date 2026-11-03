@@ -19,7 +19,7 @@ Paths above are relative to the target project root, not the skill directory. If
 
 - Identify the problem, beneficiary, verifiable outcome, exclusions, constraints, unknowns, and existing build/test/CI behavior. Inspect available repository facts before asking the user.
 - Match the goal to an existing epic or create `epics/<project>/<NNN>-<slug>/`. For a new epic use [the epic template](assets/epic.md); create only the files needed for its current scope.
-- Divide work into small usable stories and necessary enabler/review tasks. Use bounded spikes for uncertainty; optional features group related work. A checklist inside an item is usually enough for its implementation tasks.
+- Divide work into small usable stories and necessary enabler tasks. Use bounded spikes for uncertainty; optional features group related work. A checklist inside an item is usually enough for its implementation tasks. Routine reviews are parent-item or epic gates, not new lettered backlog items; use the parent-scoped review convention in `docs/agile-workflow.md`.
 - For new backlog items use [the backlog template](assets/backlog-item.md). Record kind, beneficiary/value or spike question, scope, dependencies, ownership, testable acceptance criteria, evidence, and report/checkpoint paths. Prefer concrete Given/When/Then examples when they clarify behavior.
 - Order the backlog by value and dependencies, explain resource/file conflicts, and enforce the current WIP limit. Record the Definition of Ready and Definition of Done from the project workflow; add item-specific criteria where needed.
 - Ask only when missing information materially changes outcome/scope or blocks execution. Make routine choices, record why, and continue independent work. Do not recreate already documented answers.
@@ -44,6 +44,8 @@ Give a worker its role, exact backlog path, read-first paths, dependency reports
 
 Inspect the actual changes and check relevant evidence before moving In Review to Done. Run independent checks where the item's gate requires them. A worker report is a claim, not automatic acceptance. Preserve blockers and failed gates; return actionable findings as scoped fixes. Request fresh reviews at the declared milestone.
 
+Before assigning an independent review/recheck, read and follow the authoritative [review conventions](../../../docs/agile-workflow.md#review-gates-and-indexing). Use [the review template](assets/review.md) for its exact scope, revision, findings, and evidence.
+
 ## Commit, PR, CI, and review
 
 Use [delivery rules](references/delivery.md) for every delivery item, including research spikes. Passing local gates should produce a scoped Conventional Commit and PR; do not leave accepted work indefinitely uncommitted. Normal delivery requests authorize scoped commits, pushes to an owned feature branch, and PR creation without another permission question. Merge authority remains with the human unless explicitly changed.
@@ -58,13 +60,13 @@ If a worker is already running in a shared checkout, do not switch branches, sta
 
 ## Close or checkpoint
 
-Update epic/backlog status, decisions, shared checkpoint, and next action at meaningful boundaries. Record revision, controller version if one exists, in-flight commands/logs, completed evidence, blockers, and exact resume point. Plans and runtime state must not become two competing authorities.
+Update epic/backlog status, decisions, shared checkpoint, and next action at meaningful boundaries. Record revision, controller version if one exists, in-flight commands/logs, completed evidence, blockers, and exact resume point. Plans and runtime state must not become two competing authorities. Follow `epics/report-format.md` for substantive item reports and completion briefings; include what was introduced and why it matters, not only check counts and status.
 
 At epic completion, reconcile every outcome with evidence, write the final report and retrospective, and identify follow-up backlog items and release blockers. Describe local readiness separately from remote CI and publication. Improve skills/defaults through reviewable changes based on observations; do not silently relax acceptance.
 
-## End-of-turn report
+## Progress updates and completion briefings
 
-End every coordinator turn with exactly these three short lines, normally no more than 60 words total:
+For routine progress or waiting updates, use a short `Done / You / Next` report:
 
 ```text
 Done: <what this turn actually completed or started; include validation if relevant>
@@ -72,6 +74,6 @@ You: <None, or the exact input/decision/action needed and what it affects>
 Next: <one recommended next step>
 ```
 
-Distinguish started, completed, reviewed, and failed work. Use at most one useful artifact link unless the host requires more. Keep detail in the epic/report/checkpoint rather than adding a long recap. Follow this format for worker-launch and completion turns too.
+When an item produces a reviewable delivery or completes, give a fuller release-note-style briefing: introduced capabilities and operator value, important behavior/implementation changes, relevant usage examples, meaningful validation, known limits/release status, user involvement, and next action. Scale detail to the change; do not force substantive completion reports into three lines or a 60-word cap. Link the PR and detailed evidence when useful. Distinguish implemented, locally checked, reviewed, merged, and released states.
 
 This report format does not create a new approval gate: continue already authorized work unless the user sets a stopping boundary. If the user requests a report and says they will choose the next action, finish the requested edits/checks, checkpoint, and stop before dispatching the next item. The user should be able to start with a goal and later say "continue" without reconstructing a long prompt.

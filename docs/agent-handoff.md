@@ -48,4 +48,4 @@ Follow the [Agile workflow](agile-workflow.md) and the skill's [delivery rules](
 
 A prepared workflow, a passing local gate, and a passing hosted CI run are different evidence. Record actual revisions, run URLs, findings, and results in the epic/report. The workflow file defines when CI runs; this guide does not track whether a particular run happened.
 
-Keep one owner for shared status. Do not switch/stage/commit a shared checkout while its worker is running. Ensure required context is committed before isolated worktree delegation. End every coordinator turn using the concise `Done / You / Next` report specified in the skill.
+Keep one owner for shared status. Do not switch/stage/commit a shared checkout while its worker is running. Ensure required context is committed before isolated worktree delegation. Before assigning a review, read and follow the [review conventions](agile-workflow.md#review-gates-and-indexing). Use short `Done / You / Next` progress updates and fuller completion briefings per [report guidance](../epics/report-format.md).

@@ -1,6 +1,6 @@
-# Local and Actions gate: typecheck, build, then tests.
+# Local and Actions gate: typecheck, build, tests, then the packed-install proof.
 # Stops on the first failed native command and returns that exit code.
-# Does not call npm run verify.
+# Does not call npm run verify. scripts/Test-Package.ps1 does not call this script.
 #Requires -Version 7.6
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
@@ -72,4 +72,6 @@ Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'typecheck'
 Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'build')
 Write-Host "test: every suite under test/"
 Invoke-VerifiedNative -Executable $node -Arguments @($npmCli, 'run', 'test')
+Write-Host "package: packed install outside the checkout"
+Invoke-VerifiedNative -Executable 'pwsh' -Arguments @('-NoProfile', '-File', (Join-Path $PSScriptRoot 'Test-Package.ps1'))
 exit 0

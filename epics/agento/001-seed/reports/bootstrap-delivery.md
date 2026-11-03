@@ -1,6 +1,6 @@
 # Bootstrap delivery: A/B/C/N
 
-Date: 2026-11-03. Status: [PR #1](https://github.com/exones/agento/pull/1) open; reviewed product CI passes, evidence-only successor awaiting latest-head CI; human merge/publication not authorized.
+Date: 2026-11-03. Status: [PR #1](https://github.com/exones/agento/pull/1) human-merged; A/B/C/N Done. No package publication performed or authorized.
 
 ## Delivery scope and history
 
@@ -30,6 +30,8 @@ Coordinator-observed hosted proof: [PR CI run 41663657936](https://github.com/ex
 
 This follow-up commit changes only epic/backlog/checkpoint/reports to record those results. Runtime, tests, build, and workflow remain identical to the reviewed/CI-passed product revision. Validate documentation links/formatting and require hosted CI on the latest PR head. Its check results live on GitHub; no extra commit is needed merely to copy the follow-up commit's own results back into these files.
 
-## Next
+## Final CI and merge
 
-Push the evidence-only update and relink PR #1. Await current-head CI via the existing watch, then stop watching and hand back for the human merge decision. A/B/C/N remain In Review until human-approved merge. D/R remain backlog; final seed acceptance still needs packed proof and R. No release, package upload, or stage 2 work is included.
+Final PR head `e997381687c44a84be3e2648454d0ca038b584d0` passed [Windows/Ubuntu PR CI run 41664301642](https://github.com/exones/agento/actions/runs/41664301642). The coordinator confirmed its product/test/build/workflow content was unchanged from reviewed `af0b69f` and stopped the watch before human handback. User then merged and deleted the branch; GitHub confirms state `MERGED`, time `2026-11-03T15:41:11Z`, merge commit `afc05074a27da2cb1a3c225bc9d42d10f184e504`. The merge tree matches `e997381`; original user commits remain preserved. This closes A/B/C/N delivery, without implying a released/packaged seed.
+
+Continue with D's packed-install proof, then separately assigned R. See `D-assignment.md` and the current checkpoint. No release, package upload, or stage 2 work is authorized by the merge.

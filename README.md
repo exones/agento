@@ -2,13 +2,13 @@
 
 agento is a TypeScript/Node.js CLI for tracking epics and work items in a local manual ledger. PowerShell provides build and verification automation. GitHub hosts source and Actions; npm is the selected package registry. T3 dispatch and automated coordination are planned capabilities.
 
-Project and CLI name: **agento**. Use `agento` as the executable, for example `agento --help` and `agento --version`. See the [naming decision](docs/cli-name.md). The local package is unscoped `agento` at candidate `0.1.0` with `private: true`. Package publication identity is still to be selected.
+Project and CLI name: **agento**. Use `agento` as the executable, for example `agento --help` and `agento --version`. See the [naming decision](docs/cli-name.md). The local package is unscoped `agento` at candidate `0.1.0` with `private: true`. Package publication identity is still to be selected. On 2026-11-03, `npm view agento` showed a different public package at version 0.1.2, so this repository does not treat the unscoped name as available.
 
 ## Start here
 
 This build implements the schema 1 manual ledger: `init`, `new`, `status`, and `story add/start/block/complete`. See the [contract](docs/seed-contract.md). Completing an item records a manual note; independent verification remains a separate step.
 
-For contribution and agent assignment instructions, see the [handoff guide](docs/agent-handoff.md).
+For contribution and agent assignment instructions, see the [handoff guide](docs/agent-handoff.md). Review naming and numbering are defined in the [review conventions](docs/agile-workflow.md#review-gates-and-indexing).
 
 ## Build and verify
 
@@ -33,8 +33,9 @@ npm run verify
 1. `npm run typecheck` (`tsc -p tsconfig.json --noEmit`)
 2. `npm run build` (`tsc -p tsconfig.build.json`)
 3. `npm run test` (`node --test --test-reporter spec test`, every suite under `test/`)
+4. `scripts/Test-Package.ps1`, which rebuilds, runs `npm pack --ignore-scripts`, installs that exact tarball in a temporary directory outside this checkout, and runs the ledger scenario through the installed `agento` executable
 
-It stops on the first native command with a nonzero exit code and returns that code. It does not call `npm run verify`. The same script is the GitHub Actions gate. Dependencies must already be installed with `npm ci`.
+It stops on the first native command with a nonzero exit code and returns that code. It does not call `npm run verify`. `scripts/Test-Package.ps1` does not call it either. The same script is the GitHub Actions gate. Dependencies must already be installed with `npm ci`. A dirty worktree is a pre-commit probe. GitHub Actions sets `AGENTO_REQUIRE_CLEAN=1`, so the hosted pack must come from a clean checkout. The tarball and its provenance file are written to `artifacts/package/` and are not committed.
 
 This also runs the gate directly:
 
@@ -52,7 +53,7 @@ node .\dist\cli.js --version
 node .\dist\cli.js --root "C:\work\demo project" init
 ```
 
-In the examples below, `agento` means that compiled entry. Ledger commands do not call T3, Git, or the network.
+In the examples below, `agento` means that compiled entry unless a section says the command is the installed executable. Ledger commands do not call T3, Git, or the network.
 
 `--help` and `-h` print help to stdout and exit 0. With no arguments, behavior matches `--help`. Help lists the ledger commands and includes `Completion is a manual record, not gate acceptance.` Help for a known command describes that command. `--help` with an unknown command word exits 1. When help is absent, `--version` and `-v` print one stdout line, `agento 0.1.0`, and exit 0, including when other arguments are present. The version text is the `version` field of the `package.json` shipped beside the compiled entry.
 
@@ -98,11 +99,39 @@ These boundaries are what the tests cover:
 
 A kill or power loss during the rename or sync is not tested. Same-directory replacement is not a claim of filesystem crash durability. Reconciling a gap, a partial line, or a committed state with a missing event is a manual operator action after copying the diagnostic files aside.
 
+## Install a pinned controller
+
+The package stays `private: true`. That field blocks `npm publish`. It does not reserve a registry name, and it is not an npm paid private package. Nothing from this repository has been published.
+
+Install a verified tarball outside the source checkout. Keep the sibling `agento-0.1.0.provenance.json` with the tarball. That file records version `0.1.0`, the git revision that was packed, whether the worktree was dirty, and the tarball's SHA-256. `agento --version` prints `agento 0.1.0`. It does not print the git revision. Do not use `npm link`, and do not install from a path inside the checkout.
+
+`private: true` in `package.json` means the package cannot be published yet. The examples below use disposable directories and do not start a later development stage.
+
+```powershell
+$prefix = "C:\tools\agento 0.1.0"
+$tarball = "C:\tools\agento-0.1.0.tgz"
+New-Item -ItemType Directory -Force -Path $prefix | Out-Null
+Set-Location -LiteralPath $prefix
+npm init --yes
+npm install --ignore-scripts --omit=dev --engine-strict --no-fund --no-audit --no-package-lock $tarball
+$agento = Join-Path $prefix "node_modules\.bin\agento.ps1"
+& $agento --version
+
+$demo = "C:\work\controller demo"
+New-Item -ItemType Directory -Force -Path $demo | Out-Null
+& $agento --root $demo init
+& $agento --root $demo new DEMO-002 --title "Pinned controller" --outcome "Track one disposable epic by hand"
+& $agento --root $demo story add DEMO-002 S --title "Install the controller" --kind story
+& $agento --root $demo status DEMO-002
+```
+
+On Linux, the executable path is `node_modules/.bin/agento`. Publishing, tagging, and starting the next stage are separate decisions. See [npm distribution](docs/npm-distribution.md).
+
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs `npm ci` and `npm run verify` on `windows-latest` and `ubuntu-latest` with `shell: pwsh` and Node.js `26`. The job fails if `pwsh` is older than 7.6.0.
+`.github/workflows/ci.yml` runs `npm ci` and `npm run verify` on `windows-latest` and `ubuntu-latest` with `shell: pwsh` and Node.js `26`. The job fails if `pwsh` is older than 7.6.0. Verification requires a clean checkout and uploads `artifacts/package/` as a workflow artifact. That upload is not a GitHub Release and not an npm publication.
 
-The workflow uses pinned checkout/setup-node actions and the runner's PowerShell installation. It needs no T3 access, private infrastructure, or npm publishing credentials.
+The workflow uses pinned checkout, setup-node, and upload-artifact actions and the runner's PowerShell installation. It needs no T3 access, private infrastructure, or npm publishing credentials. `.github/workflows/release.yml` is a manual dispatch and is not part of this pull-request gate.
 
 ## Durable context
 

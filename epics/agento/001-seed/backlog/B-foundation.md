@@ -1,6 +1,6 @@
 # B: TypeScript foundation and early CI
 
-Status: in-review for PR/CI delivery; locally accepted in `reports/B-review.md`. Depends on: A contract accepted locally. One implementation agent.
+Status: done. PR #1 passed CI/review and was human-merged as `afc05074a27da2cb1a3c225bc9d42d10f184e504`; see `reports/bootstrap-delivery.md`. Depends on: A. One implementation agent.
 Kind: enabler task. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 Value: developers can build and verify each subsequent story with the same PowerShell gate locally and in CI.
 

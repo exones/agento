@@ -4,7 +4,7 @@ Status: planning baseline, 2026-11-03. Only the seed epic has executable backlog
 
 | Stage | Candidate | Delivered capability | Built using | Promotion proof |
 | --- | --- | --- | --- | --- |
-| 0 | Workflow bootstrap | Coordinator skill, analysis/refinement workflow, Agile epic/backlog templates, readiness/completion criteria, current checkpoint | Sol coordinator and project files | Skill validates; a fresh session can discover/read it and plan or resume from a short goal. Live host selection remains to be exercised. |
+| 0 | Workflow bootstrap | Coordinator skill, analysis/refinement workflow, Agile epic/backlog templates, readiness/completion criteria, current checkpoint | Sol coordinator and project files | Structural validation plus fresh short-goal planning via AGENTS routing in Codex/T3 recorded in the seed skill-proof report. Invisible UI selection, every host, and all workflow branches remain unproven. |
 | 1 | 0.1 seed | Manual epic/story ledger, CLI, state/events, PowerShell verification, Actions, packaged installation | Bootstrap coordinator skill and one implementation worker | Packed CLI works in a clean directory, local verification passes, Windows/Linux CI evidence recorded when remote exists. |
 | 2 | 0.2 supervised | Current T3 contract, doctor, explicitly requested single-worker dispatch, independent gate reports | Pinned 0.1 for tracking; operator launches agents | One real task completed; failed gate prevents acceptance; changed head invalidates old proof. |
 | 3 | 0.3 messaging | Typed routing, durable delivery, inbox/outbox, human questions, manual tick | Pinned 0.2, one worker | Real question/answer and fallback delivery; duplicate retries harmless; bounded conversation tests. |
@@ -12,7 +12,7 @@ Status: planning baseline, 2026-11-03. Only the seed epic has executable backlog
 | 5 | 0.5 recovery | Scheduled tick, bounded retry/nudge, pause/resume, thread replacement, export | Pinned 0.4, at most two workers | Interruption/restart exercises preserve work and prevent duplicate actions; fresh context resumes. |
 | 6 | Pilot | Real project proof, compatibility fixes, operating guide, revised defaults | Pinned 0.5 | Evidence-backed final report and retro; limitations explicitly handed over. |
 
-The coordinator skill is delivered in stage 0, before the CLI. Stage 4 adds deterministic coordination in the product; it is not the first time we use a coordinator. Later milestones refine the bootstrap skill using real delivery evidence. Agile work division follows `docs/agile-workflow.md`; the seed backlog contains spikes, an enabler, stories, and a review task rather than calling every item a story.
+The coordinator skill is delivered in stage 0, before the CLI. Stage 4 adds deterministic coordination in the product; it is not the first time we use a coordinator. Later milestones refine the bootstrap skill using real delivery evidence. Agile work division follows `docs/agile-workflow.md`; the seed backlog contains spikes, an enabler, and stories, with parent-scoped review gates rather than a new work item for each review.
 
 ## Bootstrap rules
 
@@ -33,7 +33,7 @@ Milestone review uses a fresh context. Start cross-provider review when configur
 
 ## Infrastructure lane
 
-npm is the confirmed release registry. Settle package account/scope/name and access settings before publication, then prepare GitHub Actions trusted publishing where supported. Keep B/C independent of registry setup and surface any user-owned publishing steps during D. The Forgejo discovery spike is cancelled; no self-hosted package infrastructure or tailnet CI access is planned.
+npm is the confirmed release registry. Settle package account/scope/name and access settings before publication, then prepare GitHub Actions trusted publishing where supported. Keep B/C independent of registry setup and surface any user-owned publishing steps during D. The Forgejo discovery spike is cancelled; no self-hosted package infrastructure or tailnet CI access is planned. `.github/workflows/release.yml` is the prepared manual dispatch. It uploads the verified tarball and skips `npm publish` until the package is deliberately made publishable and the GitHub variable `AGENTO_RELEASE` is `enabled`. Preparing that file does not authorize publication. Pinned-controller install steps are in the README.
 
 Until publication proof exists, retain and install exact versioned tarballs. Release assets provide a durable bootstrap fallback once authorized publishing is configured. Ordinary PR CI should not depend on the private registry or tailnet.
 

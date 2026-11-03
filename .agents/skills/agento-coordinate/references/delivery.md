@@ -4,6 +4,8 @@
 
 Use one scoped feature branch and PR per deliverable story or spike by default. Supporting checklist tasks and review reports belong to that delivery PR; do not create an endless chain of PRs reviewing review reports. Split a large item before implementation. A genuinely indivisible bootstrap may group earlier work with a logged reason, preserving the actual history.
 
+Routine reviews are gates of their parent item/epic, not new lettered backlog entries. Index passes and findings using `docs/agile-workflow.md`; attach their evidence and fixes to the parent's delivery PR. A genuinely separate implementation outcome may justify its own backlog item, but another reviewer or review round alone does not.
+
 Once relevant local gates pass, inspect the diff and stage only owned changes, then commit, push the owned feature branch, and open a PR. These routine steps are authorized by a scoped delivery request. Do not use `git add .` to sweep unrelated changes into a commit. Preserve another person's index and never rewrite their commits or force-push their branch. Do not switch/stage/commit a shared checkout while its worker is running.
 
 The PR body explains the outcome, relevant validation, limits, epic/item reference, and evidence paths. Use Conventional Commit style for the title too. Immediately link each created/pushed PR through the host's required PR-link tool. Record its URL and head SHA in the epic/report.

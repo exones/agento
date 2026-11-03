@@ -24,6 +24,11 @@ Release target: <milestone or none>. Controller/schema: <version or manual>.
 
 Order/WIP/resource ownership: <reasoning and limits>.
 
+## Review gates
+<List reviews with their parent, scope, exact checked revisions, and report links. Read and apply the authoritative review conventions linked below.>
+
+[Review conventions](../../../../docs/agile-workflow.md#review-gates-and-indexing) (template reference; resolve against the project root when generating an epic).
+
 ## Definition of Ready and Definition of Done
 <Project criteria plus epic-specific acceptance and review/release gates.>
 
