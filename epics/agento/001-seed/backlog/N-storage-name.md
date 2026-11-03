@@ -35,7 +35,7 @@ Worker owns affected product/test/docs files, `checkpoints/N.md`, and `reports/N
 
 ## Delivery record
 
-Pending. Follow shared delivery rules for scoped Conventional Commit, PR, exact checked head, hosted CI, review, and human-approved merge. Local acceptance alone is In Review.
+[Bootstrap PR #1](https://github.com/exones/agento/pull/1), branch `feat/seed-manual-ledger`. Product/fix revision `af0b69fa4c6ea8d2216d133c6d46a99981a1cbd9` passes local typecheck/build/40 tests, independent review, and Windows/Ubuntu hosted CI ([run](https://github.com/exones/agento/actions/runs/41663657936)). See [delivery evidence](../reports/bootstrap-delivery.md) and [review triage](../reports/bootstrap-review.md). Subsequent evidence-only documentation changes require current-head CI. Human-approved merge remains pending; N stays In Review.
 
 ## Report and resume
 
