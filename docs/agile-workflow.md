@@ -1,0 +1,54 @@
+# Agile work organization for agento
+
+## Work hierarchy
+
+- **Epic:** a measurable outcome large enough to need several backlog items. `epic.md` records the problem, scope, success measures, dependencies, decisions, and release evidence.
+- **Feature:** optional grouping of related capability inside an epic. Use a heading/field, not another tracking system. Skip it for a small epic.
+- **Story:** a small usable outcome, with a beneficiary, value, and testable acceptance criteria. Prefer vertical slices that can be reviewed independently.
+- **Task:** an implementation or verification step supporting a story/epic. Keep ordinary steps as a checklist in their parent item; separate only when ownership or dependencies warrant it.
+- **Spike:** bounded research with a question, effort/time limit, expected evidence, and a decision or follow-up. It must not become open-ended implementation.
+
+The release roadmap groups capability milestones; an epic is not automatically a fixed-duration sprint. Start with a prioritized flow of work and WIP limit one. Use a sprint goal/timebox only when scheduling provides value. Do not invent story points, velocity targets, daily ceremonies, or extra roles merely to use Agile names.
+
+## Files
+
+```text
+epics/<project>/<NNN>-<slug>/
+  epic.md                  # epic outcome and prioritized backlog index
+  backlog/<ID>-<slug>.md   # story, enabler/task, or spike; includes kind/acceptance
+  checkpoints/current.md  # coordinator-owned handoff
+  checkpoints/<ID>.md     # worker-owned handoff
+  reports/<ID>.md         # evidence and proposed status update
+  reports/final.md        # epic outcome and release evidence
+  retro.md                # observed lessons and follow-up backlog items
+```
+
+Keep IDs A/B/C/D/R/I for the existing seed. A is a spike, B an enabler task, C/D stories, R a review task, and I an optional infrastructure spike. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+
+## Analysis and refinement
+
+For a goal, inspect existing epic/backlog/checkpoints before creating new work. Record the problem and beneficiary, outcomes, relevant repository/build facts, constraints, unknowns, and risks. Ask only questions that materially change scope or acceptance; record reasonable defaults and continue independent analysis.
+
+Split into the smallest useful stories and necessary spikes/tasks. Explain dependency order and file/resource ownership. Each item has a kind, outcome, scope/non-goals, acceptance criteria, implementation checklist, dependency/ownership fields, required evidence, and a resume/report path. Stories describe user value; technical enablers can describe developer/operator value without forced user-story prose.
+
+Write `epic.md` and item files before dispatch. Use the coordinator skill's templates for new work; refine existing files instead of duplicating the backlog. A planning-only request ends with a reviewable plan. An execution request can continue within its authorized scope once the next item is ready.
+
+## Definition of Ready
+
+A backlog item is Ready when its outcome and boundaries are clear, dependencies are met, ownership is assigned, required inputs exist, acceptance criteria are testable, and the verification/evidence method is known. A spike is Ready when its question, limit, and required decision are clear. Unrelated external setup does not block local work.
+
+## Definition of Done
+
+For a delivery item: acceptance criteria satisfied; relevant deterministic checks passed; requested review findings triaged; report includes actual commands, results, revision/artifact identifiers when applicable, and limitations; checkpoint and documentation reflect the outcome. A worker submits for review; the coordinator confirms Done from evidence.
+
+For a spike: the question is answered with evidence or a concrete blocker, and the next decision/action is recorded. A useful completed spike need not produce code.
+
+Done for a story is distinct from a released epic. Missing remote CI/publication evidence remains visible on the epic's release checklist. Manually recording completion in the seed CLI does not create independent gate proof. Do not weaken acceptance criteria after failure; document and justify any genuine correction.
+
+## Flow and ownership
+
+Backlog -> Ready -> In Progress -> In Review -> Done. Use `blocked` with a specific blocker/owner/next action when progress cannot continue; preserve the prior state for resumption. `cancelled` needs a recorded reason. Use lowercase persisted labels: `backlog`, `ready`, `in-progress`, `in-review`, `done`, `blocked`, `cancelled`.
+
+Sol High is the preferred coordinator; Grok 4.7 Extra High through Cursor is the preferred worker. The coordinator owns epic/backlog status and shared checkpoint. Each worker owns its item checkpoint/report and implementation scope. Keep one seed worker at a time. Subsequent epics can raise WIP only when tool capabilities and boundaries support it.
+
+Every stage ends with an evidence review and short retrospective. Turn observed problems into a small fix, regression check, or backlog item; preserve the user's original outcome. No skill or status label grants permission to publish, merge, deploy, or change private infrastructure.

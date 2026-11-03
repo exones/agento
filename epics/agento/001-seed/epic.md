@@ -1,0 +1,85 @@
+# Epic AGENTO-001: a usable seed
+
+Created: 2026-11-03. Owner: user. Status: in-progress, starting spike A.
+Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
+Repository: current folder; Git/remote setup has not been established by this planning task.
+
+## Why
+
+Build agento incrementally and use its current release to organize the next release. Begin with durable files and a manual CLI ledger, then introduce execution and coordination. PowerShell automation, GitHub Actions, and Tailscale-based access to self-hosted Forgejo are part of the intended environment.
+
+## Outcomes
+
+1. A fresh agent can locate the next assignment and resume from files.
+2. One installable Node.js package exposes a TypeScript-built `agento` executable.
+3. The CLI creates an epic ledger, tracks stories, preserves state/events across processes, and renders readable status. An epic describes the outcome; a future execution run describes an attempt to deliver it.
+4. A PowerShell verification entry point runs meaningful product checks locally and in Windows/Linux GitHub Actions.
+5. The actual packed artifact works outside the source checkout and can track the next development stage.
+6. A report distinguishes local readiness, remote CI evidence, release blockers, and proposed next-stage work.
+7. A reusable coordinator skill turns a short goal into analysis, an epic/backlog, and acceptance planning; delivery/resume requests follow that plan without requiring the user to repeat a long prompt.
+
+## Scope boundary
+
+Include help/version, idempotent initialization, epic/story ledger creation, manual story tracking, state validation and serialization, events, status, tests, build/verification scripts, Actions, packaging proof, and operating instructions. The bootstrap coordinator skill is already authored before product implementation; its live usage will refine it.
+
+Exclude product T3 dispatch, messaging, automated gates/merge decisions, scheduling, watchdogs, provider failover, automatic exports, dashboards, registry deployment, and parallel implementation workers. A separate manually assigned coordinator may supervise the single worker. Seed completion is an explicit manual record, not independently verified acceptance.
+
+## Features and prioritized backlog
+
+Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an installable bootstrap release. Coordinator workflow bootstrapping supports both. The optional registry spike is outside seed acceptance.
+
+| ID | Kind | Feature | Backlog item | Depends on | Status | Evidence |
+| --- | --- | --- | --- | --- | --- | --- |
+| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | in-progress | Delegation requested; worker report pending |
+| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A local contract | backlog | No execution report yet |
+| C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B local gate | backlog | No execution report yet |
+| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C local gate | backlog | No execution report yet |
+| R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | backlog | No execution report yet |
+| I | optional spike | optional infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | Separate assignment | backlog | No execution report yet |
+
+A -> B -> C -> D -> R is sequential. R's findings go to an implementation fix assignment before closure. I is documentation/discovery only, outside seed acceptance. No agent launches another from these backlog items.
+
+In coordinated mode Sol owns this backlog table and `checkpoints/current.md`; Grok owns its item checkpoint and report. The coordinator skill assembles assignments from these files. Without a separate coordinator, the standalone agent maintains shared status.
+
+Local readiness can advance while GitHub target information is missing. The milestone must not claim remote CI passed or a release exists without evidence.
+
+## Seed CLI contract to settle in A
+
+Keep the surface small: `--help`, `--version`, `init`, `new`, `status`, and `story add/start/block/complete`. `new` creates the manual epic ledger; it does not start agents. Specify exact arguments, epic selection, story states, exits, and evidence notes in `docs/seed-contract.md` during A. Unsupported commands fail clearly. Avoid a generic mutable state setter. The coordinator's backlog may also contain tasks/spikes; A should specify how the seed's minimal ledger represents them without introducing extra command families.
+
+## Definition of Ready and Definition of Done
+
+Use [the project workflow](../../../docs/agile-workflow.md). Ready requires clear outcome/scope, satisfied dependencies, explicit ownership, and testable acceptance/evidence. A worker submits evidence for review; the coordinator confirms Done. A completed spike records its decision, not necessarily code. Item-level Done and epic release readiness are separate.
+
+Local state lives under `.crew/` and is excluded from Git once Git exists. The CLI owns state; work-item notes/checkpoints stay human readable. Document schema version, write serialization, interrupted-write handling, and state/event consistency. Test the guarantees actually implemented; defer automatic crash recovery to its roadmap stage.
+
+## Stage gates
+
+- [ ] Bootstrap skill: structural validation passes and short-goal planning/resume is exercised in a fresh supported host. Do not claim live discovery or delegation proof from schema validation alone.
+- [ ] A: environment facts and exact seed contract recorded; unknown T3 behavior deferred explicitly.
+- [ ] B: typecheck/build/tests run through PowerShell; basic CLI works; Actions workflow prepared.
+- [ ] C: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven.
+- [ ] D: tarball installs in a clean directory and performs the ledger exercise through the installed executable.
+- [ ] Windows and Linux GitHub Actions pass on the final candidate revision, or remain explicitly blocked pending repository setup.
+- [ ] R: findings triaged with evidence; fixes checked; no unresolved high-impact correctness/packaging issue.
+- [ ] Final report and retro written; next-stage controller installation instructions recorded.
+- [ ] If a release is authorized, exact version/artifact/digest and publication location recorded. Otherwise identify the candidate as locally ready, not released.
+
+## Decisions
+
+- 2026-11-03: user asked to start. Coordinator verified A's readiness and is assigning only spike A to Grok 4.7 Extra High through Cursor in the existing checkout. Review A's evidence before starting B; this assignment does not authorize product implementation or publication.
+- 2026-11-03, user: use Agile epic/story/task/spike organization. Renamed active files to `epics/.../epic.md` and `backlog/`; preserved IDs and historical reference material. Authored coordinator skill in stage 0 so analysis/refinement precedes implementation.
+- 2026-11-03: public npm is proposed for simpler distribution if public visibility is selected; Forgejo is optional. No registry is required to start A or build the seed tarball.
+- 2026-11-03, user preference: Sol High coordinates and Grok 4.7 Extra High implements; retain one implementation worker at a time. Added role-specific status ownership to avoid shared-file races.
+- 2026-11-03, user: CLI executable is `agento`, in full. Current implementation backlog items and examples follow this name.
+- 2026-11-03: follow `docs/decisions.md`; the original full MVP is a reference, not the seed implementation checklist.
+- 2026-11-03: work files now, product implementation only through assigned backlog items. Next is A.
+- 2026-11-03: self-hosted Forgejo is the intended registry; private connectivity follows `docs/forgejo-tailscale.md`; deployment awaits host discovery.
+
+## Open setup items
+
+See `docs/decisions.md` for the GitHub target, package identity, Forgejo host/storage, tailnet, and credential-delivery facts needed later. Do not copy identities or authorizations from inspiration examples.
+
+## Closure
+
+Use [report format](../../report-format.md). Write `reports/final.md` against outcomes 1-7 and complete `retro.md`. The accepted 0.1 artifact becomes stage 2's pinned controller; starting stage 2 requires its own refined epic/backlog.

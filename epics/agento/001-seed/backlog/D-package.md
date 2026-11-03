@@ -1,0 +1,36 @@
+# D: packed artifact and first bootstrap proof
+
+Status: backlog. Depends on: C local ledger gate passes. One implementation agent.
+Kind: story. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
+
+As an operator, I want to install a fixed agento package outside its source checkout so it can track the next epic while its successor is being edited.
+
+## Read first
+
+`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, and `reports/C.md`.
+
+## Outcome
+
+Prove the actual installable package can organize stage 2 from outside the source checkout. Prepare reproducible artifacts without publishing them in this assignment.
+
+## Work
+
+1. Set the candidate 0.1 version and package contents. Include compiled code and required runtime templates/assets; exclude run state, credentials, scratch files, and development-only material.
+2. Add `scripts/Test-Package.ps1` or an equivalently named PowerShell script: run `npm pack`, install that exact tarball in a clean temporary consumer directory, and exercise the installed `agento` executable. Do not use source imports, a checkout-local build command, or `npm link` as installation proof.
+3. Run the full ledger scenario, including a path with spaces and a new CLI process. Keep the installed controller separate from candidate build output.
+4. Integrate the smoke check into verification and Windows/Linux CI without recursion. Upload the tarball, digest, and useful test evidence as artifacts; record revision and tool versions. Do not promise byte-for-byte reproducibility unless measured.
+5. Prepare a release workflow/instructions for versioned tarball assets with explicit authority/trigger. Do not publish, tag remotely, or create a release now. Private Forgejo publishing remains a separate infrastructure task.
+6. Document installing a pinned controller outside the checkout and using it to create a stage 2 ledger. Use disposable demonstration data; do not mark stage 2 as started or approved.
+7. Reconcile the seed checklist and prepare `reports/final.md` with unmet gates visible. Leave the review gate pending R.
+
+## Acceptance
+
+- Installation from the exact packed file works without source-tree access for product behavior.
+- Given the packed candidate and a clean consumer directory, when installed and invoked as `agento`, then it creates an epic ledger and tracks a story without importing files from the development checkout.
+- Smoke check passes locally and is wired on Windows/Linux; cite remote results only if observed.
+- Artifact includes version, source revision, and digest. Local candidate vs remotely released package is unambiguous.
+- The next agent can install the candidate controller and track new work; no private service is required for this proof.
+
+## Output and stop
+
+Write `reports/D.md`, draft `reports/final.md`, update checkpoint and epic row. Handoff to a separately assigned R reviewer. Do not start the reviewer, publish, merge, deploy, or start stage 2.
