@@ -23,7 +23,7 @@ epics/<project>/<NNN>-<slug>/
   retro.md                # observed lessons and follow-up backlog items
 ```
 
-Keep IDs A/B/C/D/R/I for the existing seed. A is a spike, B an enabler task, C/D stories, R a review task, and I an optional infrastructure spike. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, R a review task, and I an optional infrastructure spike. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
 
 ## Analysis and refinement
 
@@ -39,9 +39,9 @@ A backlog item is Ready when its outcome and boundaries are clear, dependencies 
 
 ## Definition of Done
 
-For a delivery item: acceptance criteria satisfied; relevant deterministic checks passed; requested review findings triaged; report includes actual commands, results, revision/artifact identifiers when applicable, and limitations; checkpoint and documentation reflect the outcome. A worker submits for review; the coordinator confirms Done from evidence.
+For a delivery item: acceptance criteria satisfied, relevant local checks passed, scoped commit/PR exists, required hosted CI passes on its head, review findings are triaged, and human-approved merge is recorded. The report includes exact evidence and limitations; checkpoint/documentation reflect the outcome. Local acceptance alone stays In Review until the delivery gates are met.
 
-For a spike: the question is answered with evidence or a concrete blocker, and the next decision/action is recorded. A useful completed spike need not produce code.
+For a spike: the question is answered with evidence or a concrete blocker, the next decision/action is recorded, and the research/report passes through PR, applicable CI, review, and approved merge. A useful spike need not produce code or artificial product tests.
 
 Done for a story is distinct from a released epic. Missing remote CI/publication evidence remains visible on the epic's release checklist. Manually recording completion in the seed CLI does not create independent gate proof. Do not weaken acceptance criteria after failure; document and justify any genuine correction.
 
@@ -52,3 +52,5 @@ Backlog -> Ready -> In Progress -> In Review -> Done. Use `blocked` with a speci
 Sol High is the preferred coordinator; Grok 4.7 Extra High through Cursor is the preferred worker. The coordinator owns epic/backlog status and shared checkpoint. Each worker owns its item checkpoint/report and implementation scope. Keep one seed worker at a time. Subsequent epics can raise WIP only when tool capabilities and boundaries support it.
 
 Every stage ends with an evidence review and short retrospective. Turn observed problems into a small fix, regression check, or backlog item; preserve the user's original outcome. No skill or status label grants permission to publish, merge, deploy, or change private infrastructure.
+
+The canonical [delivery rules](../.agents/skills/agento-coordinate/references/delivery.md) define semantic commits, PR/head/CI/review evidence, the local-only bootstrap transition, and README boundaries. README describes usable project state; all operational progress belongs in epic/checkpoint/report files.

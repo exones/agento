@@ -1,13 +1,13 @@
 # D: packed artifact and first bootstrap proof
 
-Status: backlog. Depends on: C local ledger gate passes. One implementation agent.
+Status: backlog. Depends on: C local ledger gate and N storage-name correction pass. One implementation agent.
 Kind: story. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
 
 As an operator, I want to install a fixed agento package outside its source checkout so it can track the next epic while its successor is being edited.
 
 ## Read first
 
-`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, and `reports/C.md`.
+`AGENTS.md`, decisions, seed contract, roadmap bootstrap rules, epic/checkpoint, `reports/B.md`, `reports/C.md`, and `reports/N.md`.
 
 ## Outcome
 

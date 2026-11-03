@@ -25,7 +25,7 @@ In standalone mode, the assigned agent maintains the epic and current checkpoint
 
 ## Decisions and implementation
 
-- Project and CLI name: `agento`. Use `agento` in command examples, the package `bin` entry, and executable checks. See `docs/cli-name.md`. Retain `.crew/` until a storage rename is decided separately. Do not infer an npm scope from the project name.
+- Project, CLI, and local state directory names are `agento`, `agento`, and `.agento/`. Use them consistently in commands, package `bin`, storage, and checks. See `docs/cli-name.md`. The superseded pre-release directory `.crew/` is not read, written, migrated, or deleted. Do not infer an npm scope from the project name.
 - Product CLI and core: modern TypeScript on Node.js, strict checking, compiled JavaScript, one npm package initially.
 - Automation and operational scripts: PowerShell 7 (`pwsh`), including substantive logic where useful. Do not replace it merely because it is a shell language.
 - Source, PRs, build: GitHub and GitHub Actions.
@@ -37,7 +37,7 @@ In standalone mode, the assigned agent maintains the epic and current checkpoint
 
 ## State, gates, and release discipline
 
-Keep machine state authoritative and human status derived or clearly descriptive. Agents do not hand-edit future `.crew/run.json` files. State and event records must have documented revision and failure behavior; do not claim crash guarantees that have not been tested.
+Keep machine state authoritative and human status derived or clearly descriptive. Agents do not hand-edit future `.agento/run.json` files. State and event records must have documented revision and failure behavior; do not claim crash guarantees that have not been tested.
 
 The first release records manual progress. A human/agent marking an item complete is not independent gate evidence. Later gate evidence must identify the exact revision checked.
 
@@ -47,7 +47,11 @@ Develop future versions under a pinned, released controller installed outside th
 
 ## Shared and external actions
 
-Respect user changes. Inspect git status before editing. Work only in the assigned checkout and branch. Do not create a remote repository, merge, publish a release/package, deploy infrastructure, or change tailnet policy unless the task authorizes that action. Preparing code, workflows, plans, and evidence remains within implementation scope.
+Respect user changes. Inspect git status before editing. Work only in the assigned checkout and branch. A scoped delivery request authorizes scoped Conventional Commits, pushes to an owned feature branch, and PR creation after relevant local gates pass; follow `.agents/skills/agento-coordinate/references/delivery.md`. Human merge authority remains unchanged. Do not create a remote repository, merge, publish a release/package, deploy infrastructure, or change tailnet policy unless the task authorizes that action.
+
+Spikes also deliver through PR, applicable CI, and review. Local acceptance is distinct from Done after CI/review/approved merge. Preserve existing user commits/index, and do not stage/commit/switch a shared checkout while a worker is running. Workers follow their assigned Git boundaries; the coordinator handles a Git transition only at a safe handoff boundary.
+
+README is the repository frontend for supported capabilities, setup, usage, architecture, and limits. Keep current backlog/progress and handoff details in the epic/checkpoints/reports. A stable link to contributor documentation is fine; do not use README as a coordinator dashboard.
 
 Do not put secrets in chat, git, reports, fixtures, or logs. Reference secret names and use the environment's secret mechanism when needed. Do not copy permissions or infrastructure identities from `inspiration/`.
 

@@ -1,8 +1,10 @@
 # B: TypeScript foundation and early CI
 
-Status: in-progress, delegation requested. Depends on: A contract accepted. One implementation agent.
+Status: in-review for PR/CI delivery; locally accepted in `reports/B-review.md`. Depends on: A contract accepted locally. One implementation agent.
 Kind: enabler task. Epic: AGENTO-001. Feature: F1, verified manual tracking.
 Value: developers can build and verify each subsequent story with the same PowerShell gate locally and in CI.
+
+Storage naming note: `.crew/` below records this item's original assignment. D18 and task N supersede it with `.agento/` in the current candidate.
 
 ## Read first
 

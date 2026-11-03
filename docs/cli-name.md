@@ -6,7 +6,7 @@ Updated: 2026-11-03. Selected by the user: project and CLI name are both `agento
 
 Use `agento` as the executable: `agento --version`, `agento init`, `agento new`, and `agento status`. Configure the npm package's `bin` entry and installed-package smoke checks for `agento`. No short alias is selected.
 
-The earlier `crew` command name is superseded in current plans. The original MVP document remains historical reference material. Keep the planned `.crew/` state directory until a separate storage decision is made. npm publication name/scope still needs to be selected independently.
+Use `.agento/` for local state as well. The user confirmed on 2026-11-03 that the storage name must follow the tool name; this supersedes the earlier decision to retain `.crew/`. The earlier `crew` command name is also superseded. The original MVP document remains historical reference material. npm publication name/scope still needs to be selected independently.
 
 ## Naming history
 
@@ -23,4 +23,4 @@ Nearby short names also have existing CLI uses: [ago](https://github.com/troyshu
 
 Targeted web searches did not identify a prominent standalone CLI under either proposed name. This is a limited collision check, not a guarantee of uniqueness or npm package availability. Check the chosen executable on target machines and package identity before publishing.
 
-Naming is resolved for task A's seed contract. No product executable exists yet; these documents specify its implementation name.
+Naming is resolved for the executable and state directory. Runtime paths, help, errors, tests, the Git ignore rule, and the seed contract use `.agento/`. The CLI does not migrate, alias, or delete a pre-existing `.crew/` directory. Old disposable ledgers under that name stay where they are.

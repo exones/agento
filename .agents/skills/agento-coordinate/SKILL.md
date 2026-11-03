@@ -44,6 +44,18 @@ Give a worker its role, exact backlog path, read-first paths, dependency reports
 
 Inspect the actual changes and check relevant evidence before moving In Review to Done. Run independent checks where the item's gate requires them. A worker report is a claim, not automatic acceptance. Preserve blockers and failed gates; return actionable findings as scoped fixes. Request fresh reviews at the declared milestone.
 
+## Commit, PR, CI, and review
+
+Use [delivery rules](references/delivery.md) for every delivery item, including research spikes. Passing local gates should produce a scoped Conventional Commit and PR; do not leave accepted work indefinitely uncommitted. Normal delivery requests authorize scoped commits, pushes to an owned feature branch, and PR creation without another permission question. Merge authority remains with the human unless explicitly changed.
+
+Keep local acceptance separate from delivery Done. Record PR URL, checked head SHA, hosted CI, review triage, and merge result in the epic. Do not mark an item Done solely because its local gate passes. A docs-only spike still has a reviewable PR and applicable documentation/CI checks; do not add meaningless tests or bypass required checks.
+
+README is the repository frontend: supported capabilities, setup, usage, architecture, and known limits. Keep active work, backlog IDs/status, next assignments, and coordinator handoffs in epic/checkpoint/report files. Update README only when documented project behavior changes. A stable development-guide link is fine; a progress dashboard is not.
+
+Reusable guides such as `docs/agent-handoff.md` describe mechanics and clearly marked placeholder examples. Do not put current assignments, completed-item tables, next-work recommendations, or dated runtime observations there. Link to the epic index instead; avoid maintaining duplicate progress sources.
+
+If a worker is already running in a shared checkout, do not switch branches, stage, commit, push, or edit its files concurrently. Apply the new delivery workflow when its result returns. Preserve existing user commits/index; reconcile earlier local-only acceptance honestly without rewriting history or inventing retrospective PR/CI proof.
+
 ## Close or checkpoint
 
 Update epic/backlog status, decisions, shared checkpoint, and next action at meaningful boundaries. Record revision, controller version if one exists, in-flight commands/logs, completed evidence, blockers, and exact resume point. Plans and runtime state must not become two competing authorities.
