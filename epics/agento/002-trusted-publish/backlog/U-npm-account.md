@@ -5,7 +5,7 @@ Status: blocked. Owner: user. Depends on: the user's npm session.
 
 ## Read first
 
-`AGENTS.md`, `docs/decisions.md`, `docs/npm-distribution.md`, this epic, and `checkpoints/current.md`. After seed D merges, follow the fuller account list in `docs/npm-distribution.md`.
+`AGENTS.md`, `docs/decisions.md`, `docs/npm-distribution.md`, this epic, and `checkpoints/current.md`. After [AGENTO-001/D](../../001-seed/backlog/D-package.md) merges, follow the fuller account list in `docs/npm-distribution.md`.
 
 ## Value or research question
 
@@ -15,7 +15,7 @@ The maintainer holds the nonsecret npm steps that an agent cannot perform: accou
 
 Blocked until the user completes the steps below. The blocker is the npm account and a package name other than unscoped `agento`. That blocker does not stop review of the planning PR.
 
-Nonsecret steps, to follow the fuller list in `docs/npm-distribution.md` once D merges:
+Nonsecret steps, to follow the fuller list in `docs/npm-distribution.md` once AGENTO-001/D merges:
 
 1. Enable 2FA on the npm account.
 2. Choose a name other than unscoped `agento`, likely `@scope/agento`. The package is public. A paid private package is not the choice unless the user accepts that cost separately.

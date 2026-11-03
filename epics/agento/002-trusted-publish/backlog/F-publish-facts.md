@@ -1,15 +1,15 @@
 # F: publish and install-script facts
 
 Kind: spike. Epic: [AGENTO-002](../epic.md). Feature: public npm release.
-Status: backlog. Owner: assigned later. Depends on: seed D merged and an explicit execute request.
+Status: backlog. Owner: assigned later. Depends on: [AGENTO-001/D](../../001-seed/backlog/D-package.md) merged and an explicit execute request.
 
 ## Read first
 
-`AGENTS.md`, `docs/decisions.md`, this epic, `checkpoints/current.md`, `docs/npm-distribution.md`, `package.json`, and the lockfile. Read D's merged packaging report before treating `release.yml` as present.
+`AGENTS.md`, `docs/decisions.md`, this epic, `checkpoints/current.md`, `docs/npm-distribution.md`, `package.json`, and the lockfile. Read the merged [AGENTO-001/D](../../001-seed/backlog/D-package.md) packaging report before treating `release.yml` as present.
 
 ## Value or research question
 
-On the tree after seed D merges, which dependency lifecycle scripts, git dependencies, and remote URL dependencies exist, and can Node.js 26 with npm 11.20 express a strict allowlist that matches npm 12 defaults?
+On the tree after AGENTO-001/D merges, which dependency lifecycle scripts, git dependencies, and remote URL dependencies exist, and can Node.js 26 with npm 11.20 express a strict allowlist that matches npm 12 defaults?
 
 Limit: one session. Required decision: an empty or specific `allowScripts` list, and whether S uses strict allow-scripts on current npm or a separate npm 12 install.
 
@@ -17,19 +17,19 @@ The [8 July 2026 changelog](https://github.blog/changelog/2026-07-08-npm-install
 
 ## Scope and non-goals
 
-Inspect the merged tree. Record command output. Decide the enforcement mechanism for S.
+Inspect the merged AGENTO-001/D tree. Record command output. Decide the enforcement mechanism for AGENTO-002/S.
 
 Do not publish. Do not add a workflow feature. Do not change the Node.js engine. Do not set `ignore-scripts=true` or `dangerously-allow-all-scripts`. Do not edit `feat/package-bootstrap`. This spike is not Ready in the planning PR.
 
 ## Acceptance criteria
 
-1. Given the merged D tree and the pinned toolchain, when the spike runs `npm approve-scripts --allow-scripts-pending` and records `npm --version`, then `reports/F.md` cites that output.
+1. Given the merged AGENTO-001/D tree and the pinned toolchain, when the spike runs `npm approve-scripts --allow-scripts-pending` and records `npm --version`, then `reports/F.md` cites that output.
 2. Given that output, when the spike finishes, then the report states whether the allowlist is empty or names specific scripts, and whether S enforces strict allow-scripts on current npm or runs one separate npm 12 install.
 3. The spike does not change product code, `engines.node`, or `.github/workflows`.
 
 ## Implementation or research tasks
 
-- [ ] Confirm seed D is on `main` and the assignment says to execute.
+- [ ] Confirm AGENTO-001/D is on `main` and the assignment says to execute.
 - [ ] Run the inventory and version commands. Cite the output.
 - [ ] Record the allowlist decision and the S enforcement choice.
 - [ ] Write `checkpoints/F.md` and `reports/F.md`. Stop after this item.

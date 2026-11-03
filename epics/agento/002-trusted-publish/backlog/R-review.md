@@ -1,6 +1,6 @@
 # R: review the install policy and OIDC guard
 
-Kind: review task. Epic: [AGENTO-002](../epic.md). Feature: public npm release.
+Kind: review task. Epic: [AGENTO-002](../epic.md). Feature: public npm release. This R is AGENTO-002/R. AGENTO-001 has a separate review item, AGENTO-001/R.
 Status: backlog. Owner: a reviewer other than the S and O author. Depends on: S and O.
 
 ## Read first

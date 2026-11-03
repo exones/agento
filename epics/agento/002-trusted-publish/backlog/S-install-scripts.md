@@ -1,7 +1,7 @@
 # S: fail unreviewed install scripts
 
 Kind: story. Epic: [AGENTO-002](../epic.md). Feature: public npm release.
-Status: backlog. Owner: one implementation worker. Depends on: F.
+Status: backlog. Owner: one implementation worker. Depends on: AGENTO-002/F.
 
 ## Read first
 
