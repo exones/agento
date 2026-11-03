@@ -107,7 +107,7 @@ export function helpText(version: string, topic: HelpTopic): string {
         "Usage:",
         "  agento [--root <dir>] story block <epic-id> <item-id> --reason <text> [--note <text>] [--next <text>]",
         "",
-        "Block an in-progress item. --reason is required. The default next action is \"Resolve: <reason>\".",
+        "Block an in-progress item. --reason is required. The default next action is \"Resolve: <reason>\" when it fits within 500 characters, otherwise \"Resolve block; see block reason.\". The full reason is preserved.",
       ]);
     case "story-complete":
       return finish([

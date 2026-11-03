@@ -163,7 +163,7 @@ Omitted `--next` stores:
 | --- | --- |
 | add | `Start item <item-id>.` |
 | start, including resume | `Continue item <item-id>.` |
-| block | `Resolve: <reason>` |
+| block | `Resolve: <reason>` when that generated text is at most 500 characters; otherwise `Resolve block; see block reason.`. The full reason is preserved in `blockReason` and the event's `reason`. |
 | complete | `None. Manual record only.` |
 
 An explicit `--next` replaces that default. Omitted `--note` stores null on add and keeps the existing note on later commands. An explicit `--note` replaces it. Resume clears `blockReason` and `blockedFrom` in the state file. The block event retains the reason. Completion stores the evidence string and `acceptance: "manual"`. The only acceptance value schema 1 can store is `manual`.

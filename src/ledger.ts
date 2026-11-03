@@ -17,7 +17,7 @@ import {
 } from "./ledger-fs.js";
 import { formatStatusJson, formatStatusText, formatWarnings } from "./status.js";
 import { parseState, serializeState, type Epic, type LedgerState, type WorkItem } from "./state.js";
-import type { ItemState, Kind } from "./text.js";
+import { LIMITS, type ItemState, type Kind } from "./text.js";
 
 const STORAGE_MUST_BE_REAL = `error: ${STORAGE_DIRECTORY} must be a real directory inside the project root`;
 const STATE_MUST_BE_REGULAR = `error: state file must be a regular file inside ${STORAGE_DIRECTORY}`;
@@ -373,7 +373,9 @@ function applyBlock(state: LedgerState, command: Extract<Command, { type: "story
   if (item.state !== "in-progress") {
     throw new LedgerFailure(2, `error: cannot block item ${item.id} from ${item.state}`);
   }
-  const nextAction = command.next === null ? `Resolve: ${command.reason}` : command.next;
+  const defaultNext = `Resolve: ${command.reason}`;
+  const nextAction = command.next ??
+    (defaultNext.length <= LIMITS.next ? defaultNext : "Resolve block; see block reason.");
   const updated: WorkItem = {
     id: item.id,
     kind: item.kind,

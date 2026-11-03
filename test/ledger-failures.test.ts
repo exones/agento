@@ -405,7 +405,7 @@ describe("ledger preservation and failure boundaries", () => {
     });
   });
 
-  test("a read-only state file fails before commit and keeps the previous bytes", async () => {
+  test("a read-only state destination follows platform replacement semantics", async () => {
     await withRoot(async (root) => {
       await initDemo(root);
       const before = await snapshotLedger(root);
@@ -413,11 +413,27 @@ describe("ledger preservation and failure boundaries", () => {
       await chmod(statePath, 0o444);
       try {
         const result = await runCli(["story", "add", "DEMO-001", "S", "--title", "Ship"], root);
-        expectErr(result, 5, "error: cannot write state\n");
-        assertSameBytes(before, await snapshotLedger(root));
-        const temp = await readFile(join(root, ".agento", "state.json.tmp"), "utf8");
-        assert.match(temp, /"revision": 2/u);
-        assert.match(temp, /Ship/u);
+        if (process.platform === "win32") {
+          expectErr(result, 5, "error: cannot write state\n");
+          assertSameBytes(before, await snapshotLedger(root));
+          const temp = await readFile(join(root, ".agento", "state.json.tmp"), "utf8");
+          assert.match(temp, /"revision": 2/u);
+          assert.match(temp, /Ship/u);
+        } else {
+          // POSIX rename-over checks the directory, not the destination's write bit.
+          assert.equal(result.code, 0, result.stderr);
+          assert.equal(result.stdout, "added story S backlog\n");
+          assert.equal(result.stderr, "");
+          const committed = await snapshotLedger(root);
+          assert.notDeepEqual(committed.state, before.state);
+          assert.notDeepEqual(committed.events, before.events);
+          const status = await runCli(["status", "--json"], root);
+          assert.equal(status.code, 0, status.stderr);
+          const body = JSON.parse(status.stdout) as { revision: number; eventsRevision: number; eventsLag: boolean };
+          assert.equal(body.revision, 2);
+          assert.equal(body.eventsRevision, 2);
+          assert.equal(body.eventsLag, false);
+        }
       } finally {
         await chmod(statePath, 0o666);
       }

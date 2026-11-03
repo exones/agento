@@ -30,10 +30,10 @@ Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an instal
 
 | ID | Kind | Feature | Backlog item | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | in-review | [Local acceptance](reports/A-review.md); commit exists, PR/CI delivery pending |
-| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A contract accepted locally | in-review | [Local acceptance](reports/B-review.md); 7 tests pass, PR/CI delivery pending |
-| C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B local gate accepted | in-review | [Worker evidence](reports/C.md); coordinator reran typecheck/build/38 tests successfully; hosted CI/review/merge pending |
-| N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C returned; local ledger gate passed | in-review | [Worker evidence](reports/N.md), [local review](reports/N-review.md); coordinator reran 39 tests; PR/CI/review/merge pending |
+| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | in-review | [Local acceptance](reports/A-review.md); [bootstrap PR #1](https://github.com/exones/agento/pull/1), CI/review/merge pending |
+| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A contract accepted locally | in-review | [Local acceptance](reports/B-review.md); [bootstrap PR #1](https://github.com/exones/agento/pull/1), CI/review/merge pending |
+| C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B local gate accepted | in-review | [Worker evidence](reports/C.md); [bootstrap PR #1](https://github.com/exones/agento/pull/1); [review findings and fixes](reports/bootstrap-review.md), local 40-test gate passed; final CI/recheck/merge pending |
+| N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C returned; local ledger gate passed | in-review | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [bootstrap PR #1](https://github.com/exones/agento/pull/1), CI/review/merge pending |
 | D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N local gates | backlog | No execution report yet |
 | R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | backlog | No execution report yet |
 | I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
@@ -72,6 +72,7 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 
 ## Decisions
 
+- 2026-11-03: fresh bootstrap review found a long-reason generated-default bug (P1) and an incorrect POSIX rename expectation (P2). Corrected the bounded generated default while preserving the full 2000-character reason and explicit 500-character next action. Preserved pre-commit failure coverage; the corrected read-only-destination test asserts each platform's actual semantics. Initial Ubuntu CI confirmed the original test failure. Forty local tests now pass; final hosted CI and fix review remain required.
 - 2026-11-03: N returned and its local gate passed independently (39 tests). README now contains supported capabilities/usage and stable contributor links, with live progress removed. Reconcile A/B/C/N through one bootstrap PR because A/B already share the user's `3283807` commit; preserve it without rewriting history. Fresh review and hosted CI must examine the actual candidate head.
 - 2026-11-03, user: storage must also use the selected tool name. `.agento/` supersedes `.crew/`; added bounded task N after C and before D to avoid concurrent worker edits. Historical reports/original reference material retain the names actually observed.
 - 2026-11-03: user requires commit/PR/CI/review delivery (including spikes), Conventional Commits, and no work-progress dashboard in README. A/B are locally accepted but In Review pending delivery gates. Preserve user's existing `3283807` bootstrap commit; reconcile real PR coverage after C returns. Keep C running unchanged and defer README/index/branch changes until then.

@@ -1,6 +1,6 @@
 # Bootstrap delivery: A/B/C/N
 
-Date: 2026-11-03. Status: preparing feature branch and PR; no merge or publication authorized.
+Date: 2026-11-03. Status: [PR #1](https://github.com/exones/agento/pull/1) open; no merge or publication authorized.
 
 ## Delivery scope and history
 
@@ -12,11 +12,17 @@ Created that branch and committed product changes as `6d901901e5b4eb17d9b8c1feff
 
 ## Checks
 
+- Initial PR head: `a5c08402ff92768f88a5dbc69c2fc5036a5cbe8e`, including documentation commit `docs(workflow): record bootstrap delivery and storage decision`. Branch pushed and PR linked in T3. First observed hosted jobs: Windows and Ubuntu In Progress; no pass claimed.
+- Separate fresh reviewer assigned to that exact head, including coordinator-authored documentation. Review is supporting bootstrap delivery, not final R (D does not exist yet).
 - C gate independently rerun before N: Node v26.13.0/npm 11.20.0, typecheck/build, 38 tests passed.
 - N gate independently rerun after N: `pwsh -NoProfile -File ./scripts/Verify.ps1`, exit 0, same toolchain, 39 tests in 3 suites passed, no skips.
 - `git diff --check` passes. Documentation links and coordinator skill validation are checked before commit.
 - README progress cleanup changes documentation only after the N gate.
 - Fresh candidate review and hosted Windows/Linux CI are pending; local evidence is not a platform approval or merge decision.
+
+## Review corrections
+
+Fresh review completed on initial head `a5c08402ff92768f88a5dbc69c2fc5036a5cbe8e`; two findings and corrections are recorded in [bootstrap-review.md](bootstrap-review.md). Initial Ubuntu CI failed on the Windows-only read-only destination assumption; preserved that failure evidence. The long-reason fix and corrected platform expectation pass a new local typecheck/build/40-test gate. Push corrections and request a bounded independent fix review; hosted CI must check the new head. No merge/publication performed.
 
 ## Next
 

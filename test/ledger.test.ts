@@ -550,6 +550,33 @@ describe("manual ledger lifecycle", () => {
     });
   });
 
+  test("block defaults stay readable at reason and next-action length boundaries", async () => {
+    await withRoot(async (root) => {
+      await expectOk(root, ["init"], "initialized schema 1\n");
+      await expectOk(root, ["new", "DEMO-001", "--title", "Demo", "--outcome", "Check limits"], "created epic DEMO-001\n");
+      for (const length of [491, 492, 2000]) {
+        const id = `S${length}`;
+        await expectOk(root, ["story", "add", "DEMO-001", id, "--title", "Ship"], `added story ${id} backlog\n`);
+        await expectOk(root, ["story", "start", "DEMO-001", id], `started story ${id} in-progress\n`);
+        const reason = "R".repeat(length);
+        await expectOk(root, ["story", "block", "DEMO-001", id, "--reason", reason], `blocked story ${id}\n`);
+        const status = await runCli(["status", "DEMO-001", "--json"], root);
+        assert.equal(status.code, 0, status.stderr);
+        assert.equal(status.stderr, "");
+        const body = JSON.parse(status.stdout) as { epic: EpicRecord; eventsLag: boolean; revision: number; eventsRevision: number };
+        const item = body.epic.items.find((candidate) => candidate.id === id);
+        assert.equal(item?.blockReason, reason);
+        assert.equal(item?.nextAction, length === 491 ? `Resolve: ${reason}` : "Resolve block; see block reason.");
+        assert.equal(body.eventsLag, false);
+        assert.equal(body.eventsRevision, body.revision);
+        await expectOk(root, ["story", "start", "DEMO-001", id], `resumed story ${id} in-progress\n`);
+        await expectOk(root, ["story", "block", "DEMO-001", id, "--reason", reason, "--next", "N".repeat(500)], `blocked story ${id}\n`);
+        assert.equal((await readState(root)).epics[0]?.items.find((candidate) => candidate.id === id)?.nextAction, "N".repeat(500));
+        await expectOk(root, ["story", "start", "DEMO-001", id], `resumed story ${id} in-progress\n`);
+      }
+    });
+  });
+
   test("a pre-existing .crew directory is left untouched and is not the ledger", async () => {
     await withRoot(async (root) => {
       const oldDir = join(root, ".crew");
