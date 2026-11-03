@@ -37,6 +37,8 @@ npm is the confirmed release registry. Settle package account/scope/name and acc
 
 Until publication proof exists, retain and install exact versioned tarballs. Release assets provide a durable bootstrap fallback once authorized publishing is configured. Ordinary PR CI should not depend on the private registry or tailnet.
 
+[Epic AGENTO-002](../epics/agento/002-trusted-publish/epic.md) plans the trusted-publisher release path from D19. It is not a new product stage, and opening or merging that plan does not authorize publication.
+
 ## Stage retrospectives
 
 At each boundary record intervention count, gate failures, recovery problems, and coordination overhead when measurable. Turn observed failures into regression tests or a concise rule; route improvements through ordinary PRs. Replan remaining work within the goal, documenting why. Changes to scope or acceptance standards need an explicit decision.

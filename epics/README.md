@@ -3,6 +3,7 @@
 Record what was asked, done, proven, and left so work can resume without chat history. Structure is loosely based on `inspiration/`.
 
 - [agento 001: seed](agento/001-seed/epic.md): first CLI, manual progress, PowerShell verification, GitHub Actions, packaged installation.
+- [agento 002: trusted publish](agento/002-trusted-publish/epic.md): plan for automatic public npm publication through GitHub Actions trusted publishing. Planning does not publish the package.
 
 Each epic has an `epic.md`, a `backlog/` of stories/tasks/spikes, a resumable `checkpoints/current.md`, completion `reports/`, and a stage `retro.md`. Backlog items exist before work starts. Reports link actual evidence and distinguish local checks from remote results. Keep binaries small and exclude secrets and scratch data. Use the [Agile workflow](../docs/agile-workflow.md) for work division and Ready/Done criteria.
 

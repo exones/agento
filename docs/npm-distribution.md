@@ -2,6 +2,8 @@
 
 Status: selected registry, 2026-11-03. This supersedes the Forgejo/Tailscale registry proposal. GitHub hosts source, PRs, and Actions; npm hosts release packages. No publishing has been performed or authorized by selecting this registry.
 
+[Epic AGENTO-002](../epics/agento/002-trusted-publish/epic.md) plans automatic public publication with GitHub Actions trusted publishing (D19). That plan does not authorize a publish, a tag, or a GitHub Release. The package stays `private: true`.
+
 ## Delivery sequence
 
 1. B implements the TypeScript foundation and prepares deterministic Windows/Linux Actions checks. No npm account is needed for local package installation and build verification with public dependencies.
