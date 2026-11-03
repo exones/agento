@@ -32,7 +32,7 @@ This is a documentation/skill behavior change. It does not change CLI ID validat
 - [x] Inspect current planning entry points and identify why arbitrary/title-derived IDs remain possible.
 - [x] Define the convention centrally, including stable existing IDs and later additions.
 - [x] Route the coordinator skill and relevant templates to that section.
-- [ ] Run and inspect the bounded fresh planning exercise; retain concrete evidence. The coordinator arranges this after the committed candidate. The worker does not launch it.
+- [x] Run and inspect the bounded fresh planning exercise; retain concrete evidence. Coordinator accepted the three-story A/B/C case on exact `da4792a`; see [validation record](../reports/D1-validation.md) for artifacts, checks, and limits.
 - [x] Validate links, skill structure, and formatting. Applicable CI, independent review, and human-approved merge remain open.
 
 ## Ownership, review, and output
