@@ -4,7 +4,7 @@ Updated: 2026-11-03. Coordinator-owned resume point.
 
 ## Task and checkout
 
-Active work: planning only. No backlog item is in progress. F, S, O, and R are backlog. U is blocked. None of them are Ready.
+Active work: planning only. No backlog item is in progress. A, B, C, and E are backlog. D is blocked. None of them are Ready.
 
 Checkout: `C:\worktrees\agento\docs-002-trusted-publish`. Branch: `docs/002-trusted-publish`. Base: `origin/main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`. Controller: bootstrap `agento-coordinate` skill and manual files.
 
@@ -28,18 +28,18 @@ Local check: relative links in the new epic files and the `epics/README.md` bull
 
 - `epics/README.md`
 - `epics/agento/002-trusted-publish/epic.md`
-- `epics/agento/002-trusted-publish/backlog/F-publish-facts.md`
-- `epics/agento/002-trusted-publish/backlog/S-install-scripts.md`
-- `epics/agento/002-trusted-publish/backlog/O-oidc-guard.md`
-- `epics/agento/002-trusted-publish/backlog/U-npm-account.md`
-- `epics/agento/002-trusted-publish/backlog/R-review.md`
+- `epics/agento/002-trusted-publish/backlog/A-publish-facts.md`
+- `epics/agento/002-trusted-publish/backlog/B-install-scripts.md`
+- `epics/agento/002-trusted-publish/backlog/C-oidc-guard.md`
+- `epics/agento/002-trusted-publish/backlog/D-npm-account.md`
+- `epics/agento/002-trusted-publish/backlog/E-review.md`
 - `epics/agento/002-trusted-publish/checkpoints/current.md`
 - `epics/agento/002-trusted-publish/reports/planning.md`
 
 ## Next concrete action
 
-User reviews [PR #3](https://github.com/exones/agento/pull/3). Do not start AGENTO-002/F until the user asks to execute and AGENTO-001/D is merged. Do not merge without human approval.
+User reviews [PR #3](https://github.com/exones/agento/pull/3). Do not start AGENTO-002/A until the user asks to execute and AGENTO-001/D is merged. Do not merge without human approval.
 
 ## Blockers and inputs
 
-None for accepting the plan. U remains blocked on the npm account and a package name other than unscoped `agento`. That does not block plan review.
+None for accepting the plan. AGENTO-002/D remains blocked on the npm account and a package name other than unscoped `agento`. That does not block plan review.

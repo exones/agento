@@ -1,11 +1,11 @@
-# O: guard the OIDC release workflow
+# C: guard the OIDC release workflow
 
 Kind: story. Epic: [AGENTO-002](../epic.md). Feature: public npm release.
-Status: backlog. Owner: one implementation worker. Depends on: AGENTO-002/F and [AGENTO-001/D](../../001-seed/backlog/D-package.md) merged.
+Status: backlog. Owner: one implementation worker. Depends on: AGENTO-002/A, AGENTO-002/B, and [AGENTO-001/D](../../001-seed/backlog/D-package.md) merged.
 
 ## Read first
 
-`AGENTS.md`, `docs/decisions.md`, `docs/roadmap.md`, `docs/npm-distribution.md`, this epic, `checkpoints/current.md`, `reports/F.md`, and the merged `.github/workflows/release.yml`. AGENTO-002/S has already finished when this item starts, because AGENTO-002/S and AGENTO-002/O both touch CI and docs.
+`AGENTS.md`, `docs/decisions.md`, `docs/roadmap.md`, `docs/npm-distribution.md`, this epic, `checkpoints/current.md`, `reports/A.md`, and the merged `.github/workflows/release.yml`. AGENTO-002/B has already finished when this item starts, because AGENTO-002/B and AGENTO-002/C both touch CI and docs.
 
 ## Value or research question
 
@@ -26,7 +26,7 @@ Do not dispatch the workflow. Do not set `AGENTO_RELEASE`. Do not flip `private`
 
 After AGENTO-001/D is on `main`, add one dated `docs/decisions.md` log entry for this epic's OIDC, Node.js 26, and Forgejo choices, and one `docs/roadmap.md` sentence linking `epics/agento/002-trusted-publish/epic.md`. The planning PR does not claim those docs are updated.
 
-Keep `npm publish --ignore-scripts` on the packed tarball as the publish control already prepared by AGENTO-001/D. Do not treat it as the install allowlist from AGENTO-002/S.
+Keep `npm publish --ignore-scripts` on the packed tarball as the publish control already prepared by AGENTO-001/D. Do not treat it as the install allowlist from AGENTO-002/B.
 
 ## Acceptance criteria
 
@@ -40,11 +40,11 @@ Keep `npm publish --ignore-scripts` on the packed tarball as the publish control
 - [ ] Confirm `release.yml` on `main` is the workflow merged with AGENTO-001/D before editing.
 - [ ] Add the regression check without dispatching.
 - [ ] Add the decision-log entry and the one roadmap sentence.
-- [ ] Write `checkpoints/O.md` and `reports/O.md`. Stop after this item.
+- [ ] Write `checkpoints/C.md` and `reports/C.md`. Stop after this item.
 
 ## Ownership and verification
 
-Own the regression check, the two documentation sentences, `checkpoints/O.md`, and `reports/O.md`. Meaningful check: the regression check against the real workflow and against a negative fixture. Hosted CI must pass. Do not mark Done because the planning PR merged. AGENTO-002/R reviews the candidate.
+Own the regression check, the two documentation sentences, `checkpoints/C.md`, and `reports/C.md`. Meaningful check: the regression check against the real workflow and against a negative fixture. Hosted CI must pass. Do not mark Done because the planning PR merged. AGENTO-002/E reviews the candidate.
 
 ## Delivery record
 
@@ -52,4 +52,4 @@ Empty until assigned.
 
 ## Report and resume
 
-Write `epics/agento/002-trusted-publish/checkpoints/O.md` and `epics/agento/002-trusted-publish/reports/O.md`. Stop after this item.
+Write `epics/agento/002-trusted-publish/checkpoints/C.md` and `epics/agento/002-trusted-publish/reports/C.md`. Stop after this item.

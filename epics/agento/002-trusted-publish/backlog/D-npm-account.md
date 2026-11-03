@@ -1,7 +1,9 @@
-# U: npm account and trusted publisher
+# D: npm account and trusted publisher
 
 Kind: task. Epic: [AGENTO-002](../epic.md). Feature: public npm release.
 Status: blocked. Owner: user. Depends on: the user's npm session.
+
+This item is AGENTO-002/D. The seed packaging story is [AGENTO-001/D](../../001-seed/backlog/D-package.md).
 
 ## Read first
 
@@ -40,11 +42,11 @@ Do not infer the npm user from GitHub `exones`. Do not paste tokens into chat, g
 - [ ] User creates the package from an interactive 2FA session.
 - [ ] User saves the single GitHub Actions publisher and finishes one successful publish within two days.
 - [ ] User sets `AGENTO_RELEASE` only for a dispatch that may publish, then disallows token publishing after OIDC works.
-- [ ] Record the nonsecret result in `reports/U.md`. Stop.
+- [ ] Record the nonsecret result in `reports/D.md`. Stop.
 
 ## Ownership and verification
 
-The user owns the npm session and every registry write. A worker may record the nonsecret result in `checkpoints/U.md` and `reports/U.md` after the user supplies it. Evidence is the package name and version the user reports, checked with `npm view` of that public name. No token is evidence.
+The user owns the npm session and every registry write. A worker may record the nonsecret result in `checkpoints/D.md` and `reports/D.md` after the user supplies it. Evidence is the package name and version the user reports, checked with `npm view` of that public name. No token is evidence.
 
 ## Delivery record
 
@@ -52,4 +54,4 @@ Empty. Blocked on the user's npm account and package name.
 
 ## Report and resume
 
-Write `epics/agento/002-trusted-publish/checkpoints/U.md` and `epics/agento/002-trusted-publish/reports/U.md` only after the user completes the steps. This task does not authorize publication by the agent.
+Write `epics/agento/002-trusted-publish/checkpoints/D.md` and `epics/agento/002-trusted-publish/reports/D.md` only after the user completes the steps. This task does not authorize publication by the agent.
