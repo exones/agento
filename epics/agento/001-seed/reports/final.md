@@ -1,6 +1,6 @@
 # AGENTO-001 seed candidate report
 
-Updated: 2026-11-03. Status: technically validated candidate; PR #2 remains In Review pending final evidence-head CI and human merge. This is not an epic-Done or release declaration.
+Updated: 2026-11-03. Status: original seed delivery merged in PR #2 at `d81f4a5765b6b34e686d3827a15aaaf726e76f01` (18:20:40Z); final head `147a4bd` passed Windows/Ubuntu CI. D is Done. The expanded epic remains In Progress for user-requested D1. This is not a release declaration.
 
 [PR #2](https://github.com/exones/agento/pull/2). Reviewed and product-verified revision: `2cf2bf25957869dc94fec0718a6dbc67e905f8d7`. Bootstrap A/B/C/N merged in PR #1 at `afc05074a27da2cb1a3c225bc9d42d10f184e504`. The final evidence-only successor adds reports/checkpoints/validation artifacts without changing runtime, tests, package inputs, verification scripts, or workflows. GitHub owns latest-head check results; this report does not recursively require another evidence commit to copy those results.
 
@@ -25,7 +25,7 @@ The bootstrap coordinator skill supports goal analysis, durable epic/backlog pla
 | 3. Persistent manual ledger | Merged bootstrap, 40 product tests, installed lifecycle/preservation checks, and independent review support declared schema 1 behavior. | Manual evidence only; no dispatch, messaging, automated acceptance, repair/replay, or crash-durability claim. |
 | 4. PowerShell/local and Windows/Linux gate | Shared Verify entry point and successful current product-head CI verification plus uploads on both OSes. | Final evidence-only successor must pass current-head CI as usual. |
 | 5. Packed artifact independent of source checkout | Clean exact-revision package proof, matching digest/provenance, separate installed processes and external consumer; hosted Ubuntu package path passes. | No real stage 2 run or universal byte reproducibility claim. |
-| 6. Honest readiness/release handoff | This report, D review, canonical review records, artifact identity, and retrospective separate local/remote/review/merge/release states. | D and epic are not Done before human merge; npm identity/release setup remains. |
+| 6. Honest readiness/release handoff | This report, D review, canonical review records, artifact identity, and retrospective separate local/remote/review/merge/release states. | D's human merge is recorded; D1 keeps the expanded epic open. npm identity/release setup remains separate. |
 | 7. Reusable short-goal planning workflow | [Fresh planning proof](skill-proof.md) at `2cf2bf2` found/read the skill via AGENTS, wrote a plan/story/checkpoint/report, and stopped after planning. | Codex/T3 documented routing only; validation proposal remains unapproved production work. |
 
 ## Validation and findings
@@ -56,7 +56,7 @@ Keep a verified tarball with its own sidecar; do not relabel old provenance as a
 
 ## Remaining authority and next action
 
-Require final evidence-head CI, then obtain the human's decision on PR #2. Keep D In Review and epic In Progress until that merge is recorded. No more product fix or reviewer round is indicated by current findings; a new substantive change would require appropriate revalidation.
+PR #2's final-head CI and human merge are recorded in [D acceptance evidence](D-review.md). D is Done. Deliver the user-requested [D1 follow-up](../backlog/D1-sequential-backlog-ids.md) next; it has its own proof, review, CI, and human merge gates. The epic remains In Progress through that follow-up.
 
 Before npm publication, the user selects an npm account/organization and an available name/scope; unscoped `agento` belongs to another project. Complete required account/2FA, first-package and trusted-publisher setup, then explicitly authorize a verified release identity/artifact. Changing name/version/privacy requires fresh verification and a new clean artifact. No raw secret is requested and no publication action is performed here.
 

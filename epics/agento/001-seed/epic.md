@@ -1,6 +1,6 @@
 # Epic AGENTO-001: a usable seed
 
-Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D technically validated and In Review in PR #2; fixes independently rechecked, product CI green, final evidence-head CI and human merge pending.
+Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done in PR #1, D Done in human-merged PR #2. D1 is the current implementation assignment; publication and stage 2 remain separate.
 Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
 Repository: `https://github.com/exones/agento.git`, public, current account ADMIN. PR #1 human-merged at `afc05074a27da2cb1a3c225bc9d42d10f184e504`; original branch deleted remotely. The user's bundled A/B commit `3283807` remains in history. Final PR head `e997381` passed Windows/Ubuntu CI; details are in [delivery evidence](reports/bootstrap-delivery.md). D uses owned branch `feat/package-bootstrap` from that merge.
 
@@ -34,11 +34,11 @@ Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an instal
 | B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A | done | [Local acceptance](reports/B-review.md); [PR #1 delivery/CI/review/merge](reports/bootstrap-delivery.md), merge `afc0507` |
 | C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B | done | [Worker evidence](reports/C.md), [review fixes](reports/bootstrap-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
 | N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C | done | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
-| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-review | [Candidate report](reports/final.md), [proof/fixes and CI](reports/D-review.md), [review pass 02](reports/reviews/AGENTO-001/02.md); [PR #2](https://github.com/exones/agento/pull/2), technical gates pass at `2cf2bf2`; final-head CI/human merge pending |
-| D1 | story | coordinator follow-up | [Sequential backlog IDs](backlog/D1-sequential-backlog-ids.md) | D merged | backlog | [Planning scope and stop boundary](reports/D1-plan.md); next after D, not started |
+| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | done | [Candidate report](reports/final.md), [proof/fixes, CI and merge](reports/D-review.md), [review pass 02](reports/reviews/AGENTO-001/02.md); [PR #2](https://github.com/exones/agento/pull/2), final head `147a4bd` CI passed, merge `d81f4a5` |
+| D1 | story | coordinator follow-up | [Sequential backlog IDs](backlog/D1-sequential-backlog-ids.md) | D merged | in-progress | [Assignment](reports/D1-assignment.md); one Grok worker on `feat/sequential-backlog-ids`, fresh planning proof/review to follow |
 | I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
 
-A -> B -> C -> N -> D -> D1 is sequential, with reviews as gates of those items and the seed epic. N applies the storage naming correction at C's safe handoff boundary. D1 is the user-requested next story after D; it improves future backlog naming and is planned only. Review findings remain bound to their parent and are triaged before closure. I is documentation/discovery only, outside seed acceptance. No worker launches another agent from a backlog item.
+A -> B -> C -> N -> D -> D1 is sequential, with reviews as gates of those items and the seed epic. N applies the storage naming correction at C's safe handoff boundary. D1 is the user-requested next story after D; delivery resumed after D's merge. Review findings remain bound to their parent and are triaged before closure. I is documentation/discovery only, outside seed acceptance. No worker launches another agent from a backlog item.
 
 ## Review gates
 
@@ -72,15 +72,17 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 - [x] B: typecheck/build/tests run through PowerShell; basic CLI works; Actions workflow prepared. Local acceptance in `reports/B-review.md`.
 - [x] C: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven; corrected candidate passed 40 tests, CI, review, and human merge in PR #1.
 - [x] N: `.agento/` is consistent across runtime, help/errors, tests, ignore rules, and current documentation; preservation check, CI, review, and human merge in PR #1.
-- [x] D technical proof: exact clean tarball installs outside checkout and completes installed-executable scenarios; independent review and product CI pass. Delivery row remains In Review for final-head CI/human merge.
-- [ ] Windows and Linux GitHub Actions pass on the final candidate revision, or remain explicitly blocked pending repository setup.
-- [ ] A/B bootstrap and subsequent delivery items have honest PR/CI/review/merge evidence; reconcile existing user commits without rewriting history. Local checkboxes above do not close these delivery gates.
+- [x] D: clean installed proof, independent review, Windows/Ubuntu CI on final head `147a4bd`, and human merge `d81f4a5` recorded in `reports/D-review.md`.
+- [x] Windows and Linux GitHub Actions pass on D's final PR head; PR run 41692089275.
+- [x] Original A/B/C/N/D delivery has honest PR/CI/review/merge evidence; existing user commits preserved.
+- [ ] D1 follow-up has centralized naming guidance, bounded fresh planning proof, review, applicable CI, and human-approved merge.
 - [x] Review passes 01/02: original R1/R2 fixed and independently rechecked; current product CI supports Linux execution. No unresolved actionable P1/P2/P3 finding in the reviewed scope.
 - [x] [Candidate report](reports/final.md) and [retrospective](retro.md) written; pinned outside-checkout installation instructions recorded. No controller promotion or stage 2 start claimed.
 - [x] Release status explicit: technically validated private candidate, not released. Version/artifact/digest recorded; publication requires separate npm identity/setup and authorization.
 
 ## Decisions
 
+- 2026-11-03, user: requested further work. Verified PR #2 human merge `d81f4a5765b6b34e686d3827a15aaaf726e76f01` at 18:20:40Z, final head `147a4bd` Windows/Ubuntu success. D is Done. Fast-forwarded local main to actual remote tip `709de20`, preserving newer commits without editing the separate epic, and prepared `feat/sequential-backlog-ids`. Assign only D1; the coordinator arranges independent planning proof/review after a committed candidate exists.
 - 2026-11-03, user: requested a story immediately after D because a separate epic used title-derived backlog IDs instead of sequential letters. Added D1 with acceptance for centralized planning guidance, consistent filenames/references, stable existing IDs, and a fresh bounded planning exercise. The screenshot is supplied evidence; the separate tree is outside scope. No implementation or dispatch in this planning turn. D1 must be delivered before closing this epic's expanded backlog; existing seed product evidence remains valid within its original scope.
 - 2026-11-03: independent pass 02 reports no actionable findings on `2cf2bf25957869dc94fec0718a6dbc67e905f8d7`; copied its exact report/checkpoint and reconciled them with coordinator-observed Windows/Ubuntu CI/uploads and accepted short-goal skill proof. Candidate report/retro now reflect actual capabilities, fixes, evidence, limits, and remaining human authority. Commit this evidence-only update, require latest-head CI, then hand back PR #2 without another metadata-only evidence loop. D is not Done until human merge; no registry upload or stage 2 authorization.
 - 2026-11-03: accepted the bounded fresh-session planning exercise after reading its actual files and preservation evidence. The child found/read the coordinator skill via AGENTS from a short goal, produced a durable plan/story/checkpoint/report, and stopped before implementation. Retained four explicitly unapproved validation artifacts; DOC1 is not production backlog. Bootstrap behavioral proof is scoped to the observed Codex/T3 route; independent pass 02 remains pending.
