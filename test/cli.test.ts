@@ -5,8 +5,10 @@ import { join } from "node:path";
 import { describe, test } from "node:test";
 import { expectErr, repoRoot, runCli, unknown, withRoot } from "./helpers.ts";
 
+const packageMetadata = JSON.parse(await readFile(join(repoRoot, "package.json"), "utf8")) as { version: string };
+const versionLine = `agento ${packageMetadata.version}`;
 const helpText = [
-  "agento 0.1.0",
+  versionLine,
   "",
   "Usage:",
   "  agento [--root <dir>] [--help|-h] [--version|-v]",
@@ -51,7 +53,7 @@ describe("agento help, version, and unknown commands", () => {
     assert.ok(minor >= 13);
   });
 
-  test("package metadata names the private ESM executable", async () => {
+  test("package metadata declares an ESM agento executable independently of registry identity", async () => {
     const parsed: unknown = JSON.parse(await readFile(join(repoRoot, "package.json"), "utf8"));
     assert.equal(typeof parsed, "object");
     assert.ok(parsed !== null);
@@ -64,9 +66,11 @@ describe("agento help, version, and unknown commands", () => {
       engines: { node: string };
       repository: { url: string };
     };
-    assert.equal(pkg.name, "agento");
-    assert.equal(pkg.version, "0.1.0");
-    assert.equal(pkg.private, true);
+    assert.equal(typeof pkg.name, "string");
+    assert.ok(pkg.name.length > 0);
+    assert.equal(typeof pkg.version, "string");
+    assert.ok(pkg.version.length > 0);
+    assert.equal(typeof pkg.private, "boolean");
     assert.equal(pkg.type, "module");
     assert.equal(pkg.bin.agento, "dist/cli.js");
     assert.equal(pkg.engines.node, ">=26.13.0 <27");
@@ -118,7 +122,7 @@ describe("agento help, version, and unknown commands", () => {
       for (const args of [["--version"], ["-v"], ["init", "--version"], ["--version", "story", "add"]]) {
         const result = await runCli(args, cwd);
         assert.equal(result.code, 0, args.join(" "));
-        assert.equal(result.stdout, "agento 0.1.0\n", args.join(" "));
+        assert.equal(result.stdout, `${versionLine}\n`, args.join(" "));
         assert.equal(result.stderr, "", args.join(" "));
       }
     });

@@ -333,9 +333,12 @@ try {
 
   $packagePath = Join-Path $repoRoot 'package.json'
   $packageJson = Get-Content -Raw -LiteralPath $packagePath | ConvertFrom-Json
-  if ($packageJson.name -ne 'agento' -or $packageJson.version -ne '0.1.0' -or $packageJson.private -ne $true) {
-    Fail 'package.json must stay name agento, version 0.1.0, private true'
+  if ([string]::IsNullOrWhiteSpace($packageJson.name) -or [string]::IsNullOrWhiteSpace($packageJson.version) -or $packageJson.private -isnot [bool]) {
+    Fail 'package.json must declare name, version, and an explicit boolean private flag'
   }
+  $packageName = [string]$packageJson.name
+  $packageVersion = [string]$packageJson.version
+  $packagePrivate = [bool]$packageJson.private
   if ($packageJson.bin.agento -ne 'dist/cli.js' -or $packageJson.type -ne 'module') {
     Fail 'package.json bin or module type changed'
   }
@@ -406,8 +409,8 @@ try {
   }
   $tarball = $tarballs[0].FullName
   $tarballName = $tarballs[0].Name
-  if ($tarballName -ne 'agento-0.1.0.tgz') {
-    Fail "unexpected tarball name $tarballName"
+  if ($packParsed[0].name -ne $packageName -or $packParsed[0].version -ne $packageVersion -or $packParsed[0].filename -ne $tarballName) {
+    Fail 'npm pack metadata does not match the selected package identity and tarball'
   }
   $stray = @(Get-ChildItem -LiteralPath $repoRoot -Filter '*.tgz' -File)
   if ($stray.Count -ne 0) {
@@ -432,8 +435,8 @@ try {
     }
   }
   $packedPackage = Get-Content -Raw -LiteralPath (Join-Path $packedRoot 'package.json') | ConvertFrom-Json
-  if ($packedPackage.private -ne $true -or $packedPackage.version -ne '0.1.0' -or $packedPackage.name -ne 'agento') {
-    Fail 'packed package.json does not keep the private 0.1.0 candidate'
+  if ($packedPackage.private -ne $packagePrivate -or $packedPackage.version -ne $packageVersion -or $packedPackage.name -ne $packageName) {
+    Fail 'packed package.json does not match the selected package identity and privacy mode'
   }
   $packedCli = Join-Path $packedRoot 'dist/cli.js'
   $cliText = [System.IO.File]::ReadAllText($packedCli)
@@ -474,7 +477,7 @@ try {
     Pop-Location
   }
 
-  $installedRoot = Join-Path $consumer 'node_modules/agento'
+  $installedRoot = Join-Path (Join-Path $consumer 'node_modules') $packageName
   $installedCli = Join-Path $installedRoot 'dist/cli.js'
   if (-not (Test-Path -LiteralPath $installedCli)) {
     Fail 'installed package has no dist/cli.js'
@@ -491,8 +494,8 @@ try {
   }
   Remove-TreeSafe -RootPath $extract
   $installedPackage = Get-Content -Raw -LiteralPath (Join-Path $installedRoot 'package.json') | ConvertFrom-Json
-  if ($installedPackage.version -ne '0.1.0' -or $installedPackage.private -ne $true) {
-    Fail 'installed package.json is not the private 0.1.0 candidate'
+  if ($installedPackage.name -ne $packageName -or $installedPackage.version -ne $packageVersion -or $installedPackage.private -ne $packagePrivate) {
+    Fail 'installed package.json does not match the selected package identity and privacy mode'
   }
 
   $binDir = Join-Path $consumer 'node_modules/.bin'
@@ -507,16 +510,24 @@ try {
     $listing = (Get-DirectoryNameText -Path $binDir).Text
     Fail "installed agento executable is missing at $($script:ShimPath). bin: $listing"
   }
-  $shimText = [System.IO.File]::ReadAllText($script:ShimPath)
-  if ($shimText -notmatch 'agento[/\\]dist[/\\]cli\.js') {
-    Fail 'installed shim does not point at agento/dist/cli.js'
+  if ($IsWindows) {
+    $shimText = [System.IO.File]::ReadAllText($script:ShimPath).Replace('\', '/')
+    if (-not $shimText.Contains("$packageName/dist/cli.js")) {
+      Fail 'installed Windows shim does not point at the selected package entry'
+    }
+  } else {
+    $shimFile = Get-Item -LiteralPath $script:ShimPath
+    $shimTarget = $shimFile.ResolveLinkTarget($true)
+    if ($null -eq $shimTarget -or (Get-NormalizedPath $shimTarget.FullName) -cne (Get-NormalizedPath $installedCli)) {
+      Fail 'installed POSIX bin symlink does not point at the selected package entry'
+    }
   }
   Write-Host "executable: $($script:ShimPath)"
 
-  Assert-Ok (Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('--version')) "agento 0.1.0`n" 'version'
-  Assert-Ok (Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('--version', 'story', 'add')) "agento 0.1.0`n" 'version with arguments'
+  Assert-Ok (Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('--version')) "agento $packageVersion`n" 'version'
+  Assert-Ok (Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('--version', 'story', 'add')) "agento $packageVersion`n" 'version with arguments'
   $help = Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('--help')
-  if ($help.Code -ne 0 -or $help.Stderr -ne '' -or -not $help.Stdout.StartsWith("agento 0.1.0`n") -or -not $help.Stdout.Contains('Completion is a manual record, not gate acceptance.')) {
+  if ($help.Code -ne 0 -or $help.Stderr -ne '' -or -not $help.Stdout.StartsWith("agento $packageVersion`n") -or -not $help.Stdout.Contains('Completion is a manual record, not gate acceptance.')) {
     Fail 'installed help did not describe the manual ledger'
   }
   Assert-Err (Invoke-Agento -WorkingDirectory $otherCwd -Arguments @('task')) 1 "error: unknown command: task`nRun agento --help.`n" 'unknown task'
@@ -820,11 +831,11 @@ try {
     Fail 'package proof changed HEAD or the worktree status'
   }
 
-  $provenancePath = Join-Path $artifactDir 'agento-0.1.0.provenance.json'
+  $provenancePath = Join-Path $artifactDir ([System.IO.Path]::GetFileNameWithoutExtension($tarballName) + '.provenance.json')
   $provenance = [ordered]@{
-    name = 'agento'
-    version = '0.1.0'
-    private = $true
+    name = $packageName
+    version = $packageVersion
+    private = $packagePrivate
     released = $false
     registryPublication = 'not performed'
     sourceRevision = $identity.Sha
@@ -846,7 +857,7 @@ try {
     githubRef = [string]$env:GITHUB_REF
     pullRequestHeadSha = [string]$env:AGENTO_PR_HEAD_SHA
     lockTimeoutMilliseconds = $lockElapsed
-    reproducibility = 'Repeated packs of an unchanged tree matched on this Windows npm 11.20.0 probe. Cross-machine and cross-OS equality is not claimed.'
+    reproducibility = 'This record identifies this pack only. Cross-machine and cross-OS equality is not claimed.'
   }
   $provenanceJson = ($provenance | ConvertTo-Json -Depth 5).Trim() + "`n"
   Write-Utf8File -Path $provenancePath -Text $provenanceJson

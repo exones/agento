@@ -40,6 +40,8 @@ These are nonsecret setup actions. They do not block local tarball proof. Do not
 
 3. In a later change that explicitly authorizes publication, set the chosen `name`, set `"private": false`, and keep `repository.url` as `git+https://github.com/exones/agento.git`. npm's trusted publishing troubleshooting says `repository.url` must exactly match the GitHub repository. For a scoped public package, the release workflow adds `--access public` because scoped packages would otherwise be registry-private.
 
+   Verification reads the selected name, version, and explicit private boolean from `package.json`. It validates the packed/installed manifests against those values, derives the tarball and scoped installation paths from npm's pack metadata, and records them in the provenance sidecar. The executable stays `agento` regardless of registry scope. Rerun the full gate and obtain a new clean artifact/digest after changing identity or privacy mode; the old private tarball is not proof of a renamed public package. This support does not authorize editing today's private manifest or publishing it.
+
 4. Create the package once from an authenticated npm session before saving a trusted publisher. The trusted publisher controls are documented on the existing package's settings page (`npmjs.com` → Packages → the package → Settings → Trusted publishing). `npm trust` is the CLI equivalent and has not been run. Use the verified tarball, not `npm link`. An interactive `npm publish <tarball>` prompts for 2FA. This story does not authorize that publish. `npm stage publish` on a package that does not exist yet publishes a public placeholder; do not use it as a silent first step.
 
 5. After the package exists, add one GitHub Actions trusted publisher:
