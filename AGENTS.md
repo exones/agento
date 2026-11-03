@@ -29,9 +29,10 @@ In standalone mode, the assigned agent maintains the epic and current checkpoint
 - Product CLI and core: modern TypeScript on Node.js, strict checking, compiled JavaScript, one npm package initially.
 - Automation and operational scripts: PowerShell 7 (`pwsh`), including substantive logic where useful. Do not replace it merely because it is a shell language.
 - Source, PRs, build: GitHub and GitHub Actions.
-- Private infrastructure connectivity: Tailscale. Public npm is the proposed release route if public distribution is selected; self-hosted Forgejo remains the private-hosting option. Registry/visibility selection does not authorize publishing.
+- Package registry: npm, confirmed by the user. No Forgejo deployment is planned. Tailscale remains available for future private infrastructure. Registry selection does not authorize publishing; npm owner/scope/name and release setup are handled before release.
 - Adopt the backlog item/checkpoint/report workflow immediately. Add automation incrementally through the roadmap.
 - Choose routine implementation details and ordinary dependencies within the assigned scope; record material choices. Escalate scope expansion, paid services, missing credentials, or changes to acceptance standards.
+- Surface user-owned blockers promptly with the exact nonsecret action needed and its impact; workers report them to the coordinator, which includes them in the `You` turn report. Continue independent in-scope work instead of waiting on unrelated release setup. Never request raw secret values in chat.
 - Use `rg` for file/text discovery. Keep external command invocation explicit; propagate native exit codes in PowerShell. Avoid shell-interpolated command strings when structured argument lists suffice.
 
 ## State, gates, and release discipline

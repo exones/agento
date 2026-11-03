@@ -1,12 +1,12 @@
 # Epic AGENTO-001: a usable seed
 
-Created: 2026-11-03. Owner: user. Status: in-progress, starting spike A.
+Created: 2026-11-03. Owner: user. Status: in-progress; spike A accepted, B delegation requested.
 Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
-Repository: current folder; Git/remote setup has not been established by this planning task.
+Repository: user initialized Git; branch `main`, configured origin `https://github.com/exones/agento.git`, initial HEAD `dc6e3c4`. Current planning/contract changes are uncommitted. `gh repo view` confirms the repository is public and the current account has ADMIN access; CI execution remains unverified.
 
 ## Why
 
-Build agento incrementally and use its current release to organize the next release. Begin with durable files and a manual CLI ledger, then introduce execution and coordination. PowerShell automation, GitHub Actions, and Tailscale-based access to self-hosted Forgejo are part of the intended environment.
+Build agento incrementally and use its current release to organize the next release. Begin with durable files and a manual CLI ledger, then introduce execution and coordination. TypeScript/Node.js, PowerShell automation, GitHub Actions, and npm distribution are the selected implementation/release path.
 
 ## Outcomes
 
@@ -26,16 +26,16 @@ Exclude product T3 dispatch, messaging, automated gates/merge decisions, schedul
 
 ## Features and prioritized backlog
 
-Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an installable bootstrap release. Coordinator workflow bootstrapping supports both. The optional registry spike is outside seed acceptance.
+Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an installable bootstrap release. Coordinator workflow bootstrapping supports both. The former self-hosted registry spike is cancelled after selecting npm.
 
 | ID | Kind | Feature | Backlog item | Depends on | Status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | in-progress | Delegation requested; worker report pending |
-| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A local contract | backlog | No execution report yet |
+| A | spike | F1 | [Preflight and contract](backlog/A-preflight.md) | None | done | [Submission](reports/A.md), [coordinator acceptance](reports/A-review.md), [contract](../../../docs/seed-contract.md) |
+| B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A contract accepted | in-progress | Delegation requested; local foundation/CI preparation, no publication |
 | C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B local gate | backlog | No execution report yet |
 | D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C local gate | backlog | No execution report yet |
 | R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | backlog | No execution report yet |
-| I | optional spike | optional infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | Separate assignment | backlog | No execution report yet |
+| I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
 
 A -> B -> C -> D -> R is sequential. R's findings go to an implementation fix assignment before closure. I is documentation/discovery only, outside seed acceptance. No agent launches another from these backlog items.
 
@@ -56,7 +56,7 @@ Local state lives under `.crew/` and is excluded from Git once Git exists. The C
 ## Stage gates
 
 - [ ] Bootstrap skill: structural validation passes and short-goal planning/resume is exercised in a fresh supported host. Do not claim live discovery or delegation proof from schema validation alone.
-- [ ] A: environment facts and exact seed contract recorded; unknown T3 behavior deferred explicitly.
+- [x] A: environment facts and exact seed contract recorded; unknown T3 behavior deferred explicitly. Coordinator corrections accepted in `reports/A-review.md`.
 - [ ] B: typecheck/build/tests run through PowerShell; basic CLI works; Actions workflow prepared.
 - [ ] C: epic/story ledger creation, transitions, validation, non-overwrite behavior, persistence, and serialized updates proven.
 - [ ] D: tarball installs in a clean directory and performs the ledger exercise through the installed executable.
@@ -67,6 +67,8 @@ Local state lives under `.crew/` and is excluded from Git once Git exists. The C
 
 ## Decisions
 
+- 2026-11-03: user confirmed npm and requested continuation. Cancelled spike I and marked the Forgejo design superseded; npm account/scope/trust setup will be surfaced when release work needs the user. B starts with one Grok worker in the shared checkout so it can read uncommitted handoff files. No publishing or remote write is included in the worker assignment.
+- 2026-11-03: accepted A after correcting state replacement and incomplete-event handling. Node 26.x (`>=26.13.0 <27`) and pwsh 7.6+ are the seed baseline; local Node is still 24.19.0. B is ready and unassigned. Scope for this initial handoff stops after A's review.
 - 2026-11-03: user asked to start. Coordinator verified A's readiness and is assigning only spike A to Grok 4.7 Extra High through Cursor in the existing checkout. Review A's evidence before starting B; this assignment does not authorize product implementation or publication.
 - 2026-11-03, user: use Agile epic/story/task/spike organization. Renamed active files to `epics/.../epic.md` and `backlog/`; preserved IDs and historical reference material. Authored coordinator skill in stage 0 so analysis/refinement precedes implementation.
 - 2026-11-03: public npm is proposed for simpler distribution if public visibility is selected; Forgejo is optional. No registry is required to start A or build the seed tarball.
@@ -78,7 +80,7 @@ Local state lives under `.crew/` and is excluded from Git once Git exists. The C
 
 ## Open setup items
 
-See `docs/decisions.md` for the GitHub target, package identity, Forgejo host/storage, tailnet, and credential-delivery facts needed later. Do not copy identities or authorizations from inspiration examples.
+See `docs/decisions.md` and `docs/npm-distribution.md` for npm identity, publishing setup, and any GitHub access prerequisites. No Forgejo host or tailnet publishing setup is needed. Do not copy identities or authorizations from inspiration examples.
 
 ## Closure
 

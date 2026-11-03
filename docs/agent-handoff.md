@@ -20,6 +20,8 @@ Agile hierarchy and gates: [agile-workflow.md](agile-workflow.md). Existing back
 
 ## Start task A through the coordinator
 
+Historical first-assignment example: A is now accepted. For current work say "Continue the seed epic"; the epic/checkpoint, not this example, determines the next Ready item (currently B). Do not rerun A from this template.
+
 In a Sol High session opened on this project, paste the following when ready to start actual work. Pasting it explicitly authorizes one Grok task; merely reading this document does not.
 
 ```text
@@ -129,12 +131,12 @@ Do not merge, publish, deploy, or start successor backlog items.
 
 | Order | BACKLOG-ITEM | ITEM-REPORT | Ready when |
 | --- | --- | --- | --- |
-| A | `epics/agento/001-seed/backlog/A-preflight.md` | `epics/agento/001-seed/reports/A.md` | Now |
-| B | `epics/agento/001-seed/backlog/B-foundation.md` | `epics/agento/001-seed/reports/B.md` | A contract ready |
+| A | `epics/agento/001-seed/backlog/A-preflight.md` | `epics/agento/001-seed/reports/A.md` | Complete; do not rerun |
+| B | `epics/agento/001-seed/backlog/B-foundation.md` | `epics/agento/001-seed/reports/B.md` | Ready; A accepted, include A-review |
 | C | `epics/agento/001-seed/backlog/C-ledger.md` | `epics/agento/001-seed/reports/C.md` | B local gate passes |
 | D | `epics/agento/001-seed/backlog/D-package.md` | `epics/agento/001-seed/reports/D.md` | C ledger gate passes |
 | R | `epics/agento/001-seed/backlog/R-review.md` | `epics/agento/001-seed/reports/R.md` | D candidate exists |
-| I | `epics/agento/001-seed/backlog/I-registry-discovery.md` | `epics/agento/001-seed/reports/I.md` | Separate optional planning assignment |
+| I | `epics/agento/001-seed/backlog/I-registry-discovery.md` | `epics/agento/001-seed/reports/I.md` | Cancelled: npm selected; do not assign |
 
 For the first stage use the same implementation agent or fresh sequential sessions. Do not start B/C/D simultaneously: they share package, state, and CI interfaces. A blocked remote setup does not prevent completing local proofs.
 

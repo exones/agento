@@ -1,2 +1,15 @@
 /inspiration
 /t3_multi-agent_mvp_86005e32.plan.md
+
+# Dependencies, compiled output, and the local Node.js toolchain.
+# .agents/ skills and epics/ evidence stay tracked.
+node_modules/
+dist/
+*.tsbuildinfo
+.tools/
+
+# Ledger files created by later CLI commands. B does not create this directory.
+.crew/
+
+# Packed package artifacts.
+*.tgz

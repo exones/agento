@@ -7,7 +7,7 @@ As a coordinator, I want to persist an epic's story progress between sessions so
 
 ## Read first
 
-`AGENTS.md`, decisions, seed contract, epic/checkpoint, and `reports/A.md`, `reports/B.md`.
+`AGENTS.md`, decisions, seed contract, epic/checkpoint, and `reports/A.md`, `reports/A-review.md`, `reports/B.md`. The corrected contract uses direct state replacement and blocks mutations on an incomplete event trail; do not implement the superseded backup sequence from A's original report.
 
 ## Outcome
 

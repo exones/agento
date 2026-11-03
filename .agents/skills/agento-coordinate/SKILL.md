@@ -50,4 +50,16 @@ Update epic/backlog status, decisions, shared checkpoint, and next action at mea
 
 At epic completion, reconcile every outcome with evidence, write the final report and retrospective, and identify follow-up backlog items and release blockers. Describe local readiness separately from remote CI and publication. Improve skills/defaults through reviewable changes based on observations; do not silently relax acceptance.
 
-Keep user-facing updates short: outcome, current item, evidence/blocker, next action. The user should be able to start with a goal and later say "continue" without reconstructing a long prompt.
+## End-of-turn report
+
+End every coordinator turn with exactly these three short lines, normally no more than 60 words total:
+
+```text
+Done: <what this turn actually completed or started; include validation if relevant>
+You: <None, or the exact input/decision/action needed and what it affects>
+Next: <one recommended next step>
+```
+
+Distinguish started, completed, reviewed, and failed work. Use at most one useful artifact link unless the host requires more. Keep detail in the epic/report/checkpoint rather than adding a long recap. Follow this format for worker-launch and completion turns too.
+
+This report format does not create a new approval gate: continue already authorized work unless the user sets a stopping boundary. If the user requests a report and says they will choose the next action, finish the requested edits/checks, checkpoint, and stop before dispatching the next item. The user should be able to start with a goal and later say "continue" without reconstructing a long prompt.
