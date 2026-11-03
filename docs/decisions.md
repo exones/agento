@@ -24,7 +24,7 @@ Updated: 2026-11-03. User requirements take precedence over implementation propo
 | D16 | README describes supported project state and usage; active work/progress belongs only in epics/checkpoints/reports. | User treats README as the repository frontend. |
 | D17 | Reusable handoff documentation contains mechanics and placeholder examples, not live assignments/progress or duplicate status tables. | User identified duplicate progress in `docs/agent-handoff.md`; keep one maintained source in the epic/checkpoints. |
 | D18 | Local state lives under `.agento/`; the former `.crew/` storage name is superseded. | User clarified that storage must follow the `agento` tool name. Apply the pre-release correction after C returns, before D packaging, without concurrent edits to C's files. |
-| D19 | Routine reviews are parent-item/epic gates indexed `<parent>/review-<NN>`, with exact-revision evidence and stable finding labels; no new backlog letter per review. | User wants each review bound to its actual deliverable. Preserve existing IDs as aliases; legacy R maps to `AGENTO-001/review-01`. |
+| D19 | Routine reviews are parent-item/epic gates. Name agents/assignments `<item-stem>-review-<NNN>`, e.g. `A-preflight-review-001`, or `<epic-ID>-review-<NNN>` for an epic-wide review. Keep exact-revision evidence and stable finding labels; no new backlog letter per review. | User wants each review visibly bound to its deliverable, with a three-digit suffix. This naming refinement supersedes the earlier `<parent>/review-<NN>` format for new reviews; preserve existing IDs/files and count legacy passes when choosing the next number. |
 | D20 | Written item reports and user completion briefings explain introduced capabilities, important changes, validation, limits, user involvement, and next action. | User wants release-note detail after items; the three-line/60-word convention applies only to routine progress updates. |
 
 ## Adopted working defaults
@@ -72,6 +72,7 @@ Prepare GitHub Actions publishing through [npm trusted publishing](https://docs.
 
 ## Decision log
 
+- 2026-11-03, user: prefers review agent names with the item's filename stem followed by `-review-NNN`, e.g. `A-preflight-review-001`. Refined D19 and aligned root guidance, coordinator skill, delegation instructions, templates, handoff, and report conventions. New evidence basenames match the assignment name under the existing parent directory. Existing review records/links/findings remain valid; the next seed epic review would be `AGENTO-001-review-003`.
 - 2026-11-03, user: requested item-bound review indexing and fuller reports after each item. Adopted D19/D20 in root guidance, coordinator skill/templates, workflow, report format, and handoff guide. Preserve historical IDs; let the active legacy R reviewer finish its existing output paths before filing it as the epic's first review pass. Continue D/CI work without restarting review or changing acceptance gates.
 - 2026-11-03, user: clarified that `.crew/` also conflicts with the selected tool name. Selected `.agento/` for storage, superseding the earlier retention default. Added task N after the running C assignment and before packaging; preserve historical evidence and avoid editing C's files concurrently.
 - 2026-11-03, user: TypeScript/Node.js CLI, GitHub Actions, incremental self-hosting, one-agent bootstrap.

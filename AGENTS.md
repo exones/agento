@@ -11,7 +11,7 @@ For a goal-level planning or orchestration request, use `.agents/skills/agento-c
 
 Use the Agile vocabulary in `docs/agile-workflow.md`: epic, optional feature grouping, story, task, spike, backlog, acceptance criteria, Definition of Ready, and Definition of Done. Keep existing backlog IDs stable. The original MVP and inspiration retain historical terminology.
 
-Routine reviews are gates attached to their item or epic, not new lettered backlog items. Use parent-scoped review passes such as `D/review-01`; follow `docs/agile-workflow.md` for indexing and legacy aliases. Completed-item reports and user briefings include release-note detail per `epics/report-format.md`; short progress updates are still appropriate between milestones.
+Routine reviews are gates attached to their item or epic, not new lettered backlog items. Name review agents and assignments after the item's filename stem with a `-review-NNN` suffix, such as `A-preflight-review-001` or `D-package-review-001`; epic-wide reviews use `AGENTO-001-review-001`. Follow `docs/agile-workflow.md` for numbering, evidence paths, and legacy aliases. Completed-item reports and user briefings include release-note detail per `epics/report-format.md`; short progress updates are still appropriate between milestones.
 
 Do only the assigned role and scope. A coordinator asked to deliver an epic may advance its ready backlog items within that scope; a worker stops after its assigned item and does not launch agents. Seed execution has one implementation worker at a time. A reviewer is assigned separately after the candidate exists. A planning-only request stops after the reviewable plan.
 

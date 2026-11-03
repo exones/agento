@@ -23,7 +23,7 @@ Status: backlog. Owner: <role>. Depends on: <IDs or none>.
 <Files/resources, exact meaningful checks, review requirement, and required evidence.>
 
 ## Review gates
-<Parent-scoped passes such as <ID>/review-01, exact candidate revision, reviewer/scope, report path, findings/triage, and gate result. Routine reviews do not get independent backlog letters; follow docs/agile-workflow.md.>
+<Review agent/assignment names such as <item-stem>-review-001, exact candidate revision, reviewer/scope, report path, findings/triage, and gate result. Routine reviews do not get independent backlog letters; follow docs/agile-workflow.md for numbering and paths.>
 
 ## Delivery record
 <Owned branch/PR, Conventional Commit messages, checked head SHA, local gate, hosted CI, reviewer findings/triage, human merge decision, and merge SHA. For a docs-only spike use applicable documentation/CI checks. Do not mark Done from local proof alone.>

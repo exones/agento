@@ -1,6 +1,9 @@
-# <parent>/review-<NN>: <review scope>
+# <item-stem-or-epic-ID>-review-<NNN>: <review scope>
 
-Parent: <existing item or epic ID>. Pass: <NN>. Reviewer: <role/session>.
+Parent: <existing item or epic ID>. Pass: <NNN>. Reviewer: <role/session>.
+Agent/assignment name: <same review name as heading; e.g. A-preflight-review-001>.
+Report: reports/reviews/<parent>/<review-name>.md.
+Checkpoint: checkpoints/reviews/<parent>/<review-name>.md (if needed).
 Candidate: <exact commit>. PR/artifact: <URL and identity when applicable>.
 Status: requested | in-progress | findings | no-findings. Date: <date>.
 Legacy alias: <only if needed to preserve an existing reference>.

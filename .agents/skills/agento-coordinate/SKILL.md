@@ -44,7 +44,7 @@ Give a worker its role, exact backlog path, read-first paths, dependency reports
 
 Inspect the actual changes and check relevant evidence before moving In Review to Done. Run independent checks where the item's gate requires them. A worker report is a claim, not automatic acceptance. Preserve blockers and failed gates; return actionable findings as scoped fixes. Request fresh reviews at the declared milestone.
 
-Assign each independent review/recheck a parent and pass, such as `D/review-01` or `AGENTO-001/review-01` for an epic-wide review. Use [the review template](assets/review.md), record the exact revision/scope, and keep findings and triage linked to that parent. Preserve existing IDs as historical aliases; do not rename active worker outputs mid-assignment.
+Name each independent review agent/assignment `<item-stem>-review-<NNN>`, such as `A-preflight-review-001` or `D-package-review-001`; use `<epic-ID>-review-<NNN>` for epic-wide reviews. Take the item stem from its backlog filename and use the next three-digit pass for that parent, counting legacy reviews. Follow `docs/agile-workflow.md` for evidence paths and history. Use the same name in the delegation title and [review template](assets/review.md), record the exact revision/scope, and keep findings and triage linked to the parent. Preserve existing review names/files and finding labels; do not rename active outputs mid-assignment.
 
 ## Commit, PR, CI, and review
 
