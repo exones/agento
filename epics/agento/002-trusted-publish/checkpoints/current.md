@@ -6,7 +6,7 @@ Updated: 2026-11-03. Coordinator-owned resume point for the trusted-publishing p
 
 Active work: review the planning PR for epic AGENTO-002. No backlog item is assigned. K is Ready and stopped because the user asked for a plan only. W, F, and O are backlog. I is blocked on the npm owner and package name.
 
-Checkout: `C:\worktrees\agento\docs-002-trusted-publish`. Branch: `docs/002-trusted-publish`. Base: `origin/main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`. Resolve this branch's HEAD with Git after the plan commit. Do not edit `C:\code\agento` or `feat/package-bootstrap`.
+Checkout: `C:\worktrees\agento\docs-002-trusted-publish`. Branch: `docs/002-trusted-publish`. Plan HEAD: `64cf0e70bf3ee671d5a557fc26b9821351279712`. Base: `origin/main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`. PR: https://github.com/exones/agento/pull/3. Do not edit `C:\code\agento` or `feat/package-bootstrap`.
 
 Controller: bootstrap `agento-coordinate` skill and manual files. No released controller. `AGENTS.md` still names AGENTO-001 as the current implementation epic.
 
@@ -19,7 +19,7 @@ Controller: bootstrap `agento-coordinate` skill and manual files. No released co
 
 ## In flight
 
-None. The plan commit and PR are recorded in `reports/plan.md` once created. No release dispatch is running.
+[PR #3](https://github.com/exones/agento/pull/3) is open at `64cf0e70bf3ee671d5a557fc26b9821351279712`. Hosted CI has not been recorded yet. No release dispatch is running.
 
 ## Checks and limits
 
@@ -31,7 +31,7 @@ Decision and roadmap pointers, `docs/npm-distribution.md` status pointer, `epics
 
 ## Next concrete action
 
-Finish the plan commit, push this branch, and open the PR against `main`. Link it. After hosted CI is observed, record the result in `reports/plan.md`. Do not dispatch K until the user asks to implement the epic. Do not merge without human approval.
+Record hosted CI for [PR #3](https://github.com/exones/agento/pull/3) in `reports/plan.md` when GitHub reports it. Do not dispatch K until the user asks to implement the epic. Do not merge without human approval.
 
 ## Blockers and inputs
 

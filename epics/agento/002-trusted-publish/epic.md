@@ -94,7 +94,7 @@ Done for K and W is a merged PR whose hosted CI passed and whose review was done
 
 ## Delivery evidence and release checklist
 
-- [ ] Plan PR reviewed and merged. This file is the plan. Local link check is in [the planning report](reports/plan.md). Hosted CI is recorded there when observed.
+- [ ] Plan PR reviewed and merged. The plan commit is `64cf0e70bf3ee671d5a557fc26b9821351279712` in [PR #3](https://github.com/exones/agento/pull/3). Local link check is in [the planning report](reports/plan.md). Hosted CI is recorded there when observed.
 - [ ] K answers the npm 12 question on the pinned toolchain.
 - [ ] W lands the dormant release workflow on `main` under the contract above.
 - [ ] I records the user-selected owner and package name. `private` remains true.
