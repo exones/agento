@@ -4,12 +4,13 @@ Updated: 2026-11-03. Coordinator-owned resume point.
 
 ## Task and checkout
 
-D is Done: [PR #2](https://github.com/exones/agento/pull/2) human-merged at `d81f4a5765b6b34e686d3827a15aaaf726e76f01`. D1 policy candidate `da4792a485f45f54b0f0b912d3df62a2a484bdf0` in [PR #4](https://github.com/exones/agento/pull/4) passes local docs checks and Windows/Ubuntu CI. Coordinator accepted the bounded fresh planning proof and retained outputs (two JSON copies have documented newline normalization). Independent review is next; latest-head CI and human merge remain. A/B/C/N/D are Done; D1/epic remain open. No release, controller promotion, or stage 2 start.
+D1 is Done. Policy merged in [PR #4](https://github.com/exones/agento/pull/4) at `3a46c9e10399502fe1b9c27aa0840632d3da8c66`. Planning proof merged in [PR #5](https://github.com/exones/agento/pull/5) at `ecf0d7c0f4cb717e63b469ce0bd9625c12d2ee74`; the reviewed head is `d22b4bbccd4f38f6fb66c1e03c4cc56570060036`. Independent review found no actionable findings, and it returned after that merge. A/B/C/N/D/D1 are Done. No release, controller promotion, or stage 2 start.
 
-Checkout: `C:\code\agento`, branch `feat/sequential-backlog-ids`, origin `https://github.com/exones/agento.git`. Fast-forwarded local main to actual origin tip `709de209b7fd39980a2134f6c574306c8485d7bf`, preserving newer commits; created this feature branch at that base. The coordinator handoff commit follows. Preserve all user commits/index and the separately planned epic; do not inspect/edit that tree for this assignment. Resolve actual HEAD with Git.
+Checkout: `C:\code\agento` on `main`, origin `https://github.com/exones/agento.git`. This closeout records the copied review on main. Preserve the separately planned epic; do not inspect or edit that tree. Resolve actual HEAD with Git.
 
 ## Completed and evidence
 
+- D1 closeout: PR #4 merged policy `da4792a` at `3a46c9e` (2026-11-03T18:40:03Z). PR #5 merged proof `d22b4bb` at `ecf0d7c`. Windows/Ubuntu PR run 41697190559 and push run 41696892902 passed on that head before the merge. [Review](../reports/reviews/D1/D1-sequential-backlog-ids-review-001.md) `D1-sequential-backlog-ids-review-001`, request `86981c22-ebf5-436b-8fa5-96dd46269b39`, checked exact `d22b4bb` and reported no actionable findings. The report was copied unchanged after the user merged PR #5. No fix or rollback. Policy and product inputs are unchanged. A duplicate planning exercise was cancelled elsewhere; the accepted original proof stays.
 - Fresh planning exercise completed on exact `da4792a`, inherited Sol High, isolated `C:\worktrees\agento\t3-8a92b62a`. The original prompt supplied no expected IDs. Actual plan generated A/B/C with matching references and stopped without implementation. Coordinator inspected all outputs and preservation evidence, copied 12 outputs with matching SHA-256 bytes, then normalized CRLF-to-LF only in two generated JSON copies after staged formatting flagged them. Original artifacts remain intact; source/retained hashes are in [validation record](../reports/D1-validation.md). Criterion 5 accepted within recorded limits; artifacts remain unapproved proposals, not production work.
 - PR #4 CI wake-up: exact head remains `da4792a`; Windows/Ubuntu PR run 41695094058 and push run 41695084289 passed. No merge conflict. Only coordinator status/evidence edits are pending locally; the planning exercise is still in flight and is not polled/interrupted. Independent review follows its completion and evidence inspection. Keep the existing PR watch active.
 - D1 worker returned a clean pushed candidate `da4792a` on `feat/sequential-backlog-ids`. [Report](../reports/D1.md) and [checkpoint](D1.md) record local checks and pending gates. The coordinator inspected the actual implementation and PR head; CI was running when queried. [Validation record](../reports/D1-validation.md) records the bounded fresh-session task and limits.
@@ -28,7 +29,7 @@ Review pass 01's R1/R2 findings are resolved by fix `f61772a` and [independent p
 
 The bounded fresh short-goal planning exercise completed: request `036b0cba-6228-4ca3-9b53-fc12ec403eba`, inherited Sol High, worktree `C:\worktrees\agento\t3-64fa5948`, exact HEAD `2cf2bf2`. Coordinator inspected all four files, original task, and preservation status, and retained them under `validation/ledger-backup-plan/` as unapproved proof artifacts. `reports/skill-proof.md` records acceptance and limits: discovery/read via AGENTS and durable short-goal planning are demonstrated; invisible UI matching, all hosts/branches, actual backup correctness, or product orchestration are not. No production DOC1 work was adopted.
 
-Implementation and planning exercise completed. Prepare `D1-sequential-backlog-ids-review-001`, inherited Sol High, isolated worktree, exact committed evidence successor with unchanged policy from `da4792a`. Reviewer owns only `reports/reviews/D1/D1-sequential-backlog-ids-review-001.md` and matching checkpoint path. Follow asynchronous `next` without polling. PR #4 remains linked/watched; preserve worker and exercise outputs. Coordinator commits/pushes current evidence before launching review so its isolated checkout contains the proof.
+`D1-sequential-backlog-ids-review-001` is complete with no findings on exact `d22b4bb`. The copied report and checkpoint are the retained outputs. PR #4 and PR #5 are merged. No watch remains.
 
 ## Checks and limits
 
@@ -36,11 +37,11 @@ Skill structure, active links, and formatting pass; recheck this evidence batch 
 
 ## Changed files
 
-Current coordinator edits are `epic.md`, this checkpoint, the D1 evidence checkbox, `reports/D1-validation.md`, and 12 retained files under `validation/D1-fresh-plan/`. These do not alter workflow/skill policy from tested `da4792a` or product inputs. Validate links/formatting and commit/push, then immediately relink PR #4. Independent review, latest-head CI, and human merge remain D1's gates.
+This closeout adds the unchanged review report and checkpoint, and reconciles epic, backlog, validation, candidate report, and retrospective status. It does not alter workflow/skill policy from tested `da4792a` or product inputs.
 
 ## Next concrete action
 
-After evidence commit/push, launch `D1-sequential-backlog-ids-review-001` against exact HEAD; check D1 acceptance and evidence with findings/objections and explicit limits. On return inspect/copy exact review outputs, triage findings, reconcile final report/retro and current-head CI, then hand back for human merge if green. Keep D1 In Review until human merge. No delegate polling, new stage work, publication, or automatic merge.
+No seed story is assigned. Publication and stage 2 wait for a separate user request. Do not start a controller install, registry publish, or a new epic from this closeout.
 
 ## User inputs
 

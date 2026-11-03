@@ -1,10 +1,10 @@
 # Seed retrospective
 
-Updated: 2026-11-03. Status: original seed candidate review, fixes, final-head CI, and human merge completed in PR #2 at `d81f4a5`. D1 is the user-requested workflow follow-up now assigned. No release or stage 2 start is implied.
+Updated: 2026-11-03. Status: original seed candidate review, fixes, final-head CI, and human merge completed in PR #2 at `d81f4a5`. D1, the user-requested sequential-ID follow-up, is Done after its own proof, CI, no-findings review, and human merge. No release or stage 2 start is implied.
 
 ## Outcome against the seed goals
 
-The candidate implements the manual ledger, meaningful verification, installed-tarball proof, Windows/Ubuntu CI artifacts, and durable coordinator workflow. A/B/C/N/D are merged. Exact revisions, artifact digest, outcome assessment, review disposition, and release limits are in [the candidate report](reports/final.md). A fresh short-goal planning exercise supplies the bounded skill behavior proof. D1 adds a separate fresh planning check for sequential IDs before closing the expanded backlog.
+The candidate implements the manual ledger, meaningful verification, installed-tarball proof, Windows/Ubuntu CI artifacts, and durable coordinator workflow. A/B/C/N/D are merged. Exact revisions, artifact digest, outcome assessment, review disposition, and release limits are in [the candidate report](reports/final.md). A fresh short-goal planning exercise supplies the bounded skill behavior proof. D1's separate fresh planning check produced sequential A/B/C names, and its review found nothing to change. The expanded seed backlog is closed.
 
 ## Observations and resulting changes
 
@@ -26,7 +26,7 @@ Prefer platform-native assertions and installed-artifact proof whenever package/
 
 The retained backup-guide plan under `validation/ledger-backup-plan/` is a test artifact, not an approved production story. Adopt it only through an explicit later goal/refinement. Keep current review and reporting conventions in the canonical workflow/skill instead of copying live assignment tables into guides.
 
-No new product scope is required to close the reviewed findings. Original delivery CI and merge are complete; D1 is the requested workflow follow-up. Any release/controller promotion remains separately authorized. Package ownership/setup and release publishing must not become hidden prerequisites for unrelated local work.
+No new product scope is required to close the reviewed findings. Original delivery CI and merge are complete, and D1's workflow follow-up is merged and reviewed. The review of `d22b4bb` returned after PR #5 was merged; it had no findings, so the merged guidance stayed as it was. Any release/controller promotion remains separately authorized. Package ownership/setup and release publishing must not become hidden prerequisites for unrelated local work.
 
 ## Next-stage readiness
 

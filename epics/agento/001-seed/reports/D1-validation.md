@@ -1,7 +1,8 @@
 # D1 candidate validation
 
-Date: 2026-11-03. Coordinator-owned. Status: bounded fresh planning proof accepted; independent review pending.
-Candidate: `da4792a485f45f54b0f0b912d3df62a2a484bdf0`, [PR #4](https://github.com/exones/agento/pull/4).
+Date: 2026-11-03. Coordinator-owned. Status: D1 Done. Bounded fresh planning proof accepted. Independent review reported no findings on the merged proof head.
+Candidate policy: `da4792a485f45f54b0f0b912d3df62a2a484bdf0`, [PR #4](https://github.com/exones/agento/pull/4), merge `3a46c9e10399502fe1b9c27aa0840632d3da8c66` at 2026-11-03T18:40:03Z.
+Reviewed and merged proof: `d22b4bbccd4f38f6fb66c1e03c4cc56570060036`, [PR #5](https://github.com/exones/agento/pull/5), merge `ecf0d7c0f4cb717e63b469ce0bd9625c12d2ee74`.
 
 ## Inspection and boundaries
 
@@ -36,4 +37,6 @@ The retained validator/results are historical exercise evidence, not an instruct
 
 Coordinator checks after retaining proof: 160 local links, including 10 anchors across 16 changed/added files, passed. Whitespace checks passed. Policy/skill/product/package/script/workflow content still matches the tested candidate `da4792a`; this successor records evidence/status only.
 
-Assign `D1-sequential-backlog-ids-review-001` to examine the exact committed candidate plus retained proof, the acceptance criteria, policy/routing/compatibility, and coordinator evidence claims. Keep D1 In Review pending that review, latest-head CI, and human merge. No release or stage 2 start.
+[PR run 41697190559](https://github.com/exones/agento/actions/runs/41697190559) passed Windows and Ubuntu on exact `d22b4bbccd4f38f6fb66c1e03c4cc56570060036`. Push run 41696892902 also passed. The user then merged PR #5 at `ecf0d7c0f4cb717e63b469ce0bd9625c12d2ee74`. The seed tree of that merge matches the reviewed head.
+
+Independent review `D1-sequential-backlog-ids-review-001`, request `86981c22-ebf5-436b-8fa5-96dd46269b39`, inherited Sol High, isolated checkout `C:\worktrees\agento\t3-e440c117`, checked that same head. It reported no actionable P1, P2, or P3 findings. The coordinator copied [the report](reviews/D1/D1-sequential-backlog-ids-review-001.md) and [the reviewer checkpoint](../checkpoints/reviews/D1/D1-sequential-backlog-ids-review-001.md) with matching SHA-256 bytes: report `39276A468D9B92CDDDF3B9E9A4E7BF24B37EE5A985F7A0DA3FBA8C25498A5F7F`, checkpoint `3F82DCE349AA992F8B12C3DCDD53689B219E17684376A1023FC462AAC5A62F47`. The report names PR #4 as its artifact label; the authoritative checked revision is `d22b4bb`, which PR #5 merged. No finding required a fix, so nothing was rolled back. This agent review is not a formal GitHub approval. No release or stage 2 start.

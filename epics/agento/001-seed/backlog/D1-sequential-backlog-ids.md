@@ -1,7 +1,7 @@
 # D1: sequential letters for newly planned backlog items
 
 Kind: story. Epic: AGENTO-001. Feature: coordinator workflow follow-up.
-Status: in-review. Owner: one Grok 4.7 Extra High implementation worker through Cursor. Depends on: D delivered and human-merged in PR #2 at `d81f4a5` (satisfied).
+Status: done. Owner: one Grok 4.7 Extra High implementation worker through Cursor. Depends on: D delivered and human-merged in PR #2 at `d81f4a5` (satisfied). Policy merge `3a46c9e` in PR #4. Proof head `d22b4bb` passed Windows/Ubuntu CI and was human-merged in PR #5 at `ecf0d7c`. Review `D1-sequential-backlog-ids-review-001` reported no findings on that head. Not a release.
 Priority: immediately after D, before other new delivery work in this epic.
 
 As the person browsing an epic's files, I want new backlog items named in a predictable letter sequence so the folder is easy to follow without decoding initials chosen from each item's title.
@@ -33,7 +33,7 @@ This is a documentation/skill behavior change. It does not change CLI ID validat
 - [x] Define the convention centrally, including stable existing IDs and later additions.
 - [x] Route the coordinator skill and relevant templates to that section.
 - [x] Run and inspect the bounded fresh planning exercise; retain concrete evidence. Coordinator accepted the three-story A/B/C case on exact `da4792a`; see [validation record](../reports/D1-validation.md) for artifacts, checks, and limits.
-- [x] Validate links, skill structure, and formatting. Applicable CI, independent review, and human-approved merge remain open.
+- [x] Validate links, skill structure, and formatting. Windows/Ubuntu CI passed on `d22b4bb` (PR run 41697190559, push run 41696892902). Independent review reported no findings. Human merge of that head is `ecf0d7c`.
 
 ## Ownership, review, and output
 
