@@ -11,6 +11,52 @@ Status: selected registry, 2026-11-03. This supersedes the Forgejo/Tailscale reg
 
 Keep `private: true` on the provisional local package until release configuration deliberately enables publication. The executable remains `agento` even if the package is scoped as `@<owner>/agento`. Package ownership/name availability must be verified; the local development name is not a registry reservation.
 
+## Prepared release workflow
+
+Checked against npm's docs on 2026-11-03. This repository has not published a package, created a tag, or created a GitHub Release.
+
+`.github/workflows/release.yml` runs only on `workflow_dispatch`. The required input `confirm` must be the word `publish`. The job checks out the selected ref, runs the same verify gate as pull requests, and uploads `artifacts/package/` as the workflow artifact `agento-release-tarball`. That file is the verified tarball plus `agento-0.1.0.provenance.json`. The workflow does not create a git tag or a GitHub Release.
+
+`npm publish` runs only when both of these are true:
+
+- `package.json` `private` is not `true`
+- the GitHub Actions repository variable `AGENTO_RELEASE` is exactly `enabled`
+
+Until then the publish step is skipped. `npm publish` is not executed. The package in this revision stays `private: true`, so a dispatch cannot publish. Do not dispatch the workflow to test it; the pull-request CI workflow already packs and uploads the tarball.
+
+The publish step publishes the tarball produced by that same job (`npm publish --ignore-scripts <tarball>`). A scoped name also gets `--access public`, which matches the selected public-package route. A paid private npm package is not this workflow. The job uses GitHub-hosted `ubuntu-latest`, `contents: read`, `actions: write`, and `id-token: write`. It does not set `NODE_AUTH_TOKEN` or `registry-url`.
+
+Trusted publisher settings must name the workflow filename `release.yml` only, including the extension. Keep `npm publish` in this file. npm's trusted publishing notes say that a `workflow_call` or a nested workflow can make npm validate the caller filename instead of the file that contains `npm publish`.
+
+The provenance file next to the tarball is this repository's pack record: version, source revision, dirty flag, and SHA-256. It is not an npm provenance attestation. npm generates registry provenance automatically when a public package is published with trusted publishing from this public repository. Do not pass `--provenance` for that path.
+
+## User actions before any publication
+
+These are nonsecret setup actions. They do not block local tarball proof. Do not paste tokens into chat, GitHub secrets, or the repository. Do not infer an npm username from the GitHub account `exones`.
+
+1. Sign in to the npm account or organization that should own the package and enable two-factor authentication. npm requires 2FA, or a granular access token with bypass 2FA, to create and publish packages. This project does not use a bypass token. npm documents that direct publishing with bypass-2FA granular tokens is being removed in January 2027.
+
+2. Choose the package name. The local name `agento` is not a reservation. On 2026-11-03, `npm view agento` from the pinned Node.js toolchain returned a different public package, version `0.1.2`, described as "A sophisticated agentic framework for building AI agents with state machines and intent-based routing". Do not publish this project under that unscoped name. Choose another name, likely `@<npm-user-or-org>/agento`, after you confirm that scope. The installed executable can still be `agento`. A public package is the selected route. An npm private package needs a paid plan; do not choose it unless that cost is accepted.
+
+3. In a later change that explicitly authorizes publication, set the chosen `name`, set `"private": false`, and keep `repository.url` as `git+https://github.com/exones/agento.git`. npm's trusted publishing troubleshooting says `repository.url` must exactly match the GitHub repository. For a scoped public package, the release workflow adds `--access public` because scoped packages would otherwise be registry-private.
+
+4. Create the package once from an authenticated npm session before saving a trusted publisher. The trusted publisher controls are documented on the existing package's settings page (`npmjs.com` → Packages → the package → Settings → Trusted publishing). `npm trust` is the CLI equivalent and has not been run. Use the verified tarball, not `npm link`. An interactive `npm publish <tarball>` prompts for 2FA. This story does not authorize that publish. `npm stage publish` on a package that does not exist yet publishes a public placeholder; do not use it as a silent first step.
+
+5. After the package exists, add one GitHub Actions trusted publisher:
+   - Organization or user: `exones` (the GitHub owner of `github.com/exones/agento`, not an npm identity)
+   - Repository: `agento`
+   - Workflow filename: `release.yml`
+   - Environment: leave blank. This workflow does not set a GitHub environment. Add one only by creating the environment, setting that exact name on the publisher, and adding the same `environment:` to the release job in a reviewed change.
+   - Allowed actions: configurations created after 2026-09-03 allow `npm stage publish` by default. Also allow direct `npm publish`. This workflow runs `npm publish` and does not run `npm stage publish`.
+   - Complete the first successful publish that uses the new configuration within 2 days, or npm expires it. npm does not validate the fields when they are saved.
+   - Trusted publishing requires npm CLI 11.5.1 or later and Node.js 22.14.0 or later. This repository's gate uses Node.js 26. GitHub-hosted runners are required; self-hosted runners are not supported. Provenance is automatic for a public package from a public repository and is not generated for a private repository.
+
+6. Create the repository variable `AGENTO_RELEASE` with the value `enabled` only when a dispatch should be allowed to publish. It is not a secret. Do not create an npm automation token or `NODE_AUTH_TOKEN` for this workflow.
+
+7. Dispatch `release.yml` and enter `publish` in `confirm`. After a trusted publish works, set the package's publishing access to "Require two-factor authentication and disallow tokens."
+
+8. Keep the versioned tarball and provenance file as the installable fallback. Attaching them to a GitHub Release is a separate authorization. Install that tarball outside the checkout using the README procedure. That install does not start the next stage.
+
 ## User involvement before publishing
 
 The coordinator or worker must identify the exact prerequisite when needed and continue independent work:
@@ -22,10 +68,16 @@ The coordinator or worker must identify the exact prerequisite when needed and c
 
 Request credentials through the host's secret mechanism if needed; never ask for raw token values in chat. Prefer trusted publishing where available. Do not silently generate a public release to test configuration.
 
-These prerequisites do not block B or C. Put an actionable blocker in the checkpoint and the coordinator's `You` report when it becomes relevant. Avoid vague "needs credentials" messages: specify the nonsecret setup action and which release step it blocks.
+These prerequisites do not block local packaging. The exact nonsecret actions are in the section above. Put an actionable blocker in the checkpoint and the coordinator's `You` report when it becomes relevant. Avoid vague "needs credentials" messages: specify the nonsecret setup action and which release step it blocks.
 
 ## References
 
-- [Public scoped packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/).
-- [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/): implementation must check current first-publish requirements, supported runners, repository/workflow matching, and available authentication.
+Checked 2026-11-03:
+
+- [Public scoped packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/), including staged publishing and the public placeholder created when a new package is staged.
+- [Trusted publishing](https://docs.npmjs.com/trusted-publishers/): npm CLI 11.5.1+, Node.js 22.14.0+, GitHub-hosted runners, `id-token: write`, workflow filename only, `repository.url` match, allowed actions after 2026-09-03, and the two-day configuration expiry.
+- [Requiring 2FA](https://docs.npmjs.com/requiring-2fa-for-package-publishing-and-settings-modification/).
+- [Access tokens](https://docs.npmjs.com/about-access-tokens/), including stage-only tokens and the January 2027 direct-publish deprecation.
+- [npm trust](https://docs.npmjs.com/cli/v11/commands/npm-trust/).
+- [Generating provenance statements](https://docs.npmjs.com/generating-provenance-statements/).
 - [Private package requirements](https://docs.npmjs.com/about-private-packages/), if public access is later reconsidered.

@@ -1,0 +1,119 @@
+# Prepared release. Dispatch is not part of story D and was not run.
+# Checked 2026-11-03 against https://docs.npmjs.com/trusted-publishers/
+# and https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/.
+#
+# npm publish is skipped while package.json private is true or the repository
+# variable AGENTO_RELEASE is not exactly enabled. No token is requested.
+# The trusted publisher workflow filename, when one is created, is release.yml.
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type publish to run. Publication stays off while package.json private is true.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: pack release candidate
+    if: github.event.inputs.confirm == 'publish'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require PowerShell 7.6
+        shell: pwsh
+        run: |
+          $version = $PSVersionTable.PSVersion
+          Write-Output "pwsh $version"
+          if ($version -lt [version]'7.6.0') {
+            Write-Error "pwsh $version is below the required 7.6.0 baseline."
+            exit 1
+          }
+
+      - name: Setup Node.js 26
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "26"
+          check-latest: true
+          cache: npm
+
+      - name: Install dependencies
+        shell: pwsh
+        run: npm ci
+
+      - name: Verify
+        shell: pwsh
+        env:
+          AGENTO_REQUIRE_CLEAN: "1"
+        run: npm run verify
+
+      - name: Upload verified tarball
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: agento-release-tarball
+          path: artifacts/package/
+          if-no-files-found: error
+
+      - name: Decide whether publication is enabled
+        id: publication
+        shell: pwsh
+        env:
+          AGENTO_RELEASE: ${{ vars.AGENTO_RELEASE }}
+        run: |
+          $pkg = Get-Content -Raw -LiteralPath package.json | ConvertFrom-Json
+          $npmVersion = (& npm --version).Trim()
+          Write-Output "npm $npmVersion"
+          $private = $pkg.private -eq $true
+          $allowed = $env:AGENTO_RELEASE -eq 'enabled'
+          $enabled = (-not $private) -and $allowed
+          "enabled=$($enabled.ToString().ToLowerInvariant())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          $summary = if ($enabled) {
+            "Publication is enabled for this dispatch. The next step runs npm publish on the verified tarball."
+          } elseif ($private) {
+            "Publication skipped. package.json private is true. npm publish was not run."
+          } else {
+            "Publication skipped. Repository variable AGENTO_RELEASE is not enabled. npm publish was not run."
+          }
+          "## Release gate`n`n$summary`n" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+      - name: Publish to npm
+        if: steps.publication.outputs.enabled == 'true'
+        shell: pwsh
+        run: |
+          $npmVersionText = (& npm --version).Trim()
+          $npmParts = $npmVersionText.Split('.')
+          $npmMajor = [int]$npmParts[0]
+          $npmMinor = [int]$npmParts[1]
+          $npmPatch = [int](($npmParts[2] -split '-')[0])
+          $npmOk = ($npmMajor -gt 11) -or ($npmMajor -eq 11 -and $npmMinor -gt 5) -or ($npmMajor -eq 11 -and $npmMinor -eq 5 -and $npmPatch -ge 1)
+          if (-not $npmOk) {
+            Write-Error "npm $npmVersionText is below the trusted-publishing requirement 11.5.1."
+            exit 1
+          }
+          $pkg = Get-Content -Raw -LiteralPath package.json | ConvertFrom-Json
+          $tarballs = @(Get-ChildItem -LiteralPath artifacts/package -Filter *.tgz -File)
+          if ($tarballs.Count -ne 1) {
+            Write-Error "Expected one verified tarball."
+            exit 1
+          }
+          $publishArgs = @('publish', '--ignore-scripts', $tarballs[0].FullName)
+          if ($pkg.name.StartsWith('@')) {
+            $publishArgs += @('--access', 'public')
+          }
+          & npm @publishArgs
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }

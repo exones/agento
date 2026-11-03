@@ -11,5 +11,6 @@ dist/
 # Local ledger state created by the CLI. It stays untracked.
 .agento/
 
-# Packed package artifacts.
+# Packed package artifacts. The tarball and provenance stay local or in Actions.
 *.tgz
+/artifacts/
