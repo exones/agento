@@ -19,11 +19,23 @@ epics/<project>/<NNN>-<slug>/
   checkpoints/current.md  # coordinator-owned handoff
   checkpoints/<ID>.md     # worker-owned handoff
   reports/<ID>.md         # evidence and proposed status update
+  reports/reviews/<parent>/01.md      # exact-revision review pass
+  checkpoints/reviews/<parent>/01.md # reviewer-owned resume point
   reports/final.md        # epic outcome and release evidence
   retro.md                # observed lessons and follow-up backlog items
 ```
 
-Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, R a review task, and I an optional infrastructure spike. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, and I an optional infrastructure spike. The existing R assignment is a legacy alias for the seed epic's review gate, not a pattern for new backlog IDs. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+
+## Review gates and indexing
+
+Routine implementation reviews belong to the item being reviewed. Use `<parent>/review-<NN>`: `D/review-01`, then `D/review-02` for a new independent recheck. A milestone review spanning several items belongs to the epic, for example `AGENTO-001/review-01`. Reviewers are roles; their assignment does not create another story/task letter or a separate delivery PR.
+
+Store a pass at `reports/reviews/<parent>/<NN>.md` and its optional resumable reviewer checkpoint at `checkpoints/reviews/<parent>/<NN>.md`. Record parent, pass, reviewer, exact checked SHA, PR/artifact identity, scope/acceptance, findings, checks, and limits. Findings can be referenced as `D/review-01/F1`; keep those labels stable through triage. The parent epic/item links the gate and its result. Preserve prior passes rather than overwriting evidence for another revision.
+
+Record fixes/refutations/deferrals against the parent and exact revision. A new independent review/recheck gets the next pass; a coordinator's evidence update is not automatically another independent review. Reviews remain required for Done; indexing does not change acceptance, model selection, or human merge authority.
+
+Preserve existing IDs and historical evidence. Legacy R maps to `AGENTO-001/review-01`. A running assignment keeps its named output files until it returns; the coordinator then files its report/checkpoint at the parent-scoped paths and leaves legacy pointers. Do not restart a running reviewer just to change naming.
 
 ## Analysis and refinement
 

@@ -12,7 +12,7 @@ Status: planning baseline, 2026-11-03. Only the seed epic has executable backlog
 | 5 | 0.5 recovery | Scheduled tick, bounded retry/nudge, pause/resume, thread replacement, export | Pinned 0.4, at most two workers | Interruption/restart exercises preserve work and prevent duplicate actions; fresh context resumes. |
 | 6 | Pilot | Real project proof, compatibility fixes, operating guide, revised defaults | Pinned 0.5 | Evidence-backed final report and retro; limitations explicitly handed over. |
 
-The coordinator skill is delivered in stage 0, before the CLI. Stage 4 adds deterministic coordination in the product; it is not the first time we use a coordinator. Later milestones refine the bootstrap skill using real delivery evidence. Agile work division follows `docs/agile-workflow.md`; the seed backlog contains spikes, an enabler, stories, and a review task rather than calling every item a story.
+The coordinator skill is delivered in stage 0, before the CLI. Stage 4 adds deterministic coordination in the product; it is not the first time we use a coordinator. Later milestones refine the bootstrap skill using real delivery evidence. Agile work division follows `docs/agile-workflow.md`; the seed backlog contains spikes, an enabler, and stories, with parent-scoped review gates rather than a new work item for each review.
 
 ## Bootstrap rules
 

@@ -19,11 +19,13 @@ Updated: 2026-11-03. User requirements take precedence over implementation propo
 | D11 | Sol High coordinates; Grok 4.7 Extra High implements, with one implementation worker at a time for the seed. | User's stated provider/model preference. Coordinator and worker have separate file ownership. |
 | D12 | Use epics, optional features, stories, tasks, spikes, backlog refinement, acceptance criteria, Definition of Ready, and Definition of Done. Active files live under `epics/`. | User requested Agile terminology and work division. |
 | D13 | Provide the reusable `agento-coordinate` skill before implementation, with natural-language goal entry, analysis, epic/backlog planning, and scoped delivery/resume. | User does not want to repeat long coordinator prompts. |
-| D14 | Every coordinator turn ends with a super-concise `Done / You / Next` report. | User wants actual progress, required involvement, and one recommended next step; detail remains in files. |
+| D14 | Routine coordinator progress updates use concise `Done / You / Next`; substantive completion briefings follow D20. | Initial short-report preference retained for progress; user later requested more detail after items. |
 | D15 | Passing local gates leads to scoped Conventional Commits and a PR, including spikes. Done requires applicable hosted CI, review, and human-approved merge. | User requested a real commit/PR/CI/review delivery loop instead of accumulating uncommitted work. |
 | D16 | README describes supported project state and usage; active work/progress belongs only in epics/checkpoints/reports. | User treats README as the repository frontend. |
 | D17 | Reusable handoff documentation contains mechanics and placeholder examples, not live assignments/progress or duplicate status tables. | User identified duplicate progress in `docs/agent-handoff.md`; keep one maintained source in the epic/checkpoints. |
 | D18 | Local state lives under `.agento/`; the former `.crew/` storage name is superseded. | User clarified that storage must follow the `agento` tool name. Apply the pre-release correction after C returns, before D packaging, without concurrent edits to C's files. |
+| D19 | Routine reviews are parent-item/epic gates indexed `<parent>/review-<NN>`, with exact-revision evidence and stable finding labels; no new backlog letter per review. | User wants each review bound to its actual deliverable. Preserve existing IDs as aliases; legacy R maps to `AGENTO-001/review-01`. |
+| D20 | Written item reports and user completion briefings explain introduced capabilities, important changes, validation, limits, user involvement, and next action. | User wants release-note detail after items; the three-line/60-word convention applies only to routine progress updates. |
 
 ## Adopted working defaults
 
@@ -70,6 +72,7 @@ Prepare GitHub Actions publishing through [npm trusted publishing](https://docs.
 
 ## Decision log
 
+- 2026-11-03, user: requested item-bound review indexing and fuller reports after each item. Adopted D19/D20 in root guidance, coordinator skill/templates, workflow, report format, and handoff guide. Preserve historical IDs; let the active legacy R reviewer finish its existing output paths before filing it as the epic's first review pass. Continue D/CI work without restarting review or changing acceptance gates.
 - 2026-11-03, user: clarified that `.crew/` also conflicts with the selected tool name. Selected `.agento/` for storage, superseding the earlier retention default. Added task N after the running C assignment and before packaging; preserve historical evidence and avoid editing C's files concurrently.
 - 2026-11-03, user: TypeScript/Node.js CLI, GitHub Actions, incremental self-hosting, one-agent bootstrap.
 - 2026-11-03, user: PowerShell is a fully supported automation language; Tailscale binds infrastructure; prefer self-hosted Forgejo reached from GitHub Actions.

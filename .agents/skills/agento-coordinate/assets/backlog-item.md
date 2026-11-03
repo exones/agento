@@ -22,8 +22,11 @@ Status: backlog. Owner: <role>. Depends on: <IDs or none>.
 ## Ownership and verification
 <Files/resources, exact meaningful checks, review requirement, and required evidence.>
 
+## Review gates
+<Parent-scoped passes such as <ID>/review-01, exact candidate revision, reviewer/scope, report path, findings/triage, and gate result. Routine reviews do not get independent backlog letters; follow docs/agile-workflow.md.>
+
 ## Delivery record
 <Owned branch/PR, Conventional Commit messages, checked head SHA, local gate, hosted CI, reviewer findings/triage, human merge decision, and merge SHA. For a docs-only spike use applicable documentation/CI checks. Do not mark Done from local proof alone.>
 
 ## Report and resume
-Write <epic path>/checkpoints/<ID>.md and <epic path>/reports/<ID>.md. Include outcome, checks/results, revision/artifact identity, limitations, and next action. In coordinated mode the coordinator owns shared status. Stop after this item.
+Write <epic path>/checkpoints/<ID>.md and <epic path>/reports/<ID>.md. Follow epics/report-format.md: explain introduced capability, important changes and operator impact, then checks/results, revision/artifact identity, limitations, and next action. In coordinated mode the coordinator owns shared status. Stop after this item.

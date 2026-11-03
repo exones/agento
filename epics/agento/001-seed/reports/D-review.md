@@ -4,6 +4,16 @@ Date: 2026-11-03. Result: local package proof accepted for review; D remains In 
 
 PR: [#2](https://github.com/exones/agento/pull/2), branch `feat/package-bootstrap`, implementation head `10ff911294a72957fe7fc689757bb33d3c72b38d`. Coordinator owns subsequent status/evidence metadata; product/package changes require meaningful revalidation if made.
 
+## What D introduces
+
+- **Installable local controller:** previously the supported usage ran compiled files from the checkout. D adds exact-tarball installation in a clean consumer outside that checkout and proves the installed `agento` executable can perform the schema 1 ledger lifecycle. This is a private, unpublished candidate, not a registry release or stage 2 controller promotion.
+- **Package verification entry point:** `npm run package:proof` runs the PowerShell package gate; the normal Verify entry point now includes it after the existing 40 product tests. It exercises separate installed CLI processes, paths with spaces, stored kinds, invalid transitions, preservation, lock timeout, concurrency, and relevant platform behavior. Lifecycle scripts cannot recurse into the pack/install proof.
+- **Artifact identity:** `artifacts/package/` retains the exact tarball, npm pack metadata, and provenance sidecar with source SHA, dirty/candidate flags, tool versions, and digest. A dirty local probe is distinguished from clean committed-candidate proof. Nothing claims npm attestation or cross-platform byte reproducibility.
+- **CI and release preparation:** Windows/Ubuntu jobs run the same gate and upload package artifacts; a manually triggered release workflow is prepared with publication guards. It has not been dispatched. npm owner/name selection and release configuration remain separate user-controlled setup.
+- **Operating instructions:** README explains installing a fixed tarball outside development output, and distribution documentation lists the npm name collision and concrete setup steps. Schema, ledger commands, `.agento/` storage behavior, and manual completion semantics are unchanged.
+
+The independent Windows proof below passed, but the later Ubuntu failure means D's full platform acceptance remains open. These notes describe implemented behavior and its evidence boundaries, not release readiness.
+
 ## Evidence inspected
 
 Read worker `reports/D.md` and `checkpoints/D.md`, package/provenance, packing and verification scripts, package manifest, CI/release workflows, updated install/distribution instructions, and draft final report. Inspected archive listing: compiled `dist`, package manifest, and README; no development state, source tree, credentials, or runtime dependency on checkout paths was found in that inspection. Source maps/declarations are currently included under `dist`; that is not a source-import dependency.
@@ -21,3 +31,23 @@ Assign R independently on this concrete candidate, including full seed outcomes 
 The npm owner and available package name remain user decisions before publication. Worker lookup reports unscoped `agento` is another public package. Continue CI/review independently and retain `private: true`; never infer an npm scope from GitHub. Release setup changes, if later authorized, must preserve runnable verification for the selected publication identity.
 
 R delegation request: client ID `4a749143-ddd0-4ea3-acab-cc90e7428378`, Sol High through Codex in the shared checkout, product read-only and only `reports/R.md` / `checkpoints/R.md` writable. No other implementation worker is active. Parent preserves product and Git state while review runs. Return findings before any final report/retro closure.
+
+Review indexing update: this existing epic-wide assignment is `AGENTO-001/review-01`; R remains its legacy alias. The active output paths stay unchanged until the reviewer returns. Parent-scoped report/checkpoint filing and legacy pointers follow the new workflow convention. Routine future item reviews do not consume backlog letters.
+
+## Ubuntu CI failure on review head
+
+Host wake-up reports Ubuntu failure on `848d4d50e918ecd4586bad30a4ff67acd70efea5`. Read [run 41671972482, job 126042437548](https://github.com/exones/agento/actions/runs/41671972482/job/126042437548) failure logs: typecheck/build and all 40 product tests passed, clean pack and tarball install succeeded, then package proof exited 1 with `installed shim does not point at agento/dist/cli.js`.
+
+Cause: `scripts/Test-Package.ps1` reads `.bin/agento` as text and requires a Windows-style wrapper reference to `agento/dist/cli.js` on every platform. npm's bundled `bin-links/lib/link-bin.js` and `link-gently.js` show POSIX bins are symlinks. Reading the POSIX bin follows the link and reads `dist/cli.js`, which correctly imports `./main.js` and has no wrapper-path literal. This is a package-proof portability defect; the failed installed ledger scenario has not yet run on Linux, so do not claim full Linux package proof.
+
+Fix queued after R returns, preserving its exact candidate: validate Windows wrapper text as before; on POSIX resolve the installed bin symlink and compare its target to the installed package entry, then retain every executable scenario. Do not skip the installed proof or loosen acceptance. Parent changed only owned review/status metadata during this wake-up, without stage/commit/push or product mutation. R and the existing PR watch continue; no replacement reviewer or implementation delegate was launched.
+
+## Changes after the review returned
+
+The completed review is now [AGENTO-001/review-01](reviews/AGENTO-001/01.md), with legacy R pointers. It confirms the Ubuntu bin check and identifies hardcoded provisional name/version/privacy assumptions that made the documented release transition fail verification. Both are corrected locally; no existing lifecycle, preservation, concurrency, or manual-evidence assertion was removed.
+
+The installed-bin check now distinguishes Windows wrapper files from POSIX symlinks, while verifying the selected package entry in both cases. Package identity/version/private mode and tarball/provenance names now follow the manifest and npm pack result. Scoped names are installed under their actual scoped package directory; the executable remains `agento`. CLI metadata/version tests check the supported manifest-driven behavior. Today's manifest is unchanged and remains private.
+
+Validation after correction: normal `scripts/Verify.ps1` exited 0 on Windows with typecheck/build, all 40 tests, and package proof (dirty pre-commit probe, lock timeout 5431 ms, digest unchanged at `e40abb...`). A temporary manifest fixture `@agento-proof-fixture/agento`, version `0.1.1`, private false passed the 8 CLI tests and full package proof; its distinct tarball digest is `ad628e98a01aa8e3731fa28a91ee18627ef98e0cf90bb98b50ac38b046f592cf`, candidate false. Fixture evidence is gitignored under `artifacts/fixtures/scoped-identity/`. The original package manifest was restored byte-for-byte in cleanup. This fixture is not a selected npm identity or a publication.
+
+The user's workflow changes are also persistent: parent-scoped review records preserve each checked revision and findings, and completed-item reports/briefings now explain introduced capabilities, important changes, validation, and limitations. Coordinator skill structural validation, documentation links, and formatting passed. These policy changes and product-proof corrections still need the next independent review; final CI, skill behavior proof, report/retro reconciliation, and human merge remain open.

@@ -1,6 +1,6 @@
 # R: fresh-context seed review
 
-Status: in-progress, fresh-context review requested. Depends on: D candidate and evidence available (satisfied by PR #2 and independent clean installed-package proof).
+Status: done as legacy review execution only. Parent gate `AGENTO-001/review-01` completed with two P2 findings; D remains In Review. This file preserves the original R assignment rather than defining a new independent backlog deliverable. See [review record](../reports/reviews/AGENTO-001/01.md) and [checkpoint](../checkpoints/reviews/AGENTO-001/01.md).
 Kind: review task. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
 Role: reviewer. Product files read-only; write review report/checkpoint metadata only.
 

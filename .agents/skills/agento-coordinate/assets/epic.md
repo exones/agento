@@ -24,6 +24,9 @@ Release target: <milestone or none>. Controller/schema: <version or manual>.
 
 Order/WIP/resource ownership: <reasoning and limits>.
 
+## Review gates
+<List item-bound passes such as <item>/review-01 and an epic-bound pass when the scope spans the milestone. Record exact checked revisions and report links; routine reviews are not separate backlog rows.>
+
 ## Definition of Ready and Definition of Done
 <Project criteria plus epic-specific acceptance and review/release gates.>
 
