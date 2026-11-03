@@ -1,9 +1,10 @@
-# <item-stem-or-epic-ID>-review-<NNN>: <review scope>
+# <review-name>: <review scope>
 
-Parent: <existing item or epic ID>. Pass: <NNN>. Reviewer: <role/session>.
-Agent/assignment name: <same review name as heading; e.g. A-preflight-review-001>.
-Report: reports/reviews/<parent>/<review-name>.md.
-Checkpoint: checkpoints/reviews/<parent>/<review-name>.md (if needed).
+Read and apply the [review conventions](../../../../docs/agile-workflow.md#review-gates-and-indexing) before filling in names/paths (template reference; resolve against the project root when generating a report).
+
+Parent: <existing item or epic ID>. Pass: <pass>. Reviewer: <role/session>.
+Agent/assignment name: <review-name>.
+Report/checkpoint: <paths chosen under the review conventions>.
 Candidate: <exact commit>. PR/artifact: <URL and identity when applicable>.
 Status: requested | in-progress | findings | no-findings. Date: <date>.
 Legacy alias: <only if needed to preserve an existing reference>.

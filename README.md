@@ -8,7 +8,7 @@ Project and CLI name: **agento**. Use `agento` as the executable, for example `a
 
 This build implements the schema 1 manual ledger: `init`, `new`, `status`, and `story add/start/block/complete`. See the [contract](docs/seed-contract.md). Completing an item records a manual note; independent verification remains a separate step.
 
-For contribution and agent assignment instructions, see the [handoff guide](docs/agent-handoff.md).
+For contribution and agent assignment instructions, see the [handoff guide](docs/agent-handoff.md). Review naming and numbering are defined in the [review conventions](docs/agile-workflow.md#review-gates-and-indexing).
 
 ## Build and verify
 

@@ -43,7 +43,7 @@ Routine progress/waiting updates can remain short. The earlier three-line/60-wor
 
 ## Review records
 
-Use review names such as `A-preflight-review-001` consistently for the agent/assignment, report heading, and new report/checkpoint basenames. Follow [the Agile workflow](../docs/agile-workflow.md) for parent-scoped paths and numbering, rather than assigning a new backlog letter to each reviewer. Each record identifies its exact checked revision, scope, findings/acceptance assessment, checks, limits, and subsequent triage. The [review template](../.agents/skills/agento-coordinate/assets/review.md) is available for assignments. Preserve existing records, aliases, and finding labels; avoid changing a running review's name/paths.
+Read and follow the authoritative [review conventions](../docs/agile-workflow.md#review-gates-and-indexing) for names, paths, numbering, and existing records. Use the [review template](../.agents/skills/agento-coordinate/assets/review.md) to record the exact checked revision, scope, findings/acceptance assessment, checks, limits, and subsequent triage.
 
 ## Current checkpoint
 

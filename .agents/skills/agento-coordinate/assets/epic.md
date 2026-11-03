@@ -25,7 +25,9 @@ Release target: <milestone or none>. Controller/schema: <version or manual>.
 Order/WIP/resource ownership: <reasoning and limits>.
 
 ## Review gates
-<List item-bound review names such as <item-stem>-review-001 and <epic-ID>-review-001 when the scope spans the milestone. Record exact checked revisions and report links; routine reviews are not separate backlog rows.>
+<List reviews with their parent, scope, exact checked revisions, and report links. Read and apply the authoritative review conventions linked below.>
+
+[Review conventions](../../../../docs/agile-workflow.md#review-gates-and-indexing) (template reference; resolve against the project root when generating an epic).
 
 ## Definition of Ready and Definition of Done
 <Project criteria plus epic-specific acceptance and review/release gates.>
