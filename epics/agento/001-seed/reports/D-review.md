@@ -1,6 +1,10 @@
 # D: coordinator candidate inspection and independent local proof
 
-Date: 2026-11-03. Result: local package proof accepted for review; D remains In Review.
+Date: 2026-11-03. Current result: D Done after human merge; chronological inspection evidence follows.
+
+## Final delivery and merge
+
+Verified [PR #2](https://github.com/exones/agento/pull/2) is human-merged at `d81f4a5765b6b34e686d3827a15aaaf726e76f01`, 2026-11-03T18:20:40Z. Final PR head `147a4bd10ec0e45b4c25c9adee4ce9751d2502a6` passed [Windows/Ubuntu PR CI](https://github.com/exones/agento/actions/runs/41692089275); push-triggered checks also passed. Runtime/tests/package/scripts/workflows match the reviewed product revision `2cf2bf2`. Independent pass 02 resolved the original findings. D meets its delivery gates; no publication, release, or persistent controller promotion is implied. The user requested continuation to D1. Earlier In Review statements below describe the checks at those earlier boundaries.
 
 PR: [#2](https://github.com/exones/agento/pull/2), branch `feat/package-bootstrap`, implementation head `10ff911294a72957fe7fc689757bb33d3c72b38d`. Coordinator owns subsequent status/evidence metadata; product/package changes require meaningful revalidation if made.
 

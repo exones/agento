@@ -25,13 +25,33 @@ epics/<project>/<NNN>-<slug>/
   retro.md                # observed lessons and follow-up backlog items
 ```
 
-Keep existing seed IDs stable. A is a spike, B an enabler task, C/D stories, N a storage naming correction task, and I an optional infrastructure spike. The existing R assignment is a legacy alias for the seed epic's review gate, not a pattern for new backlog IDs. A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+Choose `<ID>` in [Backlog item IDs](#backlog-item-ids). A file under `backlog/` is not necessarily a user story. Tasks within these items are checklists, not separate PR requirements.
+
+## Backlog item IDs
+
+This section is the authoritative source for backlog item IDs. Planning instructions and templates link here. Epic directories stay `epics/<project>/<NNN>-<slug>/`, and epic IDs such as `AGENTO-001` stay as they are. Review names, numbering, and evidence paths stay in [Review gates and indexing](#review-gates-and-indexing). Creating a review does not take a backlog ID.
+
+### Initial sequence
+
+Stories, tasks, and spikes in a newly planned epic share one sequence. When that epic's backlog is first recorded, assign IDs in the prioritized table's order, starting at `A` and continuing `B`, `C`, `D`, through `Z`. The next ID after `Z` is `AA`, then `AB`, in spreadsheet-column order (`AZ`, then `BA`, through `ZZ`, then `AAA`). A new ID is uppercase letters with no digits. The fourth item is `D` whether it is a story, a task, or a spike.
+
+The backlog filename is `backlog/<ID>-<descriptive-slug>.md`. The ID is the filename token before the first hyphen, and the slug is lowercase words separated by hyphens. The epic table, dependency references, `checkpoints/<ID>.md`, and `reports/<ID>.md` use that same ID.
+
+Four items planned in the order "Publish facts", "OIDC guard", "Install scripts", and "npm account" are `A-publish-facts.md`, `B-oidc-guard.md`, `C-install-scripts.md`, and `D-npm-account.md`. Title-derived filenames such as `F-publish-facts.md`, `O-oidc-guard.md`, `S-install-scripts.md`, and `U-npm-account.md` do not follow this rule.
+
+Optional feature labels group related work inside the epic. They are not backlog IDs and do not consume letters from this sequence.
+
+### Existing work, later additions, and reordering
+
+After the backlog is recorded, keep every assigned ID, filename, and valid link. Reordering priority or dependencies leaves filenames and references unchanged. A cancelled item keeps its ID. A later item receives the earliest sequence ID that no file in that epic's `backlog/` directory already uses. Existing filenames stay in place, including IDs chosen outside this sequence.
+
+AGENTO-001 keeps `A` (spike), `B` (enabler task), `C` and `D` (stories), `N` (storage naming task), `D1` (this follow-up story), and `I` (cancelled infrastructure spike). `D1` stays this item's ID. The token before the hyphen in `backlog/D1-sequential-backlog-ids.md` is `D1`. Later additions in this epic continue with the letter sequence above, and a new epic starts at `A`. Legacy `R` remains the review alias in the review section. `backlog/R-review.md` already occupies `R`.
 
 ## Review gates and indexing
 
 This section is the authoritative source for review naming, numbering, evidence paths, and compatibility. Other instructions and templates link here rather than restating the convention.
 
-Routine implementation reviews belong to the item being reviewed. Name the review agent and assignment `<item-stem>-review-<NNN>`, using the backlog filename without `.md`: `A-preflight-review-001`, then `A-preflight-review-002` for a new independent recheck. For `backlog/D-package.md`, use `D-package-review-001`. A milestone review spanning several items uses the epic ID, for example `AGENTO-001-review-001`. Use that same name in the delegation title and report heading. Reviewers are roles; their assignment does not create another story/task letter or a separate delivery PR.
+Routine implementation reviews belong to the item being reviewed. Name the review agent and assignment `<item-stem>-review-<NNN>`, using the backlog filename without `.md`: `A-preflight-review-001`, then `A-preflight-review-002` for a new independent recheck. For `backlog/D-package.md`, use `D-package-review-001`. A milestone review spanning several items uses the epic ID, for example `AGENTO-001-review-001`. Use that same name in the delegation title and report heading. Reviewers are roles; their assignment does not create another story/task letter or a separate delivery PR. Item letters are assigned in [Backlog item IDs](#backlog-item-ids).
 
 Store new passes at `reports/reviews/<parent>/<review-name>.md` and their optional resumable reviewer checkpoints at `checkpoints/reviews/<parent>/<review-name>.md`, for example `reports/reviews/A/A-preflight-review-001.md`. Record parent, pass, reviewer, exact checked SHA, PR/artifact identity, scope/acceptance, findings, checks, and limits. Findings can be referenced as `A-preflight-review-001/F1`; keep those labels stable through triage. The parent epic/item links the gate and its result. Preserve prior passes rather than overwriting evidence for another revision.
 
@@ -45,7 +65,7 @@ For a goal, inspect existing epic/backlog/checkpoints before creating new work. 
 
 Split into the smallest useful stories and necessary spikes/tasks. Explain dependency order and file/resource ownership. Each item has a kind, outcome, scope/non-goals, acceptance criteria, implementation checklist, dependency/ownership fields, required evidence, and a resume/report path. Stories describe user value; technical enablers can describe developer/operator value without forced user-story prose.
 
-Write `epic.md` and item files before dispatch. Use the coordinator skill's templates for new work; refine existing files instead of duplicating the backlog. A planning-only request ends with a reviewable plan. An execution request can continue within its authorized scope once the next item is ready.
+Write `epic.md` and item files before dispatch. Assign item IDs from [Backlog item IDs](#backlog-item-ids). Use the coordinator skill's templates for new work; refine existing files instead of duplicating the backlog. A planning-only request ends with a reviewable plan. An execution request can continue within its authorized scope once the next item is ready.
 
 ## Definition of Ready
 

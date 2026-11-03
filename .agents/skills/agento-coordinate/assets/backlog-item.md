@@ -1,5 +1,7 @@
 # <ID>: <small outcome>
 
+Choose `<ID>` using the [backlog item ID convention](../../../../docs/agile-workflow.md#backlog-item-ids) (template reference; resolve against the project root when generating an item).
+
 Kind: story | task | spike. Epic: <ID/path>. Feature: <optional group>.
 Status: backlog. Owner: <role>. Depends on: <IDs or none>.
 

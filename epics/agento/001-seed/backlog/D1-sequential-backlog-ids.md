@@ -1,7 +1,7 @@
 # D1: sequential letters for newly planned backlog items
 
 Kind: story. Epic: AGENTO-001. Feature: coordinator workflow follow-up.
-Status: backlog. Owner: unassigned. Depends on: D delivered and human-merged.
+Status: in-review. Owner: one Grok 4.7 Extra High implementation worker through Cursor. Depends on: D delivered and human-merged in PR #2 at `d81f4a5` (satisfied).
 Priority: immediately after D, before other new delivery work in this epic.
 
 As the person browsing an epic's files, I want new backlog items named in a predictable letter sequence so the folder is easy to follow without decoding initials chosen from each item's title.
@@ -29,14 +29,14 @@ This is a documentation/skill behavior change. It does not change CLI ID validat
 
 ## Implementation checklist
 
-- [ ] Inspect current planning entry points and identify why arbitrary/title-derived IDs remain possible.
-- [ ] Define the convention centrally, including stable existing IDs and later additions.
-- [ ] Route the coordinator skill and relevant templates to that section.
-- [ ] Run and inspect the bounded fresh planning exercise; retain concrete evidence.
-- [ ] Validate links/skill/formatting and deliver the scoped change through normal gates.
+- [x] Inspect current planning entry points and identify why arbitrary/title-derived IDs remain possible.
+- [x] Define the convention centrally, including stable existing IDs and later additions.
+- [x] Route the coordinator skill and relevant templates to that section.
+- [ ] Run and inspect the bounded fresh planning exercise; retain concrete evidence. The coordinator arranges this after the committed candidate. The worker does not launch it.
+- [x] Validate links, skill structure, and formatting. Applicable CI, independent review, and human-approved merge remain open.
 
 ## Ownership, review, and output
 
 One assigned implementation worker owns the scoped documentation/skill edits, `checkpoints/D1.md`, and `reports/D1.md`. The coordinator owns `epic.md` and `checkpoints/current.md`. Review names and evidence paths follow [the authoritative review conventions](../../../../docs/agile-workflow.md#review-gates-and-indexing).
 
-Assign a dedicated branch/PR after D is merged; this planning entry does not assign a worker or authorize starting the story. Report introduced behavior, meaningful checks, exact exercise/review revisions, limits, and any unresolved decisions. Stop after D1. No publication, release, infrastructure changes, or stage 2 implementation.
+Delivery resumed by the user after D merged. Assigned checkout `C:\code\agento`, branch `feat/sequential-backlog-ids`, based on latest main `709de209b7fd39980a2134f6c574306c8485d7bf`. Follow `reports/D1-assignment.md`: the worker implements/validates the guidance, commits, pushes, opens and immediately links its PR, then stops. The coordinator arranges the independent fresh planning exercise and review; the worker launches no agents. Report introduced behavior, meaningful checks, exact exercise/review revisions, limits, and unresolved decisions. Stop after D1. No publication, release, infrastructure changes, or stage 2 implementation.

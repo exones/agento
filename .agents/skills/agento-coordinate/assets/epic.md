@@ -18,6 +18,8 @@ Release target: <milestone or none>. Controller/schema: <version or manual>.
 ## Features and prioritized backlog
 <Use feature headings only when useful.>
 
+Assign each backlog `<ID>` using the [backlog item ID convention](../../../../docs/agile-workflow.md#backlog-item-ids) (template reference; resolve against the project root when generating an epic).
+
 | ID | Kind | Outcome | Depends on | Owner | Status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
 | <ID> | story/task/spike | <backlog file link> | <dependencies> | <role> | backlog | <when available> |

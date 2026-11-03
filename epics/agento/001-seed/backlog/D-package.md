@@ -1,6 +1,6 @@
 # D: packed artifact and first bootstrap proof
 
-Status: in-review. Depends on: C and N delivered in merged PR #1. Owner: one Grok 4.7 Extra High implementation worker through Cursor. PR #2 implementation `10ff9112`, corrections/reviewed product head `2cf2bf25957869dc94fec0718a6dbc67e905f8d7`; see `reports/D-review.md` and `reports/final.md`. Local installed proof, Windows/Ubuntu CI/uploads, and independent review pass 02 pass. Final evidence-head CI and human merge remain delivery gates; not published.
+Status: done. Depends on: C and N delivered in merged PR #1. Owner: one Grok 4.7 Extra High implementation worker through Cursor. PR #2 implementation `10ff9112`, reviewed product head `2cf2bf2`, final PR head `147a4bd` with passing Windows/Ubuntu CI. Human merge `d81f4a5765b6b34e686d3827a15aaaf726e76f01` at 2026-11-03T18:20:40Z; see `reports/D-review.md` and `reports/final.md`. Not published.
 Kind: story. Epic: AGENTO-001. Feature: F2, installable bootstrap release.
 
 As an operator, I want to install a fixed agento package outside its source checkout so it can track the next epic while its successor is being edited.
