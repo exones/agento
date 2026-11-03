@@ -1,6 +1,6 @@
 # Epic AGENTO-001: a usable seed
 
-Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D delegation requested for packaging proof; R remains backlog.
+Created: 2026-11-03. Owner: user. Status: in-progress; A/B/C/N Done after merged bootstrap PR #1. D In Review in PR #2; fresh reviewer R requested.
 Target: first 0.1 candidate. Controller: bootstrap `agento-coordinate` skill and manual files; no released CLI. Preferred roles: Sol High coordinator and one Grok 4.7 Extra High worker when assigned.
 Repository: `https://github.com/exones/agento.git`, public, current account ADMIN. PR #1 human-merged at `afc05074a27da2cb1a3c225bc9d42d10f184e504`; original branch deleted remotely. The user's bundled A/B commit `3283807` remains in history. Final PR head `e997381` passed Windows/Ubuntu CI; details are in [delivery evidence](reports/bootstrap-delivery.md). D uses owned branch `feat/package-bootstrap` from that merge.
 
@@ -34,8 +34,8 @@ Feature F1: a verified CLI for manual epic/story tracking. Feature F2: an instal
 | B | enabler task | F1 | [Foundation and CI](backlog/B-foundation.md) | A | done | [Local acceptance](reports/B-review.md); [PR #1 delivery/CI/review/merge](reports/bootstrap-delivery.md), merge `afc0507` |
 | C | story | F1 | [Manual ledger](backlog/C-ledger.md) | B | done | [Worker evidence](reports/C.md), [review fixes](reports/bootstrap-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
 | N | task | F1 | [Use agento for storage naming](backlog/N-storage-name.md) | C | done | [Worker evidence](reports/N.md), [local review](reports/N-review.md); [PR #1 delivery](reports/bootstrap-delivery.md), merge `afc0507` |
-| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-progress | [Readiness and assignment](reports/D-assignment.md); one Grok worker requested, no package proof claimed yet |
-| R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | backlog | No execution report yet |
+| D | story | F2 | [Package and bootstrap proof](backlog/D-package.md) | C and N merged | in-review | [Worker evidence](reports/D.md), [independent local proof](reports/D-review.md); [PR #2](https://github.com/exones/agento/pull/2), CI/R/merge pending |
+| R | review task | F2 | [Fresh-context review](backlog/R-review.md) | D candidate | in-progress | Separate Sol High review requested; report/checkpoint pending |
 | I | spike | superseded infrastructure | [Registry discovery](backlog/I-registry-discovery.md) | None | cancelled | User selected npm; no Forgejo deployment |
 
 A -> B -> C -> N -> D -> R is sequential. N applies the user's storage naming correction at C's safe handoff boundary. R's findings go to an implementation fix assignment before closure. I is documentation/discovery only, outside seed acceptance. No agent launches another from these backlog items.
@@ -72,6 +72,7 @@ Local state lives under `.agento/` and is excluded from Git. Task N supersedes t
 
 ## Decisions
 
+- 2026-11-03: D returned PR #2 at `10ff911294a72957fe7fc689757bb33d3c72b38d`. Independently reran clean packed-install proof outside checkout; digest matches worker evidence. D stays In Review while hosted CI and separately assigned R run. npm owner/scope/name selection is a publication prerequisite; unscoped `agento` is already occupied, so no registry upload is authorized or needed for this review.
 - 2026-11-03, user: merged PR #1 and deleted its remote branch, then requested continuation. Verified merge `afc05074a27da2cb1a3c225bc9d42d10f184e504`, final-head CI success, and unchanged tree across merge. Marked A/B/C/N Done, fast-forwarded local `main` without rewriting user history, and prepared D on `feat/package-bootstrap`. D's worker may now use normal scoped commit/push/PR delivery; no publication or merge authorization is included. R follows a concrete D candidate.
 - 2026-11-03: bounded fix review reports no findings on `af0b69fa4c6ea8d2216d133c6d46a99981a1cbd9`; Windows/Ubuntu PR-triggered CI run 41663657936 passes on that head. Commit the evidence-only update, require latest-head CI, then hand back for the human merge decision without another product change or redundant review cycle. D/R remain backlog.
 - 2026-11-03: fresh bootstrap review found a long-reason generated-default bug (P1) and an incorrect POSIX rename expectation (P2). Corrected the bounded generated default while preserving the full 2000-character reason and explicit 500-character next action. Preserved pre-commit failure coverage; the corrected read-only-destination test asserts each platform's actual semantics. Initial Ubuntu CI confirmed the original test failure. Forty local tests now pass; final hosted CI and fix review remain required.
