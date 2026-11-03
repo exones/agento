@@ -96,7 +96,7 @@ Open:
 ## Delivery evidence and release checklist
 
 - [x] Analysis: inspected `docs/npm-distribution.md` and `docs/decisions.md` on `main` `afc05074a27da2cb1a3c225bc9d42d10f184e504`, confirmed `release.yml` is absent there and on this branch, and confirmed seed D `10ff911294a72957fe7fc689757bb33d3c72b38d` contains `release.yml` and is not in this branch. See [the planning report](reports/planning.md).
-- [ ] Planning PR linked. Fill the URL and head SHA after `gh pr create`.
+- [ ] Planning PR linked: https://github.com/exones/agento/pull/3 at plan head `ac4e2cf53208d72d8b50a3149e64d85930fb385f`. Review and human merge are still open. Hosted CI is not recorded in this report.
 - [x] No publish is claimed. This change does not dispatch, set `AGENTO_RELEASE`, or set `private` to false.
 - [ ] F, S, O, U, and R remain unexecuted.
 

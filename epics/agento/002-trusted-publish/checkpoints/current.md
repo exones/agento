@@ -18,7 +18,7 @@ Seed D remains on `feat/package-bootstrap` in `C:\code\agento` at commit `10ff91
 
 ## In flight
 
-None after the planning PR is opened. The PR URL is recorded in `reports/planning.md` once `gh pr create` returns it.
+None. [PR #3](https://github.com/exones/agento/pull/3) is open. Plan head `ac4e2cf53208d72d8b50a3149e64d85930fb385f`. Hosted CI is not recorded yet.
 
 ## Checks and limits
 
@@ -38,7 +38,7 @@ Local check: relative links in the new epic files and the `epics/README.md` bull
 
 ## Next concrete action
 
-User reviews the planning PR. Do not start F until the user asks to execute and seed D is merged. Do not merge without human approval.
+User reviews [PR #3](https://github.com/exones/agento/pull/3). Do not start F until the user asks to execute and seed D is merged. Do not merge without human approval.
 
 ## Blockers and inputs
 

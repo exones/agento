@@ -1,7 +1,7 @@
 # Task planning: trusted npm publishing
 
 Status: partly proven. Date: 2026-11-03.
-Backlog item: epic plan, not an implementation item. Checkout/branch/HEAD: `C:\worktrees\agento\docs-002-trusted-publish`, branch `docs/002-trusted-publish`, base `afc05074a27da2cb1a3c225bc9d42d10f184e504`. Plan HEAD and PR URL are filled after commit and `gh pr create`.
+Backlog item: epic plan, not an implementation item. Checkout/branch/HEAD: `C:\worktrees\agento\docs-002-trusted-publish`, branch `docs/002-trusted-publish`, plan head `ac4e2cf53208d72d8b50a3149e64d85930fb385f`, base `afc05074a27da2cb1a3c225bc9d42d10f184e504`. PR: https://github.com/exones/agento/pull/3.
 
 ## Outcome
 
@@ -32,10 +32,10 @@ An earlier commit on this branch had edited `docs/decisions.md`, `docs/roadmap.m
 
 ## Open points
 
-- User review of the planning PR. URL not recorded yet.
+- User review of https://github.com/exones/agento/pull/3 at `ac4e2cf53208d72d8b50a3149e64d85930fb385f`. Hosted CI, review, and merge are open. `gh pr create` reported that this branch already had that PR, so the title and body were updated on it.
 - Package identity blocks U and does not block plan review.
 - F's enforcement choice is open until F runs.
 
 ## Resume
 
-Stop. Implementation is not authorized. Do not start F until the user asks to execute and seed D is merged.
+Stop. Implementation is not authorized. Do not start F until the user asks to execute and seed D is merged. The planning PR is https://github.com/exones/agento/pull/3.
